@@ -20,7 +20,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root/>}>
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contacts" element={<Contact />} />
@@ -60,7 +60,7 @@ export function Navbar(){
 
       <div id="nav_child2">
           <nav className="nav_hlink">
-              <a href="/">Home</a>
+              <a href="/home">Home</a>
               <a href="/about" >About</a>
               <a href="/projects">Projects</a>
               <a href="/contacts">Contact Me</a>

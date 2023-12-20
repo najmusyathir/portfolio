@@ -1,13 +1,14 @@
 import ImgModel from '../img_assets';
+import {Link} from "react-router-dom";
 
 function Card({
-    imgRef="", title="", desc="", links="", clickable="false"
+    imgRef="", title="", desc="", links="/", clickable="false"
     }){    return (
-    <a className="cards" href={links} data-clickable={clickable}>
+    <Link className="cards" to={links} data-clickable={clickable}>
         <img src={imgRef}/>
         <h3>{title}</h3>
         <p>{desc}</p>
-    </a>
+    </Link>
         );
 }
 
@@ -54,7 +55,8 @@ export default function About(){
         <Card
         imgRef={ImgModel("aboutme_2")}
         title={"PC Building"}
-        desc={"Enthusiastic about constructing high-end and new-gen PCs, passionate in create cozy and inspiring workstations."} />
+        desc={"Enthusiastic about constructing high-end and new-gen PCs, passionate in create cozy and inspiring workstations."}
+        links={"/about"} />
 
         <Card
         imgRef={ImgModel("aboutme_3")}

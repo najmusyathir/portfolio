@@ -10,7 +10,7 @@ export default function Home(){
                 <br/>
                 <p id="part1_c1_1">Passionate in front-end development with a strong foundation in HTML, CSS, and some on JavaScript. Also committed to keep learning and growth in the other field of computer science.</p>
                 
-                <button id="contactNow" className="text-3xl sm:text-2xl text-slate-800 bg-slate-200 "> {' Contact Now '}  </button>
+                <button id="contactNow"  className="text-3xl sm:text-2xl text-slate-800 bg-slate-200 "><a href="https://wa.link/k7r72h">Contact Now</a></button>
 
             </div>
             <div id="part1_c2">

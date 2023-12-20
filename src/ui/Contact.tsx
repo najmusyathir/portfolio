@@ -4,7 +4,7 @@ export default function Contact(){
 
 
     const handleCopyLink = () => {
-        const linkToCopy = 'google.com';
+        const linkToCopy = 'https://wa.link/k7r72h';
         navigator.clipboard.writeText(linkToCopy)
           .then(() => {})
           .catch((err) => {console.error('Failed to copy: ', err);});

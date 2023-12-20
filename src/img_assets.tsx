@@ -54,7 +54,7 @@ const imgArr= [
     
 ]
 
-export default function ImgModel(name: string){
+export default function import_img(name: string){
 
     for(let i=0;i<imgArr.length;i++){
         if (name==imgArr[i].name){

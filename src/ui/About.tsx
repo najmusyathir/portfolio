@@ -1,4 +1,4 @@
-
+import aboutme_bkg from "../assets/aboutme_bkg.jpeg";
 
 function Card({
     imgRef="", title="", desc="", links="", clickable="false"
@@ -28,7 +28,7 @@ export default function About(){
                 </div>
 
                 <div id="about_p1_c2">
-                    <img src="./src/assets/aboutme_bkg.jpeg" alt="My PC Setup"/>
+                    <img src={aboutme_bkg} alt="My PC Setup"/>
                     
                 </div>
   

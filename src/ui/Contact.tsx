@@ -1,3 +1,4 @@
+import ImgModel from "../img_assets";
 
 export default function Contact(){
 
@@ -45,9 +46,8 @@ export default function Contact(){
                     </div>
 
                     <div className="divType1" id="myQR">
-                        <img src="./src/assets/QR_github.io.png" alt="QR Code" />
+                        <img src={ImgModel("qr_portfolio")} alt="QR Code" />
                         <p onClick={handleCopyLink}>Click here to copy link</p>
-
                     </div>
 
                 </div>

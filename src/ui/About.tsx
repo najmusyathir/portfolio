@@ -1,4 +1,4 @@
-import aboutme_bkg from "../assets/aboutme_bkg.jpeg";
+import ImgModel from '../img_assets';
 
 function Card({
     imgRef="", title="", desc="", links="", clickable="false"
@@ -28,7 +28,7 @@ export default function About(){
                 </div>
 
                 <div id="about_p1_c2">
-                    <img src={aboutme_bkg} alt="My PC Setup"/>
+                    <img src={ImgModel("aboutme_bkg")} alt="My PC Setup"/>
                     
                 </div>
   
@@ -43,7 +43,7 @@ export default function About(){
             <div id="cards">
             
         <Card
-        imgRef={"./src/assets/aboutme_1.jpg"}
+        imgRef={ImgModel("aboutme_1")}
         title={"Graphic Designs Sightseeing"}
         links={"https://www.instagram.com/arshakirpk/"}
         desc={"Love to see modern UI/UX designs from creative designers and highly interested to make their designs fully functional."
@@ -52,12 +52,12 @@ export default function About(){
         />
 
         <Card
-        imgRef={"./src/assets/aboutme_2(2).jpeg"}
+        imgRef={ImgModel("aboutme_2")}
         title={"PC Building"}
         desc={"Enthusiastic about constructing high-end and new-gen PCs, passionate in create cozy and inspiring workstations."} />
 
         <Card
-        imgRef={"./src/assets/aboutme_3.png"}
+        imgRef={ImgModel("aboutme_3")}
         title={"Coding and Web Developing"}
         desc={"Enjoy LeetCode challenges in honing problem-solving skills, crafting dynamic websites, and exploring cutting-edge technologies in the field of web development."}
         links="https://leetcode.com/najmusyathir/"/>

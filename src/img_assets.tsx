@@ -5,8 +5,6 @@ import aboutme_bkg from "./assets/aboutme_bkg.jpeg";
 import example_ui_02 from "./assets/example_ui_02.jpeg";
 import example_ui_03 from "./assets/example_ui_03.jpeg";
 import profile_pic from "./assets/profile_pic.jpg";
-import profile_pic2_bg_remove from "./assets/profile_pic2_bg_remove.png";
-import profile_pi2 from "./assets/profile_pic2.jpg";
 import qr_portfolio from "./assets/qr_portfolio.png";
 import error404 from "./assets/error404.png";
 
@@ -47,16 +45,6 @@ const imgArr= [
         id:6,
         name:"profile_pic",
         img: profile_pic
-    },
-    {
-        id:7,
-        name:"profile_pic_bg_remove",
-        img: profile_pic2_bg_remove
-    },
-    {
-        id:8,
-        name:"profile_pi2",
-        img: profile_pi2
     },
     {
         id:9,

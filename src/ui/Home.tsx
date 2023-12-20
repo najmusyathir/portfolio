@@ -1,3 +1,4 @@
+import ImgArr from "../img_assets";
 
 export default function Home(){
     
@@ -13,7 +14,7 @@ export default function Home(){
 
             </div>
             <div id="part1_c2">
-                <img id="myPic"src="./src/assets/profile_pic2.jpg" alt="mypicture"/>
+                <img id="myPic"src={ImgArr("profile_pic")} alt="mypicture"/>
             </div>
         </div>
 

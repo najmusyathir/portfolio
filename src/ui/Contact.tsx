@@ -45,7 +45,7 @@ export default function Contact(){
                     </div>
 
                     <div className="divType1" id="myQR">
-                        <img src="../src/assets/QR_github.io.png" alt="QR Code" />
+                        <img src="./src/assets/QR_github.io.png" alt="QR Code" />
                         <p onClick={handleCopyLink}>Click here to copy link</p>
 
                     </div>

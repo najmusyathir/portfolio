@@ -28,7 +28,7 @@ export default function About(){
                 </div>
 
                 <div id="about_p1_c2">
-                    <img src="../src/assets/aboutme_bkg.jpeg" alt="My PC Setup"/>
+                    <img src="./src/assets/aboutme_bkg.jpeg" alt="My PC Setup"/>
                     
                 </div>
   
@@ -43,7 +43,7 @@ export default function About(){
             <div id="cards">
             
         <Card
-        imgRef={"../src/assets/aboutme_1.jpg"}
+        imgRef={"./src/assets/aboutme_1.jpg"}
         title={"Graphic Designs Sightseeing"}
         links={"https://www.instagram.com/arshakirpk/"}
         desc={"Love to see modern UI/UX designs from creative designers and highly interested to make their designs fully functional."
@@ -52,12 +52,12 @@ export default function About(){
         />
 
         <Card
-        imgRef={"../src/assets/aboutme_2(2).jpeg"}
+        imgRef={"./src/assets/aboutme_2(2).jpeg"}
         title={"PC Building"}
         desc={"Enthusiastic about constructing high-end and new-gen PCs, passionate in create cozy and inspiring workstations."} />
 
         <Card
-        imgRef={"../src/assets/aboutme_3.png"}
+        imgRef={"./src/assets/aboutme_3.png"}
         title={"Coding and Web Developing"}
         desc={"Enjoy LeetCode challenges in honing problem-solving skills, crafting dynamic websites, and exploring cutting-edge technologies in the field of web development."}
         links="https://leetcode.com/najmusyathir/"/>

@@ -13,7 +13,7 @@ export default function Home(){
 
             </div>
             <div id="part1_c2">
-                <img id="myPic"src="../src/assets/profile_pic2.jpg" alt="mypicture"/>
+                <img id="myPic"src="./src/assets/profile_pic2.jpg" alt="mypicture"/>
             </div>
         </div>
 

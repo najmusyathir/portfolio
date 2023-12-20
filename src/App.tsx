@@ -5,12 +5,15 @@ import {
   Link
 } from "react-router-dom";
 
+
 import Home from "./ui/Home";
 import About from "./ui/About";
 import Projects from "./ui/Project";
 import Contact from "./ui/Contact";
 
 import './index.css';
+
+import src_resume from "./assets/RESUME_MUHAMMAD NAJMU AL SYATHIR BIN AZEMI.pdf";
 
 function App() {
   return (
@@ -48,9 +51,13 @@ const Navbar = () => {
           <Link to="/contacts">Contact Me</Link>
         </nav>
       </div>
+      <a href={src_resume} download="RESUME_MUHAMMAD NAJMU AL SYATHIR BIN AZEMI.pdf" target="_blank" rel="noopener noreferrer" >
       <button id="resume">My Resume</button>
+      </a>
     </div>
   );
 }
+
+
 
 export default App;

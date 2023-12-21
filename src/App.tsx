@@ -40,9 +40,10 @@ function App() {
 const Navbar = () => {
   return (
     <div id="navbar">
-      <div id="nav_child1">
+      <div id="nav_c1">
         <Link to="/home" className="font-medium px-3 py-2 text-slate-700 rounded-lg">Najmu Syathir</Link>
       </div>
+      
       <div id="nav_child2">
         <nav className="nav_hlink">
           <Link to="/home">Home</Link>
@@ -57,7 +58,6 @@ const Navbar = () => {
     </div>
   );
 }
-
 
 
 export default App;

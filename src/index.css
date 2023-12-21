@@ -216,8 +216,18 @@ img{
   margin: 30px 10px 30px 10px;
 }
 
-/* About */
+#part1_c1 h4{
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.03ch;
+  transition: 300ms;
+}
 
+.status{
+  color:  #00e21e;
+}
+
+/* About */
 #about{
   height: auto;
   width: 100%;

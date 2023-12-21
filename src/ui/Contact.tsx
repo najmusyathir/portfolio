@@ -46,8 +46,8 @@ export default function Contact(){
                     </div>
 
                     <div className="divType1" id="myQR">
-                        <img src={ImgModel("qr_portfolio")} alt="QR Code" />
-                        <p onClick={handleCopyLink}>Click here to copy link</p>
+                        <img src={ImgModel("qr_ws")} alt="QR Code" />
+                        <a href="https://wa.link/k7r72h">Contact me via WhatsApp</a>
                     </div>
 
                 </div>

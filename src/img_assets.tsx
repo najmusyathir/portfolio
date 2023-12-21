@@ -5,7 +5,7 @@ import aboutme_bkg from "./assets/aboutme_bkg.jpeg";
 import example_ui_02 from "./assets/example_ui_02.jpeg";
 import example_ui_03 from "./assets/example_ui_03.jpeg";
 import profile_pic from "./assets/profile_pic.jpg";
-import qr_portfolio from "./assets/qr_portfolio.png";
+import qr_ws from "./assets/qr_ws.png";
 import error404 from "./assets/error404.png";
 
 
@@ -48,8 +48,8 @@ const imgArr= [
     },
     {
         id:9,
-        name:"qr_portfolio",
-        img: qr_portfolio
+        name:"qr_ws",
+        img: qr_ws
     }
     
 ]

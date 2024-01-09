@@ -16,6 +16,9 @@ import './index.css';
 import src_resume from "./assets/RESUME_MUHAMMAD NAJMU AL SYATHIR BIN AZEMI.pdf";
 
 function App() {
+
+  
+
   return (
     <div className="App">
       <Router basename="/portfolio">
@@ -28,7 +31,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contacts" element={<Contact />} />
-            {/* Optionally, you can have a default route */}
             <Route path="/" element={<Home />} />
           </Routes>
         </div>

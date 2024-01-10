@@ -1,4 +1,5 @@
 import ImgModel from "../img_assets";
+import "../css/Contact.css"
 
 export default function Contact(){
 

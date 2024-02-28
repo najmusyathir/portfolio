@@ -1,4 +1,6 @@
 import ImgArr from "../img_assets";
+import "./css/Home.css";
+import Skills from "../components/SkillBox";
 
 export default function Home(){
     
@@ -22,28 +24,23 @@ export default function Home(){
             <div id="part2_child1">
                 <h1>Skill Set.</h1>
             </div>
+
             <div id="part2_child2">
-            <div id="part2_child2_1">
-                <Skills skill={"HTML"}/>
-                <Skills skill={"CSS"}/>
-                <Skills skill={"Java"}/>
-                <Skills skill={"JavaScript"}/>
-                <Skills skill={"Python"}/>
-                <Skills skill={"MySQL"}/>
-                <Skills skill={"VS Code"}/>
-                <Skills skill={"Android Studio"}/>
-                <Skills skill={"XML"}/>
-                <Skills skill={"FastAPI"}/>
+                <div id="part2_child2_1">
+                    <Skills skill={"HTML"}/>
+                    <Skills skill={"CSS"}/>
+                    <Skills skill={"Java"}/>
+                    <Skills skill={"JavaScript"}/>
+                    <Skills skill={"Python"}/>
+                    <Skills skill={"MySQL"}/>
+                    <Skills skill={"VS Code"}/>
+                    <Skills skill={"Android Studio"}/>
+                    <Skills skill={"XML"}/>
+                    <Skills skill={"FastAPI"}/>
                 </div>
             </div>
         </div>
     </>);
-}
-
-function Skills({ skill=""}){
-    return (<div id="skills">
-        {skill}
-    </div>);
 }
 
 

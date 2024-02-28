@@ -1,0 +1,19 @@
+#skills {
+    width: fit-content;
+    margin: 10px;
+    padding: 10px;
+    background: #F3F3F3;
+    border-radius: 10px;
+  
+    color: #353E4C;
+    font-size: 24px;
+  
+    transition: 100ms;
+    cursor: pointer;
+  
+  
+  }
+  
+  #skills:hover {
+    background: #d3d3d3;
+  }

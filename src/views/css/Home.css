@@ -1,0 +1,6 @@
+#contactNow{
+    transition: 300ms ease-in-out;
+}
+#contactNow:hover{
+scale: 1.05;
+}

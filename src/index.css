@@ -44,7 +44,7 @@ div {
 
 h1 {
   display: block;
-  font-size: 3rem;
+  font-size: clamp(12px, 4vw,32rem);
   margin-top: 0.67em;
   margin-bottom: 0.67em;
   margin-left: 0;
@@ -129,7 +129,7 @@ button {
 
 .home_h1 {
   font-weight: 700;
-  font-size: 4rem;
+  font-size: clamp(1rem,10vw,4rem);
 }
 
 .content{
@@ -143,7 +143,8 @@ button {
 
 #part1_c1 {
   max-width: 75ch;
-  padding: 100px;
+  min-width: 362px;
+  padding: clamp(10px,1vw,100px);
 
   display: flex;
   flex-direction: column;
@@ -152,6 +153,14 @@ button {
   text-align: justify;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+/* @media screen and (min-width: 360px) {
+  #part1_c1 {
+    padding
+  }
+} */
+
+
 
 #part1_c2 {
   min-width: 500px;
@@ -174,12 +183,13 @@ img {
 
 
 #part1_c1_1 {
-  min-width: 45ch;
+  width: clamp(0,100vw,45ch);
   margin: 30px 10px 30px 10px;
 }
 
 #part1_c1 h4 {
   font-size: 1.15rem;
+  padding: clamp(10px, 30vw, 20px);
   font-weight: 500;
   letter-spacing: 0.03ch;
   transition: 300ms;

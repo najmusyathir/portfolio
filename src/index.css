@@ -44,7 +44,7 @@ div {
 
 h1 {
   display: block;
-  font-size: clamp(12px, 4vw,32rem);
+  font-size: clamp(2.5rem, 4vw, 5rem);
   margin-top: 0.67em;
   margin-bottom: 0.67em;
   margin-left: 0;

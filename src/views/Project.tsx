@@ -19,7 +19,7 @@ export default function Projects(){
                </div>
 
             </div>
-                <div className="part2 w-full mt-20 bg-white">
+                <div className="part2 w-full my-20 bg-white">
                     <h3>
                         More projects coming soon...
                     </h3>

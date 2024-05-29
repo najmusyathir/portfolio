@@ -6,6 +6,9 @@ import example_ui_02 from "./assets/example_ui_02.jpeg";
 import example_ui_03 from "./assets/example_ui_03.jpeg";
 import profile_pic from "./assets/profile_pic.jpg";
 import qr_ws from "./assets/qr_ws.png";
+import project1 from "./assets/project1.png";
+import project2 from "./assets/project2.png";
+import project3 from "./assets/project3.png";
 import error404 from "./assets/error404.png";
 
 
@@ -50,6 +53,21 @@ const imgArr= [
         id:9,
         name:"qr_ws",
         img: qr_ws
+    },
+    {
+        id:10,
+        name:"project1",
+        img: project1
+    },
+    {
+        id:11,
+        name:"project2",
+        img: project2
+    },
+    {
+        id:12,
+        name:"project3",
+        img: project3
     }
     
 ]

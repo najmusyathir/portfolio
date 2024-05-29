@@ -83,6 +83,7 @@ h4 {
 
 p {
   font-size: 1rem;
+  width: clamp(300px, 90%, 65ch);
 }
 
 button {
@@ -225,6 +226,8 @@ img {
   width: 100%;
 
   text-align: justify;
+  display: flex;align-items: center;
+  justify-content: center;
 }
 
 #about_p1_c1 h1 {

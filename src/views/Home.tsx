@@ -11,7 +11,8 @@ export default function Home(){
                 <h1 className="home_h1">FrontEnd<br/>Developer.</h1>
     
                 <p id="part1_c1_1">Passionate in front-end development with a strong foundation in HTML, CSS, and some on JavaScript. Also committed to keep learning and growth in the other field of computer science.</p>
-                <h4>Status: <strong className="status">Actively</strong> Seeking Software Engineer Positions</h4>
+                <h4>Status: <strong className="status"></strong> Junior Software Engineer @ Guard Genius Sdn. Bhd.</h4>
+                <h5>Status: Aug 2024 - Current</h5>
                 <div className="w-full flex justify-center mb-3">
                 <button id="contactNow"  className="text-3xl sm:text-2xl text-slate-800 bg-slate-200 "><a href="https://wa.link/k7r72h">Contact Now</a></button>
                 </div>

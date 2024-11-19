@@ -11,8 +11,12 @@ export default function Projects(){
                     <div className="w-full flex flex-col justify-center align-center text-center">
                         <p className="text-center w-full px-4">Showcasing a collection of side projects focused solely on front-end development, highlighting my expertise in creating responsive and engaging user interfaces.</p>
                         <div className="w-full mt-5 flex justify-center gap-3 gap-y-10 px-4 flex-wrap">
-                            <img src={ImgModel('project1')} className="cursor-pointer"/>         
-                            <img src={ImgModel('project2')} className="cursor-pointer"/>         
+                            <a href='https://bakers-heist.vercel.app/'>
+                                <img src={ImgModel('project1')} className="cursor-pointer"/>         
+                            </a>
+                            <a href='https://astral-apparel.vercel.app/'>
+                                <img src={ImgModel('project2')} className="cursor-pointer"/>         
+                            </a>
                             <img src={ImgModel('project3')} className="cursor-pointer"/>         
                         </div>
                     </div>

@@ -17,7 +17,7 @@ import './index.css';
 function App() {
   return (
     <div className="App">
-      <Router basename="/portfolio">
+      <Router basename="/">
       <NavBar />
         <div className="content">
           <Routes>

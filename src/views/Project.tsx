@@ -25,8 +25,33 @@ export default function Projects(){
             </div>
                 <div className="part2 w-full my-20 bg-white">
                     <h3>
-                        More projects coming soon...
+                        Current Working Project
                     </h3>
+                    <div className='flex flex-col items-center gap-3'>
+                        <a href="https://zuuwa.najmusyathir.dev">
+                            <img src={ImgModel('current_project')} className="cursor-pointer"/>      
+                        </a>
+                        <div>
+                            <h2>
+                                Zuuwa Waterproofing Ventures
+                            </h2>
+                            <p>
+                                Provide a web app for Himas Enterprise to enhance professional advertising. This prototype tests SEO ranking effectiveness.
+                            </p>
+                            <p className='p-3'>
+                                <strong>Tech Stachs:</strong><br/>
+                                <ul className='list-disc text-left grid grid-cols-2'>
+                                    <li>Figma</li>
+                                    <li>NextJS</li>
+                                    <li>Tailwind</li>
+                                    <li>Shadcn-ui</li>
+                                    <li>Cloudflare</li>
+                                    <li>Google Search Console</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
         </div>
     )

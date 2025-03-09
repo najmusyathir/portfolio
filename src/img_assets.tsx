@@ -9,6 +9,7 @@ import qr_ws from "./assets/qr_ws.png";
 import project1 from "./assets/project1.png";
 import project2 from "./assets/project2.png";
 import project3 from "./assets/project3.png";
+import current_project from "./assets/current_project.png";
 import error404 from "./assets/error404.png";
 
 
@@ -68,6 +69,11 @@ const imgArr= [
         id:12,
         name:"project3",
         img: project3
+    },
+    {
+        id:13,
+        name:"current_project",
+        img: current_project
     }
     
 ]

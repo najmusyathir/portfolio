@@ -8,7 +8,7 @@ import profile_pic from "./assets/profile_pic.jpg";
 import qr_ws from "./assets/qr_ws.png";
 import project1 from "./assets/project1.png";
 import project2 from "./assets/project2.png";
-import project3 from "./assets/project3.png";
+import project3 from "./assets/project3.mp4";
 import current_project from "./assets/current_project.png";
 import error404 from "./assets/error404.png";
 

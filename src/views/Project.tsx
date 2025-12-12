@@ -1,6 +1,7 @@
 
 import ImgModel from '../img_assets';
 import ProjectCard from '../components/ProjectCard';
+import ProjectImage from '../components/ProjectImage';
 
 
 export default function Projects() {
@@ -34,11 +35,12 @@ export default function Projects() {
                         <div className="flex flex-col md:flex-row">
                             {/* Image Section - Left */}
                             <div className="md:w-2/5 w-full h-64 md:h-auto bg-gray-100 flex items-center justify-center overflow-hidden">
-                                <img
+                                {/* <img
                                     src={ImgModel('current_project')}
-                                    alt="Zuuwa Waterproofing Ventures"
+                                    alt="Acadeon Academy"
                                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                />
+                                /> */}
+                                <ProjectImage src={ImgModel('current_project')} alt="Acadeon Academy" />
                             </div>
 
                             {/* Content Section - Right */}
@@ -46,12 +48,12 @@ export default function Projects() {
                                 <div>
                                     {/* Title */}
                                     <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#353E4C]">
-                                        Zuuwa Waterproofing Ventures
+                                        Acadeon Academy
                                     </h2>
 
                                     {/* Brief Description */}
                                     <p className="text-gray-600 mb-4 leading-relaxed text-sm md:text-base">
-                                        Provide a web app for Himas Enterprise to enhance professional advertising. This prototype tests SEO ranking effectiveness.
+                                        A multi-school management platform to handle students, staff, classes, co-curriculars, sports events, exams, scores, and student records.
                                     </p>
 
                                     {/* Tech Stacks */}
@@ -60,7 +62,7 @@ export default function Projects() {
                                             Tech Stack
                                         </h5>
                                         <div className="flex flex-wrap gap-2">
-                                            {['Figma', 'NextJS', 'Tailwind', 'Shadcn-ui', 'Cloudflare', 'Google Search Console'].map((tech, index) => (
+                                            {['Node.js', 'FastAPI', 'Next.js', 'TypeScript', 'Tailwind', 'PostgreSQL', 'Docker'].map((tech, index) => (
                                                 <span
                                                     key={index}
                                                     className="px-3 py-1 bg-[#f3f3f3] text-[#353E4C] rounded-full text-xs md:text-sm font-medium border border-gray-200 hover:bg-[#EBEEEE] transition-colors"
@@ -128,7 +130,7 @@ export default function Projects() {
                             description="A grooming and vet booking platform for pet clinics, offering appointments, pet profiles, and service management with a clean, user-friendly interface."
                             techStack={['Laravel', 'Blade', 'MySQL', 'JavaScript']}
                             dateLabel="Delivered"
-                            date="November 8, 2023"
+                            date="March 8, 2025"
                         />
                     </div>
                 </div>

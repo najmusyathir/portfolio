@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 
 export function About() {
@@ -93,23 +94,15 @@ export function About() {
 
 function AvatarPlaceholder() {
   return (
-    <div className="avatar-ring">
-      <div
-        style={{
-          width: '160px',
-          height: '160px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, var(--color-bg-overlay), var(--color-bg-elevated))',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--color-text-subtle)',
-          fontSize: '0.75rem',
-          fontFamily: 'var(--font-mono)',
-        }}
-      >
-        NS
-      </div>
+    <div className="avatar-ring" style={{ display: 'inline-block', padding: '3px', background: 'linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to))', borderRadius: '50%' }}>
+      <Image
+        src="/profile_pic.jpg"
+        alt="Najmu Syathir"
+        width={160}
+        height={160}
+        className="rounded-full block"
+        style={{ objectFit: 'cover' }}
+      />
     </div>
   );
 }

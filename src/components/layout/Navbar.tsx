@@ -23,11 +23,16 @@ export function Navbar() {
         padding: '0 24px',
       }}
     >
-      <span className="font-mono text-sm font-semibold">
-        <span style={{ color: 'var(--color-text-muted)' }}>&lt;</span>
-        <span className="gradient-text">najmu</span>
-        <span style={{ color: 'var(--color-text-muted)' }}> /&gt;</span>
-      </span>
+      <div className="flex flex-col leading-tight">
+        <span className="font-mono text-sm font-semibold">
+          <span style={{ color: 'var(--color-text-muted)' }}>&lt;</span>
+          <span className="gradient-text">najmu</span>
+          <span style={{ color: 'var(--color-text-muted)' }}> /&gt;</span>
+        </span>
+        <span className="text-[10px] tracking-widest uppercase" style={{ color: 'var(--color-text-muted)' }}>
+          Najmu Syathir
+        </span>
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         <a

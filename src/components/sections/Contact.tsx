@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Mail, ExternalLink, MessageCircle } from 'lucide-react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SOCIAL_LINKS } from '@/lib/data';
@@ -106,6 +107,21 @@ export function Contact() {
               {link.label}
             </a>
           ))}
+        </div>
+
+        <div
+          className="reveal"
+          data-delay="240"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '24px',
+          }}
+        >
+          <Image src="/qr_ws.png" alt="WhatsApp QR Code" width={140} height={140} className="rounded-xl" />
+          <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>Scan to WhatsApp</span>
         </div>
 
         <div

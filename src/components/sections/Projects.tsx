@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { PROJECTS, type Project } from '@/lib/data';
 import { SectionLabel } from '@/components/ui/SectionLabel';
@@ -203,6 +204,22 @@ function ProjectCard({
         el.style.boxShadow = 'none';
       }}
     >
+      {project.image && project.image.endsWith('.mp4') && (
+        <video
+          src={project.image}
+          className="w-full rounded-lg mb-4 object-cover"
+          style={{ maxHeight: '180px' }}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+      )}
+      {project.image && !project.image.endsWith('.mp4') && (
+        <div className="relative w-full mb-4 rounded-lg overflow-hidden" style={{ height: '160px' }}>
+          <Image src={project.image} alt={project.name} fill className="object-cover" />
+        </div>
+      )}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
         <h3
           style={{

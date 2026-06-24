@@ -4,6 +4,7 @@ export interface Project {
   tags: string[];
   url: string | null;
   status: 'live' | 'internal' | 'wip';
+  image?: string;
 }
 
 export interface Stat {
@@ -73,6 +74,7 @@ export const PROJECTS: Project[] = [
     tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Tailwind', 'Docker'],
     url: null,
     status: 'wip',
+    image: '/current_project.png',
   },
   {
     name: 'Bakers Heist',
@@ -80,6 +82,7 @@ export const PROJECTS: Project[] = [
     tags: ['HTML5', 'CSS3', 'JavaScript'],
     url: 'https://bakers-heist.vercel.app/',
     status: 'live',
+    image: '/project1.png',
   },
   {
     name: 'Astral Apparel',
@@ -87,6 +90,7 @@ export const PROJECTS: Project[] = [
     tags: ['HTML5', 'CSS3', 'JavaScript'],
     url: 'https://astral-apparel.vercel.app/',
     status: 'live',
+    image: '/project2.png',
   },
   {
     name: 'PetCare Clinic System',
@@ -94,6 +98,7 @@ export const PROJECTS: Project[] = [
     tags: ['Laravel', 'Blade', 'MySQL', 'JavaScript'],
     url: null,
     status: 'live',
+    image: '/project3.mp4',
   },
 ];
 

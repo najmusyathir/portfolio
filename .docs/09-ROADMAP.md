@@ -61,13 +61,9 @@ Build sections in order (each a commit):
 
 ---
 
-## Open design questions (Abang to answer before Phase 1)
+## Open design questions
 
-| # | Question | Options | Default if skipped |
-| :--- | :--- | :--- | :--- |
-| 1 | **Photo in About section?** | Yes (headshot) / No (text only) | No photo |
-| 2 | **Accent color** | Tokyo Night blue `#7aa2f7` / something warmer | `#7aa2f7` |
-| 3 | **Any reference site** you like the feel of? | URL or description | Design language in 07 is the reference |
+All answered. ✅ None blocking Phase 1.
 
 ---
 
@@ -76,7 +72,16 @@ Build sections in order (each a commit):
 | Date | Decision | Reason |
 | :--- | :--- | :--- |
 | 2026-06-24 | Next.js 16 + TS over Vite | Consistent with Acadeon ecosystem, SSG + SSR capable |
-| 2026-06-24 | Tokyo Night dark theme | Visual coherence with terminal tools; premium feel |
+| 2026-06-24 | **Nebula theme — violet-to-rose gradient** over Tokyo Night | Not cliché — most dev portfolios use blue/green. Violet-to-rose is fresh and distinctive. |
+| 2026-06-24 | **Dual light/dark theme** | Light mode as primary (Abang's preference), dark for those who prefer it. Toggle in navbar. |
+| 2026-06-24 | **Light mode default** | Abang prefers light, airy feel. System preference checked first, falls back to light. |
+| 2026-06-24 | **Aurora orb background** | CSS-only drifting gradient blobs — alive without being distracting. Zero bundle cost. |
+| 2026-06-24 | **Photo in About** | Yes — circular avatar with gradient ring border. More human, less generic. |
+| 2026-06-24 | **Gradient on hero name + stat numbers** | Distinctive, matches brand. Applied sparingly (3–4 uses max). |
+| 2026-06-24 | Single-page scroll (no sub-routes in v1) | Portfolio doesn't need routing complexity |
+| 2026-06-24 | No analytics by default | Privacy-first; add only if explicitly requested |
+| 2026-06-24 | Contact = mailto only in v1 | No backend needed; keeps it static and fast |
+| 2026-06-24 | Vercel for hosting | Not self-hosted — portfolio gets Vercel CDN + SSL, not Cloudflare tunnel |
 | 2026-06-24 | Single-page scroll (no sub-routes in v1) | Portfolio doesn't need routing complexity |
 | 2026-06-24 | No analytics by default | Privacy-first; add only if explicitly requested |
 | 2026-06-24 | Contact = mailto only in v1 | No backend needed; keeps it static and fast |

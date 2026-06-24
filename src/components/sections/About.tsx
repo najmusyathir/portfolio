@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 
 export function About() {
@@ -40,8 +39,8 @@ export function About() {
                 margin: '0 0 20px 0',
               }}
             >
-              I&apos;m a solo full-stack engineer based in Malaysia, building production tools
-              that solve real problems.
+              Originally from a background in PC building — crafting high-end workstations and discovering
+              that the best setups deserve great software. That curiosity pulled me into computer science.
             </p>
             <p
               style={{
@@ -51,8 +50,8 @@ export function About() {
                 margin: '0 0 20px 0',
               }}
             >
-              I design clean systems — multi-tenant SaaS, async job queues, PTY terminals —
-              and run them on self-hosted Debian infra with Cloudflare tunnels and proper monitoring.
+              Started coding in 2019 with Python, found a natural fit in problem-solving through code.
+              Pivoted my academic path toward Computer Science in 2021 and haven&apos;t looked back.
             </p>
             <p
               style={{
@@ -62,8 +61,9 @@ export function About() {
                 margin: 0,
               }}
             >
-              Two years in, still shipping. Currently building the Acadeon ecosystem —
-              a suite of developer tools I use daily and continue to improve.
+              Today I build production SaaS tools — multi-tenant dashboards, async AI pipelines,
+              PTY terminals — and run them on self-hosted Debian infra with Cloudflare tunnels and
+              proper monitoring. Two years in, still shipping.
             </p>
           </div>
 

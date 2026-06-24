@@ -1,9 +1,17 @@
 'use client';
 
 import { ExternalLink } from 'lucide-react';
-import { PROJECTS } from '@/lib/data';
+import { PROJECTS, type Project } from '@/lib/data';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Badge } from '@/components/ui/Badge';
+
+const ACADEON_PROJECTS = PROJECTS.filter((p) =>
+  ['acadeon-cli', 'acadeon-pulse', 'personal-dashboard', 'ai_hub_bridge', 'ssh-web-server', 'Acadeon Academy'].includes(p.name)
+);
+
+const PREVIOUS_PROJECTS = PROJECTS.filter((p) =>
+  ['Bakers Heist', 'Astral Apparel', 'PetCare Clinic System'].includes(p.name)
+);
 
 export function Projects() {
   return (
@@ -31,9 +39,60 @@ export function Projects() {
           </h2>
         </div>
 
-        <div className="projects-grid" style={{ display: 'grid', gap: '20px' }}>
-          {PROJECTS.map((project, i) => (
+        {/* Acadeon Ecosystem */}
+        <div className="reveal" style={{ marginBottom: '16px' }}>
+          <p
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              color: 'var(--color-accent)',
+              textTransform: 'uppercase',
+              margin: 0,
+              fontFamily: 'var(--font-mono)',
+            }}
+          >
+            Acadeon Ecosystem
+          </p>
+        </div>
+
+        <div className="projects-grid" style={{ display: 'grid', gap: '20px', marginBottom: '64px' }}>
+          {ACADEON_PROJECTS.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} />
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div
+          className="reveal"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '32px',
+          }}
+        >
+          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
+          <p
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              color: 'var(--color-text-subtle)',
+              textTransform: 'uppercase',
+              margin: 0,
+              fontFamily: 'var(--font-mono)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Previous work
+          </p>
+          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
+        </div>
+
+        <div className="projects-grid" style={{ display: 'grid', gap: '20px' }}>
+          {PREVIOUS_PROJECTS.map((project, i) => (
+            <ProjectCard key={project.name} project={project} index={ACADEON_PROJECTS.length + i} />
           ))}
         </div>
       </div>
@@ -52,11 +111,66 @@ export function Projects() {
   );
 }
 
+function StatusBadge({ status }: { status: Project['status'] }) {
+  if (status === 'live') {
+    return (
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
+          fontSize: '0.75rem',
+          fontWeight: 500,
+          color: 'var(--color-success)',
+        }}
+      >
+        <span
+          style={{
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            backgroundColor: 'var(--color-success)',
+            display: 'inline-block',
+          }}
+        />
+        Live
+      </span>
+    );
+  }
+
+  if (status === 'wip') {
+    return (
+      <span
+        style={{
+          fontSize: '0.75rem',
+          fontWeight: 500,
+          color: 'var(--color-warning)',
+        }}
+      >
+        In Progress
+      </span>
+    );
+  }
+
+  // internal
+  return (
+    <span
+      style={{
+        fontSize: '0.75rem',
+        fontWeight: 500,
+        color: 'var(--color-text-subtle)',
+      }}
+    >
+      Internal
+    </span>
+  );
+}
+
 function ProjectCard({
   project,
   index,
 }: {
-  project: (typeof PROJECTS)[0];
+  project: Project;
   index: number;
 }) {
   return (
@@ -89,17 +203,20 @@ function ProjectCard({
         el.style.boxShadow = 'none';
       }}
     >
-      <h3
-        style={{
-          fontSize: '1rem',
-          fontWeight: 600,
-          color: 'var(--color-text-primary)',
-          margin: 0,
-          fontFamily: 'var(--font-mono)',
-        }}
-      >
-        {project.name}
-      </h3>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
+        <h3
+          style={{
+            fontSize: '1rem',
+            fontWeight: 600,
+            color: 'var(--color-text-primary)',
+            margin: 0,
+            fontFamily: 'var(--font-mono)',
+          }}
+        >
+          {project.name}
+        </h3>
+        <StatusBadge status={project.status} />
+      </div>
       <p
         style={{
           fontSize: '0.875rem',
@@ -108,7 +225,7 @@ function ProjectCard({
           lineHeight: 1.5,
         }}
       >
-        {project.oneLiner}
+        {project.description}
       </p>
       <div
         style={{
@@ -144,9 +261,7 @@ function ProjectCard({
             <ExternalLink size={13} />
             {project.url.replace('https://', '')}
           </a>
-        ) : (
-          <Badge label="Internal" />
-        )}
+        ) : null}
       </div>
     </div>
   );

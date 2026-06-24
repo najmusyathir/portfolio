@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+/* ─── Light mode (default) ──────────────────── */
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --color-bg-base:       #faf9ff;
+  --color-bg-elevated:   #ffffff;
+  --color-bg-overlay:    #f3f1ff;
+  --color-border:        #e8e5f8;
+  --color-border-strong: #cdc9ef;
+
+  /* Text */
+  --color-text-primary:  #1a1535;
+  --color-text-muted:    #6b6490;
+  --color-text-subtle:   #b0acc8;
+
+  /* Accent — gradient */
+  --color-accent-from:   #7c3aed;
+  --color-accent-mid:    #a855f7;
+  --color-accent-to:     #ec4899;
+  --color-accent:        #7c3aed;
+
+  /* Semantic */
+  --color-success:       #16a34a;
+  --color-warning:       #d97706;
+  --color-error:         #dc2626;
+
+  /* Aurora orbs */
+  --orb-1: rgba(124, 58, 237, 0.12);
+  --orb-2: rgba(236, 72, 153, 0.10);
+  --orb-3: rgba(168, 85, 247, 0.08);
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ─── Dark mode ──────────────────────────────── */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --color-bg-base:       #0d0b14;
+  --color-bg-elevated:   #13101e;
+  --color-bg-overlay:    #1c1729;
+  --color-border:        #251f35;
+  --color-border-strong: #3d3160;
+
+  /* Text */
+  --color-text-primary:  #f0eeff;
+  --color-text-muted:    #8b82a7;
+  --color-text-subtle:   #4a4368;
+
+  /* Accent — slightly brighter on dark */
+  --color-accent-from:   #8b5cf6;
+  --color-accent-mid:    #c084fc;
+  --color-accent-to:     #f472b6;
+  --color-accent:        #8b5cf6;
+
+  /* Semantic */
+  --color-success:       #4ade80;
+  --color-warning:       #fbbf24;
+  --color-error:         #f87171;
+
+  /* Aurora orbs */
+  --orb-1: rgba(139, 92, 246, 0.18);
+  --orb-2: rgba(244, 114, 182, 0.14);
+  --orb-3: rgba(192, 132, 252, 0.12);
+}
+
+/* ─── Base reset & body ──────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* ─── Gradient utilities ─────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-mid), var(--color-accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
+}
+
+/* ─── Aurora background ──────────────────────── */
+.aurora-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 1;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--orb-1), transparent 70%);
+  top: -200px;
+  left: -100px;
+  animation: drift-1 25s linear infinite;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--orb-2), transparent 70%);
+  bottom: 10%;
+  right: -150px;
+  animation: drift-2 32s linear infinite;
+}
+
+.orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--orb-3), transparent 70%);
+  top: 40%;
+  left: 30%;
+  animation: drift-3 40s linear infinite;
+}
+
+@keyframes drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(80px, 60px) scale(1.08); }
+  66%  { transform: translate(-40px, 100px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-70px, -80px) scale(1.1); }
+  70%  { transform: translate(50px, -40px) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift-3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(60px, -90px) scale(1.12); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* ─── Scroll reveal ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Hero cursor blink ──────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--color-accent);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* ─── Avatar ring ────────────────────────────── */
+.avatar-ring {
+  padding: 3px;
+  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.avatar-ring img {
+  border-radius: 50%;
+  display: block;
+}
+
+/* ─── CTA buttons ────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}

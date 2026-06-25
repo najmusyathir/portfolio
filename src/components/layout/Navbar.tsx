@@ -37,6 +37,7 @@ export function Navbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         <a
           href="#work"
+          className="hidden md:block"
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
@@ -51,6 +52,7 @@ export function Navbar() {
         </a>
         <a
           href="#about"
+          className="hidden md:block"
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
@@ -65,6 +67,7 @@ export function Navbar() {
         </a>
         <a
           href="#contact"
+          className="hidden md:block"
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,

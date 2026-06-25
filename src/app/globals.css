@@ -99,11 +99,23 @@ body {
   background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
 }
 
+/* ─── Dot grid background ────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--color-border, rgba(124,58,237,0.15)) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+}
+
 /* ─── Aurora background ──────────────────────── */
 .aurora-container {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
   pointer-events: none;
 }

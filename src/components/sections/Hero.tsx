@@ -5,6 +5,7 @@ import { ChevronDown, ExternalLink } from 'lucide-react';
 export function Hero() {
   return (
     <section
+      id="home"
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -38,6 +39,12 @@ export function Hero() {
           textAlign: 'center',
         }}
       >
+        <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 mb-6 text-xs font-medium"
+          style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-muted)', background: 'var(--color-bg-elevated)' }}>
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
+          Open to collaborate
+        </div>
+
         <h1
           className="gradient-text"
           style={{

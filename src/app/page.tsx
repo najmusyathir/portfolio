@@ -1,6 +1,7 @@
 import { AuroraBackground } from '@/components/layout/AuroraBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { ScrollDots } from '@/components/layout/ScrollDots';
 import { Hero } from '@/components/sections/Hero';
 import { Stats } from '@/components/sections/Stats';
 import { Projects } from '@/components/sections/Projects';
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <AuroraBackground />
       <Navbar />
+      <ScrollDots />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
         <Stats />

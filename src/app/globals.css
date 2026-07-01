@@ -76,6 +76,8 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 56px;
 }
 
 body {
@@ -85,6 +87,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+}
+
+/* ─── Scroll snap — one section per "screen" ─── */
+main > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* ─── Gradient utilities ─────────────────────── */

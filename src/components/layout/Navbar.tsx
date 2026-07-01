@@ -2,6 +2,7 @@
 
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/lib/theme';
+import { VersionSwitcher } from './VersionSwitcher';
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -80,6 +81,8 @@ export function Navbar() {
         >
           Contact
         </a>
+
+        <VersionSwitcher />
 
         <button
           onClick={toggleTheme}

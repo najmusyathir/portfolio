@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { PROJECTS, type Project } from '@/lib/data';
 import { SectionLabel } from '@/components/ui/SectionLabel';
@@ -167,6 +168,56 @@ function StatusBadge({ status }: { status: Project['status'] }) {
   );
 }
 
+function LazyVideoPreview({ src }: { src: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full rounded-lg mb-4"
+      style={{
+        maxHeight: '180px',
+        height: '180px',
+        backgroundColor: 'var(--color-bg-elevated)',
+        overflow: 'hidden',
+      }}
+    >
+      {isInView && (
+        <video
+          src={src}
+          className="w-full h-full rounded-lg object-cover"
+          preload="none"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+      )}
+    </div>
+  );
+}
+
 function ProjectCard({
   project,
   index,
@@ -205,15 +256,7 @@ function ProjectCard({
       }}
     >
       {project.image && project.image.endsWith('.mp4') && (
-        <video
-          src={project.image}
-          className="w-full rounded-lg mb-4 object-cover"
-          style={{ maxHeight: '180px' }}
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
+        <LazyVideoPreview src={project.image} />
       )}
       {project.image && !project.image.endsWith('.mp4') && (
         <div className="relative w-full mb-4 rounded-lg overflow-hidden" style={{ height: '160px' }}>

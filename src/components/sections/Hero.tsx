@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { ChevronDown, Download, ExternalLink } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -106,6 +106,15 @@ export function Hero() {
           >
             <ExternalLink size={16} />
             GitHub
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+          >
+            <Download size={16} />
+            Resume
           </a>
         </div>
       </div>

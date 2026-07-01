@@ -45,23 +45,30 @@ export function VersionSwitcher() {
         aria-label="Portfolio versions"
         aria-expanded={open}
         style={{
-          background: 'none',
-          border: 'none',
+          background: 'var(--color-bg-elevated)',
+          border: '1px solid var(--color-border)',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: '3px',
-          padding: '4px 6px',
-          borderRadius: '6px',
+          gap: '5px',
+          padding: '5px 12px',
+          borderRadius: '999px',
           color: 'var(--color-text-muted)',
           fontSize: '0.75rem',
           fontWeight: 500,
-          transition: 'color 0.2s',
+          transition: 'color 0.2s, border-color 0.2s',
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = 'var(--color-text-primary)';
+          e.currentTarget.style.borderColor = 'var(--color-border-strong)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = 'var(--color-text-muted)';
+          e.currentTarget.style.borderColor = 'var(--color-border)';
+        }}
       >
-        <span className="hidden sm:inline">Current</span>
+        <span className="hidden sm:inline">Portfolio Versions</span>
+        <span className="sm:hidden">Versions</span>
         <ChevronDown size={12} style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
       </button>
 

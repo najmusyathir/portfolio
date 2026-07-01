@@ -87,17 +87,16 @@ export function ScrollDots() {
               </span>
             </button>
 
-            {/* Progress tail — connector line + fill, only shown for the active section */}
+            {/* Connector track — always present for even spacing; fill only animates for the active section */}
             {i < SECTIONS.length - 1 && (
               <div
-                className="relative rounded-full overflow-hidden transition-all duration-300"
+                className="relative rounded-full overflow-hidden"
                 style={{
                   width: '2px',
-                  height: isActive ? '18px' : '0px',
-                  marginTop: isActive ? '4px' : '0px',
-                  marginBottom: isActive ? '4px' : '0px',
+                  height: '18px',
+                  marginTop: '4px',
+                  marginBottom: '4px',
                   background: 'var(--color-border)',
-                  opacity: isActive ? 1 : 0,
                 }}
               >
                 <div

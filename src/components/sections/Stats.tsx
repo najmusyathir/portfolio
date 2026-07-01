@@ -6,7 +6,7 @@ export function Stats() {
       style={{
         position: 'relative',
         zIndex: 1,
-        padding: '0 24px 112px',
+        padding: '112px 24px',
       }}
     >
       <div

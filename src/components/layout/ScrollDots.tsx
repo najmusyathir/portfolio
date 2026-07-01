@@ -61,7 +61,7 @@ export function ScrollDots() {
   }, [active])
 
   return (
-    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center">
+    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-4">
       {SECTIONS.map(({ id, label }, i) => {
         const isActive = active === id
         return (
@@ -87,16 +87,16 @@ export function ScrollDots() {
               </span>
             </button>
 
-            {/* Connector track — always present for even spacing; fill only animates for the active section */}
+            {/* Progress tail — sits in the fixed gap above, only visible (not just filled) for the active section */}
             {i < SECTIONS.length - 1 && (
               <div
-                className="relative rounded-full overflow-hidden"
+                className="relative rounded-full overflow-hidden transition-opacity duration-300"
                 style={{
                   width: '2px',
-                  height: '18px',
-                  marginTop: '4px',
-                  marginBottom: '4px',
+                  height: '14px',
+                  marginTop: '6px',
                   background: 'var(--color-border)',
+                  opacity: isActive ? 1 : 0,
                 }}
               >
                 <div

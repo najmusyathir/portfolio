@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Sun, Moon, Download, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/lib/theme';
 import { VersionSwitcher } from './VersionSwitcher';
@@ -24,7 +25,7 @@ export function Navbar() {
         justifyContent: 'space-between',
       }}
     >
-      <div className="flex flex-col leading-tight">
+      <Link href="/" className="flex flex-col leading-tight">
         <span className="font-mono text-sm font-semibold">
           <span style={{ color: 'var(--color-text-muted)' }}>&lt;</span>
           <span className="gradient-text">najmu</span>
@@ -33,11 +34,11 @@ export function Navbar() {
         <span className="text-[10px] tracking-widest uppercase" style={{ color: 'var(--color-text-muted)' }}>
           Najmu Syathir
         </span>
-      </div>
+      </Link>
 
       <div className="gap-3 sm:gap-6" style={{ display: 'flex', alignItems: 'center' }}>
-        <a
-          href="#work"
+        <Link
+          href="/#work"
           className="hidden md:block"
           style={{
             fontSize: '0.875rem',
@@ -50,9 +51,9 @@ export function Navbar() {
           onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
         >
           Work
-        </a>
-        <a
-          href="#about"
+        </Link>
+        <Link
+          href="/#about"
           className="hidden md:block"
           style={{
             fontSize: '0.875rem',
@@ -65,9 +66,9 @@ export function Navbar() {
           onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
         >
           About
-        </a>
-        <a
-          href="#contact"
+        </Link>
+        <Link
+          href="/#contact"
           className="hidden md:block"
           style={{
             fontSize: '0.875rem',
@@ -80,7 +81,7 @@ export function Navbar() {
           onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
         >
           Contact
-        </a>
+        </Link>
 
         <VersionSwitcher />
 

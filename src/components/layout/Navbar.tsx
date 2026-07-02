@@ -1,6 +1,6 @@
 'use client';
 
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Download } from 'lucide-react';
 import { useTheme } from '@/lib/theme';
 import { VersionSwitcher } from './VersionSwitcher';
 
@@ -9,6 +9,7 @@ export function Navbar() {
 
   return (
     <nav
+      className="px-4 sm:px-6"
       style={{
         position: 'sticky',
         top: 0,
@@ -21,7 +22,6 @@ export function Navbar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 24px',
       }}
     >
       <div className="flex flex-col leading-tight">
@@ -35,7 +35,7 @@ export function Navbar() {
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+      <div className="gap-3 sm:gap-6" style={{ display: 'flex', alignItems: 'center' }}>
         <a
           href="#work"
           className="hidden md:block"
@@ -83,6 +83,38 @@ export function Navbar() {
         </a>
 
         <VersionSwitcher />
+
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Download resume"
+          style={{
+            background: 'var(--color-bg-elevated)',
+            border: '1px solid var(--color-border)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            padding: '5px 10px',
+            borderRadius: '999px',
+            color: 'var(--color-text-muted)',
+            fontSize: '0.75rem',
+            fontWeight: 500,
+            textDecoration: 'none',
+            transition: 'color 0.2s, border-color 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--color-text-primary)';
+            e.currentTarget.style.borderColor = 'var(--color-border-strong)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--color-text-muted)';
+            e.currentTarget.style.borderColor = 'var(--color-border)';
+          }}
+        >
+          <Download size={12} />
+          <span className="hidden sm:inline">Resume</span>
+        </a>
 
         <button
           onClick={toggleTheme}

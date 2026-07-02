@@ -1,6 +1,6 @@
 'use client';
 
-import { Sun, Moon, Download } from 'lucide-react';
+import { Sun, Moon, Download, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/lib/theme';
 import { VersionSwitcher } from './VersionSwitcher';
 
@@ -84,37 +84,60 @@ export function Navbar() {
 
         <VersionSwitcher />
 
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Download resume"
+        <div
           style={{
             background: 'var(--color-bg-elevated)',
             border: '1px solid var(--color-border)',
             display: 'flex',
-            alignItems: 'center',
-            gap: '5px',
-            padding: '5px 10px',
+            alignItems: 'stretch',
             borderRadius: '999px',
-            color: 'var(--color-text-muted)',
-            fontSize: '0.75rem',
-            fontWeight: 500,
-            textDecoration: 'none',
-            transition: 'color 0.2s, border-color 0.2s',
+            overflow: 'hidden',
+            transition: 'border-color 0.2s',
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--color-text-primary)';
-            e.currentTarget.style.borderColor = 'var(--color-border-strong)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--color-text-muted)';
-            e.currentTarget.style.borderColor = 'var(--color-border)';
-          }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--color-border-strong)')}
+          onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
         >
-          <Download size={12} />
-          <span className="hidden sm:inline">Resume</span>
-        </a>
+          <a
+            href="/resume.pdf"
+            download="Najmu_Syathir_Resume.pdf"
+            aria-label="Download resume"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '5px 10px',
+              color: 'var(--color-text-muted)',
+              fontSize: '0.75rem',
+              fontWeight: 500,
+              textDecoration: 'none',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
+          >
+            <Download size={12} />
+            <span className="hidden sm:inline">Download Resume</span>
+          </a>
+
+          <span style={{ width: '1px', background: 'var(--color-border)', margin: '5px 0' }} />
+
+          <a
+            href="/resume"
+            aria-label="View full resume page"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '5px 8px',
+              color: 'var(--color-text-muted)',
+              textDecoration: 'none',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
+          >
+            <ChevronDown size={12} />
+          </a>
+        </div>
 
         <button
           onClick={toggleTheme}

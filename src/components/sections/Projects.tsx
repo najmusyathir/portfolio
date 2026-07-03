@@ -26,20 +26,37 @@ export function Projects() {
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: '48px' }}>
+        <div className="reveal" style={{ marginBottom: '20px' }}>
           <SectionLabel label="WORK" />
           <h2
+            className="font-display"
             style={{
-              fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
-              fontWeight: 700,
+              fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
+              fontWeight: 800,
+              letterSpacing: '-0.015em',
               color: 'var(--color-text-primary)',
-              margin: '12px 0 0 0',
-              fontFamily: 'var(--font-sans)',
+              margin: '14px 0 0 0',
             }}
           >
-            Things I&apos;ve built
+            Things we&apos;ve shipped
           </h2>
         </div>
+
+        <p
+          className="reveal"
+          data-delay="80"
+          style={{
+            fontSize: '1rem',
+            lineHeight: 1.75,
+            color: 'var(--color-text-muted)',
+            maxWidth: '44em',
+            margin: '0 0 48px 0',
+          }}
+        >
+          Real products, running right now — most of them on a server humming
+          away in my own home. Every one started as &quot;wouldn&apos;t it be
+          easier if…&quot;
+        </p>
 
         {/* Acadeon Ecosystem */}
         <div className="reveal" style={{ marginBottom: '16px' }}>
@@ -195,18 +212,18 @@ function LazyVideoPreview({ src }: { src: string }) {
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-lg mb-4"
+      className="w-full rounded-xl mb-4"
       style={{
         maxHeight: '180px',
         height: '180px',
-        backgroundColor: 'var(--color-bg-elevated)',
+        backgroundColor: 'var(--color-bg-overlay)',
         overflow: 'hidden',
       }}
     >
       {isInView && (
         <video
           src={src}
-          className="w-full h-full rounded-lg object-cover"
+          className="w-full h-full rounded-xl object-cover"
           preload="none"
           autoPlay
           muted
@@ -227,39 +244,21 @@ function ProjectCard({
 }) {
   return (
     <div
-      className="reveal project-card"
+      className="card card-hover shine reveal"
       data-delay={String(index * 80)}
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--color-bg-elevated) 80%, transparent)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        border: '1px solid var(--color-border)',
-        borderRadius: '16px',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
-        transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
         cursor: project.url ? 'pointer' : 'default',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.transform = 'translateY(-3px)';
-        el.style.borderColor = 'var(--color-border-strong)';
-        el.style.boxShadow = '0 8px 32px rgba(124, 58, 237, 0.12)';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.transform = 'translateY(0)';
-        el.style.borderColor = 'var(--color-border)';
-        el.style.boxShadow = 'none';
       }}
     >
       {project.image && project.image.endsWith('.mp4') && (
         <LazyVideoPreview src={project.image} />
       )}
       {project.image && !project.image.endsWith('.mp4') && (
-        <div className="relative w-full mb-4 rounded-lg overflow-hidden" style={{ height: '160px' }}>
+        <div className="relative w-full mb-4 rounded-xl overflow-hidden" style={{ height: '160px' }}>
           <Image src={project.image} alt={project.name} fill className="object-cover" />
         </div>
       )}

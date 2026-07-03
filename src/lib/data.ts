@@ -22,6 +22,57 @@ export interface SocialLink {
   href: string;
 }
 
+export interface Persona {
+  name: string;
+  role: string;
+  blurb: string;
+  /** CSS variable holding the persona's color */
+  colorVar: string;
+}
+
+/**
+ * The AI team — real, named agents running on my own server.
+ * Each one is a persona with a scope, not a chatbot with a costume.
+ */
+export const PERSONAS: Persona[] = [
+  {
+    name: 'Umai',
+    role: 'Orchestrator & right hand',
+    blurb: 'Holds the full picture, keeps context alive between sessions, and dispatches the right specialist for every job.',
+    colorVar: '--color-umai',
+  },
+  {
+    name: 'Bastian',
+    role: 'Code & delivery',
+    blurb: 'Writes, refactors, and ships. Every feature branch, migration, and build pass goes through him.',
+    colorVar: '--color-bastian',
+  },
+  {
+    name: 'Steward',
+    role: 'Server & infrastructure',
+    blurb: 'Keeps the self-hosted Debian box healthy — tunnels, watchdogs, deployments, uptime.',
+    colorVar: '--color-steward',
+  },
+  {
+    name: 'Lex',
+    role: 'Finance',
+    blurb: 'Watches budgets, cash flow, and the numbers side of every venture.',
+    colorVar: '--color-lex',
+  },
+  {
+    name: 'Onyx',
+    role: 'Vault & security',
+    blurb: 'Guards secrets, credentials, and everything that must never leak.',
+    colorVar: '--color-onyx',
+  },
+  {
+    name: 'Atlas',
+    role: 'Tasks & planning',
+    blurb: 'Turns big ideas into ordered, trackable steps so nothing falls through.',
+    colorVar: '--color-atlas',
+  },
+];
+
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/najmusyathir' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/najmusyathir/' },
@@ -105,7 +156,7 @@ export const PROJECTS: Project[] = [
 export const STATS: Stat[] = [
   { number: '2+', label: 'Years experience' },
   { number: '6', label: 'Live projects' },
-  { number: '5', label: 'AI agents orchestrated' },
+  { number: '6', label: 'AI teammates' },
   { number: '1', label: 'Self-hosted server' },
 ];
 

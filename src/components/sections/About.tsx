@@ -1,21 +1,25 @@
 import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { STATS } from '@/lib/data';
 
 const ACTIVITIES = [
   {
     img: '/aboutme_1.jpg',
     title: 'UI / UX Sightseeing',
-    desc: 'Study modern UI/UX from creative designers and bring their designs to life in code.',
+    desc: 'I collect beautiful interfaces the way other people collect stamps — then bring the best ideas to life in code.',
+    rotate: '-2.2deg',
   },
   {
     img: '/aboutme_2.jpeg',
     title: 'PC Building',
-    desc: 'Passionate about high-end builds and crafting cozy, inspiring workstations.',
+    desc: 'High-end builds and cozy workstations. My own server started life as one of these projects.',
+    rotate: '1.6deg',
   },
   {
     img: '/aboutme_3.png',
     title: 'Coding & Web Dev',
-    desc: 'Problem-solving challenges and building dynamic, well-crafted web experiences.',
+    desc: 'The daily craft — problem-solving, shipping, and polishing until it feels right.',
+    rotate: '-1.4deg',
   },
 ];
 
@@ -30,24 +34,25 @@ export function About() {
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: '48px' }}>
+        <div className="reveal" style={{ marginBottom: '20px' }}>
           <SectionLabel label="ABOUT" />
           <h2
+            className="font-display"
             style={{
-              fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
-              fontWeight: 700,
+              fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
+              fontWeight: 800,
+              letterSpacing: '-0.015em',
               color: 'var(--color-text-primary)',
-              margin: '12px 0 0 0',
-              fontFamily: 'var(--font-sans)',
+              margin: '14px 0 0 0',
             }}
           >
-            A bit about me
+            Easy to work with. Hard to out-enthusiasm.
           </h2>
         </div>
 
         <div
           className="about-layout"
-          style={{ display: 'grid', gap: '48px', alignItems: 'center' }}
+          style={{ display: 'grid', gap: '48px', alignItems: 'center', marginBottom: '56px' }}
         >
           <div className="reveal" data-delay="100">
             <p
@@ -58,8 +63,10 @@ export function About() {
                 margin: '0 0 20px 0',
               }}
             >
-              Originally from a background in PC building — crafting high-end workstations and discovering
-              that the best setups deserve great software. That curiosity pulled me into computer science.
+              I started with PC building — crafting high-end workstations and
+              realizing the best hardware deserves great software. That
+              curiosity pulled me into computer science in 2021, and I&apos;ve
+              been shipping ever since.
             </p>
             <p
               style={{
@@ -69,8 +76,12 @@ export function About() {
                 margin: '0 0 20px 0',
               }}
             >
-              Started coding in 2019 with Python, found a natural fit in problem-solving through code.
-              Pivoted my academic path toward Computer Science in 2021 and haven&apos;t looked back.
+              What makes me different isn&apos;t just the stack — it&apos;s how
+              I work. I confess ideas out loud, prototype fast, and treat AI as
+              a genuine collaborator. My six-agent team isn&apos;t a gimmick;
+              it&apos;s how a solo developer runs production infrastructure,
+              multiple products, and still has energy left to get excited about
+              the next idea.
             </p>
             <p
               style={{
@@ -80,51 +91,94 @@ export function About() {
                 margin: 0,
               }}
             >
-              Today I build production SaaS tools — multi-tenant dashboards, async AI pipelines,
-              PTY terminals — and run them on self-hosted Debian infra with Cloudflare tunnels and
-              proper monitoring. Two years in, still shipping.
+              The mission underneath it all: find the niches where good software
+              genuinely makes daily life lighter — and build the trend before
+              it&apos;s a trend.
             </p>
           </div>
 
           <div
-            className="reveal about-photo"
+            className="reveal-scale about-photo"
             data-delay="200"
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <div style={{ padding: '3px', background: 'linear-gradient(135deg, var(--color-accent-from, #7c3aed), var(--color-accent-to, #ec4899))', borderRadius: '50%', display: 'inline-block' }}>
+            <div className="avatar-ring">
               <Image
                 src="/profile_pic.jpg"
                 alt="Najmu Syathir"
-                width={160}
-                height={160}
-                className="rounded-full block"
-                style={{ objectFit: 'cover' }}
+                width={180}
+                height={180}
+                style={{ objectFit: 'cover', width: 180, height: 180 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Activity cards */}
+        {/* Stats strip */}
         <div
-          className="reveal activities-grid"
-          data-delay="300"
-          style={{ display: 'grid', gap: '20px', marginTop: '64px' }}
+          className="stats-strip reveal"
+          data-delay="150"
+          style={{
+            display: 'grid',
+            gap: '14px',
+            marginBottom: '72px',
+          }}
+        >
+          {STATS.map((stat) => (
+            <div
+              key={stat.label}
+              className="card"
+              style={{
+                padding: '18px 20px',
+                textAlign: 'center',
+              }}
+            >
+              <p
+                className="font-display gradient-text"
+                style={{
+                  fontSize: 'clamp(1.6rem, 3vw, 2.1rem)',
+                  fontWeight: 800,
+                  margin: '0 0 2px 0',
+                  lineHeight: 1.1,
+                }}
+              >
+                {stat.number}
+              </p>
+              <p
+                style={{
+                  fontSize: '0.78rem',
+                  fontWeight: 500,
+                  color: 'var(--color-text-muted)',
+                  margin: 0,
+                }}
+              >
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Activity polaroids */}
+        <div
+          className="activities-grid"
+          style={{ display: 'grid', gap: '26px' }}
         >
           {ACTIVITIES.map((item, i) => (
             <div
               key={item.title}
-              className="reveal"
-              data-delay={String(300 + i * 80)}
+              className="reveal-scale polaroid"
+              data-delay={String(150 + i * 100)}
               style={{
-                backgroundColor: 'color-mix(in srgb, var(--color-bg-elevated) 80%, transparent)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
+                background: 'var(--color-bg-elevated)',
                 border: '1px solid var(--color-border)',
-                borderRadius: '16px',
+                borderRadius: '18px',
                 overflow: 'hidden',
+                transform: `rotate(${item.rotate})`,
+                transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s',
+                boxShadow: '0 10px 30px -16px rgba(34, 29, 20, 0.22)',
               }}
             >
-              <div style={{ position: 'relative', width: '100%', height: '160px' }}>
+              <div style={{ position: 'relative', width: '100%', height: '170px' }}>
                 <Image
                   src={item.img}
                   alt={item.title}
@@ -132,14 +186,14 @@ export function About() {
                   style={{ objectFit: 'cover' }}
                 />
               </div>
-              <div style={{ padding: '16px' }}>
+              <div style={{ padding: '18px' }}>
                 <h3
+                  className="font-display"
                   style={{
-                    fontSize: '0.9375rem',
-                    fontWeight: 600,
+                    fontSize: '1rem',
+                    fontWeight: 700,
                     color: 'var(--color-text-primary)',
                     margin: '0 0 8px 0',
-                    fontFamily: 'var(--font-sans)',
                   }}
                 >
                   {item.title}
@@ -148,7 +202,7 @@ export function About() {
                   style={{
                     fontSize: '0.875rem',
                     color: 'var(--color-text-muted)',
-                    lineHeight: 1.5,
+                    lineHeight: 1.55,
                     margin: 0,
                   }}
                 >
@@ -161,15 +215,31 @@ export function About() {
       </div>
 
       <style>{`
+        .about-layout {
+          grid-template-columns: 1fr;
+        }
+        .stats-strip {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .activities-grid {
+          grid-template-columns: 1fr;
+        }
+        .polaroid:hover {
+          transform: rotate(0deg) translateY(-4px) !important;
+          box-shadow: 0 18px 44px -18px rgba(34, 29, 20, 0.3);
+        }
         @media (min-width: 768px) {
           .about-layout {
-            grid-template-columns: 1fr auto !important;
+            grid-template-columns: 1fr auto;
           }
           .about-photo {
             order: 2;
           }
+          .stats-strip {
+            grid-template-columns: repeat(4, 1fr);
+          }
           .activities-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr);
           }
         }
       `}</style>

@@ -20,7 +20,7 @@ export function useScrollReveal() {
       { threshold: 0.1 }
     );
 
-    const elements = document.querySelectorAll('.reveal');
+    const elements = document.querySelectorAll('.reveal, .reveal-scale');
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();

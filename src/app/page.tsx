@@ -1,13 +1,12 @@
 import { AuroraBackground } from '@/components/layout/AuroraBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { ScrollDots } from '@/components/layout/ScrollDots';
+import { ScrollProgress } from '@/components/layout/ScrollProgress';
 import { Hero } from '@/components/sections/Hero';
-import { Stats } from '@/components/sections/Stats';
+import { TheTeam } from '@/components/sections/TheTeam';
 import { Projects } from '@/components/sections/Projects';
-import { AIOrchestration } from '@/components/sections/AIOrchestration';
-import { Stack } from '@/components/sections/Stack';
 import { About } from '@/components/sections/About';
+import { Stack } from '@/components/sections/Stack';
 import { Contact } from '@/components/sections/Contact';
 import { ScrollRevealInit } from '@/components/ScrollRevealInit';
 
@@ -15,15 +14,14 @@ export default function Home() {
   return (
     <>
       <AuroraBackground />
+      <ScrollProgress />
       <Navbar />
-      <ScrollDots />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
-        <Stats />
+        <TheTeam />
         <Projects />
-        <AIOrchestration />
-        <Stack />
         <About />
+        <Stack />
         <Contact />
       </main>
       <Footer />

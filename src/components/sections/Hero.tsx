@@ -1,114 +1,139 @@
-'use client';
-
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { Constellation } from '@/components/Constellation';
 
 export function Hero() {
   return (
     <section
       id="home"
       style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         position: 'relative',
         zIndex: 1,
-        padding: '0 24px',
+        minHeight: 'calc(100vh - 56px)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '48px 24px',
       }}
     >
-      {/* Subtle radial vignette behind text */}
       <div
-        aria-hidden="true"
+        className="hero-grid"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '800px',
-          height: '400px',
-          background: 'radial-gradient(ellipse at center top, rgba(124, 58, 237, 0.08), transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          maxWidth: '1024px',
-          width: '100%',
+          maxWidth: '1120px',
           margin: '0 auto',
-          textAlign: 'center',
+          width: '100%',
+          display: 'grid',
+          gap: '48px',
+          alignItems: 'center',
         }}
       >
-        <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 mb-6 text-xs font-medium"
-          style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-muted)', background: 'var(--color-bg-elevated)' }}>
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
-          Open to collaborate
+        {/* ── Left: the words ─────────────────── */}
+        <div>
+          <p
+            className="reveal"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              fontWeight: 500,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'var(--color-text-muted)',
+              background: 'var(--color-bg-elevated)',
+              border: '1px solid var(--color-border)',
+              borderRadius: '999px',
+              padding: '7px 14px',
+              margin: '0 0 28px 0',
+            }}
+          >
+            <span className="pulse-dot" />
+            Malaysia · Open to collaborate
+          </p>
+
+          <h1
+            className="font-display reveal"
+            data-delay="100"
+            style={{
+              fontSize: 'clamp(2.6rem, 6vw, 4.4rem)',
+              fontWeight: 800,
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              margin: '0 0 24px 0',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            Hi, I&apos;m Najmu.
+            <br />
+            I build with an{' '}
+            <span className="gradient-text">AI&nbsp;team</span>.
+            <span className="cursor" aria-hidden="true" />
+          </h1>
+
+          <p
+            className="reveal"
+            data-delay="200"
+            style={{
+              fontSize: 'clamp(1rem, 1.6vw, 1.125rem)',
+              lineHeight: 1.7,
+              color: 'var(--color-text-muted)',
+              maxWidth: '34em',
+              margin: '0 0 36px 0',
+            }}
+          >
+            Full-stack developer with big energy and a home-grown crew of six
+            AI teammates. Together we turn everyday friction into real
+            products — terminals, dashboards, finance tools — all self-hosted,
+            all live.
+          </p>
+
+          <div
+            className="reveal"
+            data-delay="300"
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}
+          >
+            <Link href="/#work" className="btn-primary">
+              See what we&apos;ve built
+            </Link>
+            <Link href="/#contact" className="btn-ghost">
+              Let&apos;s talk
+            </Link>
+          </div>
         </div>
 
-        <h1
-          className="gradient-text"
-          style={{
-            fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
-            fontWeight: 800,
-            lineHeight: 1.1,
-            margin: '0 0 16px 0',
-            fontFamily: 'var(--font-sans)',
-          }}
-        >
-          Najmu Syathir
-        </h1>
-
-        <p
-          style={{
-            fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
-            fontWeight: 400,
-            color: 'var(--color-text-muted)',
-            margin: '0 0 16px 0',
-            lineHeight: 1.4,
-          }}
-        >
-          Full-Stack Engineer
-          <br />
-          &amp; Solution Architect
-        </p>
-
-        <p
-          style={{
-            fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-            fontWeight: 400,
-            color: 'var(--color-text-primary)',
-            margin: '0 0 40px 0',
-            lineHeight: 1.6,
-          }}
-        >
-          I design the system.
-          <br />
-          AI executes within it.<span className="cursor" aria-hidden="true" />
-        </p>
-
-        <div
-          style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <a href="#work" className="btn-primary">
-            <ChevronDown size={16} />
-            View my work
-          </a>
-          <a
-            href="https://github.com/najmusyathir"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost"
+        {/* ── Right: the team, alive ──────────── */}
+        <div className="reveal-scale" data-delay="200" style={{ textAlign: 'center' }}>
+          <div className="hero-constellation" style={{ width: '100%' }}>
+            <Constellation />
+          </div>
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              color: 'var(--color-text-subtle)',
+              marginTop: '4px',
+            }}
           >
-            <ExternalLink size={16} />
-            GitHub
-          </a>
+            this is my actual team — hover the nodes to say hi
+          </p>
         </div>
       </div>
+
+      <style>{`
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-constellation {
+          height: 340px;
+        }
+        @media (min-width: 1024px) {
+          .hero-grid {
+            grid-template-columns: 1.05fr 0.95fr;
+          }
+          .hero-constellation {
+            height: 480px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

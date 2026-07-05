@@ -14,6 +14,7 @@
 | 07 | [DESIGN-LANGUAGE.md](07-DESIGN-LANGUAGE.md) | Colors, typography, section specs, copy — **load this first for any UI work** |
 | 08 | [DEPLOYMENT.md](08-DEPLOYMENT.md) | Vercel, domain, env vars, Cloudflare |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Phases, current status, decisions log |
+| 10 | [V3-DAYBREAK-BUILD-BRIEF.md](10-V3-DAYBREAK-BUILD-BRIEF.md) | **v3 merge/build — active. Fable: load this + 07 before touching anything.** Nav system, page split, v2 content to preserve, anti-template doctrine |
 
 ## Quick-load combos
 

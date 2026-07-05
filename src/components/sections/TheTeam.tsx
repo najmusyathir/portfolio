@@ -5,6 +5,9 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
  * The Team — the six named AI personas that actually run
  * alongside Najmu on his own server. This is the heart of
  * the "AI as a collaborator, not a tool" story.
+ *
+ * Lives on /ai (the deep-dive page); the homepage keeps the
+ * constellation as the teaser (.docs/10 §2).
  */
 export function TheTeam() {
   return (
@@ -13,24 +16,25 @@ export function TheTeam() {
       style={{
         position: 'relative',
         zIndex: 1,
-        padding: '112px 24px',
+        padding: '96px 24px 112px',
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
         <div className="reveal" style={{ marginBottom: '20px' }}>
           <SectionLabel label="THE TEAM" />
-          <h2
+          <h1
             className="font-display"
             style={{
-              fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
+              fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
               fontWeight: 800,
-              letterSpacing: '-0.015em',
+              letterSpacing: '-0.02em',
               color: 'var(--color-text-primary)',
               margin: '14px 0 0 0',
+              lineHeight: 1.1,
             }}
           >
             One human. Six AI teammates.
-          </h2>
+          </h1>
         </div>
 
         <p

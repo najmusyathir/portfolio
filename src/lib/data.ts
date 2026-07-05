@@ -73,6 +73,45 @@ export const PERSONAS: Persona[] = [
   },
 ];
 
+export interface WorkflowStep {
+  title: string;
+  detail: string;
+}
+
+/**
+ * "How I work with AI" — restored from v2 (Nebula). The framing and the
+ * five steps are the actual differentiator; meaning must survive verbatim.
+ */
+export const WORKFLOW_INTRO: string[] = [
+  'I work with multiple AI agents as part of my development workflow. The distinction matters: I design the architecture and write the context documentation. The agents execute within that structure — with code review, git discipline, and human sign-off.',
+];
+
+export const WORKFLOW_CLOSING =
+  'This isn’t AI doing my job. It’s AI as a precision instrument — directed, audited, owned.';
+
+export const WORKFLOW_STEPS: WorkflowStep[] = [
+  {
+    title: 'Design & architecture',
+    detail: 'Every build starts with me — the system shape, the data model, the call on what gets built and why.',
+  },
+  {
+    title: 'Context docs + system specs',
+    detail: 'I write the documentation the agents work from: specs, protocols, and guardrails, versioned in the repo.',
+  },
+  {
+    title: 'Agent executes',
+    detail: 'A named teammate picks up the brief and builds within that structure — scoped, on its own branch.',
+  },
+  {
+    title: 'Human review + git commit',
+    detail: 'Nothing lands unseen. I review every diff, and every change ships with a human sign-off.',
+  },
+  {
+    title: 'Ship',
+    detail: 'Deployed to infrastructure I run myself — tunnels, monitoring, uptime, the whole story.',
+  },
+];
+
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/najmusyathir' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/najmusyathir/' },

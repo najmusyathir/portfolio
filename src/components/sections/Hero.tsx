@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { Constellation } from '@/components/Constellation';
 
 export function Hero() {
@@ -111,14 +112,37 @@ export function Hero() {
               fontSize: '0.72rem',
               color: 'var(--color-text-subtle)',
               marginTop: '4px',
+              marginBottom: '14px',
             }}
           >
             this is my actual team — hover the nodes to say hi
           </p>
+          <Link
+            href="/ai"
+            className="hero-team-link"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '7px',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              color: 'var(--color-accent)',
+              textDecoration: 'none',
+            }}
+          >
+            Meet the team &amp; how we work
+            <ArrowRight size={15} aria-hidden="true" />
+          </Link>
         </div>
       </div>
 
       <style>{`
+        .hero-team-link {
+          transition: gap 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
+        }
+        .hero-team-link:hover {
+          gap: 11px;
+        }
         .hero-grid {
           grid-template-columns: 1fr;
         }

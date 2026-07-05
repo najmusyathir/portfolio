@@ -15,6 +15,8 @@ export interface Stat {
 export interface StackItem {
   label: string;
   mono?: boolean;
+  /** one-breath descriptor — what this tool is to me */
+  note?: string;
 }
 
 export interface SocialLink {
@@ -200,15 +202,15 @@ export const STATS: Stat[] = [
 ];
 
 export const STACK_ITEMS: StackItem[] = [
-  { label: 'Next.js' },
-  { label: 'TypeScript' },
-  { label: 'React' },
-  { label: 'Tailwind CSS' },
-  { label: 'Prisma' },
-  { label: 'PostgreSQL' },
-  { label: 'Supabase' },
-  { label: 'Cloudflare' },
-  { label: 'Linux' },
-  { label: 'Node.js' },
-  { label: 'Git' },
+  { label: 'Next.js', note: 'the frame' },
+  { label: 'TypeScript', note: 'the guardrails' },
+  { label: 'React', note: 'the pulse' },
+  { label: 'Tailwind CSS', note: 'the wardrobe' },
+  { label: 'Prisma', note: 'the translator' },
+  { label: 'PostgreSQL', note: 'the memory' },
+  { label: 'Supabase', note: 'the nervous system' },
+  { label: 'Cloudflare', note: 'the front door' },
+  { label: 'Linux', note: 'the ground floor' },
+  { label: 'Node.js', note: 'the engine room' },
+  { label: 'Git', note: 'the time machine' },
 ];

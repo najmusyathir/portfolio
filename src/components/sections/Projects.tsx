@@ -2,10 +2,8 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS, type Project } from '@/lib/data';
-import { SectionLabel } from '@/components/ui/SectionLabel';
-import { Badge } from '@/components/ui/Badge';
 
 const ACADEON_PROJECTS = PROJECTS.filter((p) =>
   ['acadeon-cli', 'acadeon-pulse', 'personal-dashboard', 'ai_hub_bridge', 'ssh-web-server', 'Acadeon Academy'].includes(p.name)
@@ -15,6 +13,14 @@ const PREVIOUS_PROJECTS = PROJECTS.filter((p) =>
   ['Bakers Heist', 'Astral Apparel', 'PetCare Clinic System'].includes(p.name)
 );
 
+/**
+ * 13:00 — deep work. The shipping hours.
+ *
+ * Not a card grid: an editorial index. The real products (Acadeon
+ * ecosystem) are type-led ledger rows — big names, live links, no
+ * decoration they don't earn. Earlier client work sits below as a
+ * compact visual strip (that's where the screenshots belong).
+ */
 export function Projects() {
   return (
     <section
@@ -22,107 +28,133 @@ export function Projects() {
       style={{
         position: 'relative',
         zIndex: 1,
-        padding: '112px 24px',
+        padding: '96px 24px 112px',
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: '20px' }}>
-          <SectionLabel label="WORK" />
-          <h2
-            className="font-display"
-            style={{
-              fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
-              fontWeight: 800,
-              letterSpacing: '-0.015em',
-              color: 'var(--color-text-primary)',
-              margin: '14px 0 0 0',
-            }}
-          >
-            Things we&apos;ve shipped
-          </h2>
-        </div>
+        <p className="moment-stamp reveal" style={{ marginBottom: '16px' }}>
+          <span className="clock">13:00</span> deep work
+        </p>
+
+        <h2
+          className="font-display reveal"
+          data-delay="60"
+          style={{
+            fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
+            fontWeight: 800,
+            letterSpacing: '-0.015em',
+            color: 'var(--color-text-primary)',
+            margin: '0 0 14px 0',
+          }}
+        >
+          The shipping hours.
+        </h2>
 
         <p
           className="reveal"
-          data-delay="80"
+          data-delay="100"
           style={{
             fontSize: '1rem',
             lineHeight: 1.75,
             color: 'var(--color-text-muted)',
             maxWidth: '44em',
-            margin: '0 0 48px 0',
+            margin: '0 0 56px 0',
           }}
         >
-          Real products, running right now — most of them on a server humming
-          away in my own home. Every one started as &quot;wouldn&apos;t it be
-          easier if…&quot;
+          Real products, running right now — most on a server humming away in
+          my own home. Every one started as &quot;wouldn&apos;t it be easier
+          if…&quot;
         </p>
 
-        {/* Acadeon Ecosystem */}
-        <div className="reveal" style={{ marginBottom: '16px' }}>
-          <p
-            style={{
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              color: 'var(--color-accent)',
-              textTransform: 'uppercase',
-              margin: 0,
-              fontFamily: 'var(--font-mono)',
-            }}
-          >
-            Acadeon Ecosystem
-          </p>
-        </div>
+        {/* ── The ecosystem: type-led ledger ──── */}
+        <p
+          className="reveal"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: 'var(--color-accent)',
+            margin: '0 0 6px 0',
+          }}
+        >
+          The Acadeon ecosystem
+        </p>
 
-        <div className="projects-grid" style={{ display: 'grid', gap: '20px', marginBottom: '64px' }}>
+        <div style={{ borderTop: '1px solid var(--color-border)', marginBottom: '72px' }}>
           {ACADEON_PROJECTS.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+            <IndexRow key={project.name} project={project} index={i} />
           ))}
         </div>
 
-        {/* Divider */}
-        <div
+        {/* ── Earlier client work: visual strip ── */}
+        <p
           className="reveal"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '16px',
-            marginBottom: '32px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: 'var(--color-text-subtle)',
+            margin: '0 0 20px 0',
           }}
         >
-          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
-          <p
-            style={{
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              color: 'var(--color-text-subtle)',
-              textTransform: 'uppercase',
-              margin: 0,
-              fontFamily: 'var(--font-mono)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Previous work
-          </p>
-          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
-        </div>
+          Earlier client work
+        </p>
 
-        <div className="projects-grid" style={{ display: 'grid', gap: '20px' }}>
+        <div className="previous-strip" style={{ display: 'grid', gap: '18px' }}>
           {PREVIOUS_PROJECTS.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={ACADEON_PROJECTS.length + i} />
+            <PreviousCard key={project.name} project={project} index={i} />
           ))}
         </div>
       </div>
 
       <style>{`
-        .projects-grid {
+        .index-row {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 6px 20px;
+          padding: 22px 10px;
+          border-bottom: 1px solid var(--color-border);
+          text-decoration: none;
+          position: relative;
+          transition: background 0.25s, padding-left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        a.index-row:hover {
+          background: color-mix(in srgb, var(--color-accent) 4%, transparent);
+          padding-left: 18px;
+        }
+        a.index-row:hover .index-name {
+          color: var(--color-accent);
+        }
+        a.index-row:hover .index-arrow {
+          opacity: 1;
+          transform: translate(0, 0);
+        }
+        .previous-strip {
           grid-template-columns: 1fr;
         }
+        .index-meta {
+          grid-column: 2;
+        }
+        .index-arrow {
+          display: none;
+        }
         @media (min-width: 768px) {
-          .projects-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .previous-strip {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .index-row {
+            grid-template-columns: 52px 1.05fr 1.3fr 32px;
+            align-items: baseline;
+          }
+          .index-meta {
+            grid-column: auto;
+          }
+          .index-arrow {
+            display: block;
           }
         }
       `}</style>
@@ -130,59 +162,106 @@ export function Projects() {
   );
 }
 
-function StatusBadge({ status }: { status: Project['status'] }) {
+function StatusMark({ status }: { status: Project['status'] }) {
   if (status === 'live') {
     return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-success)', fontFamily: 'var(--font-mono)' }}>
+        <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-success)', display: 'inline-block' }} />
+        live
+      </span>
+    );
+  }
+  if (status === 'wip') {
+    return <span style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-warning)', fontFamily: 'var(--font-mono)' }}>building</span>;
+  }
+  return <span style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-text-subtle)', fontFamily: 'var(--font-mono)' }}>internal</span>;
+}
+
+function IndexRow({ project, index }: { project: Project; index: number }) {
+  const inner = (
+    <>
       <span
+        aria-hidden="true"
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '5px',
-          fontSize: '0.75rem',
-          fontWeight: 500,
-          color: 'var(--color-success)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.78rem',
+          color: 'var(--color-text-subtle)',
+          paddingTop: '6px',
         }}
       >
+        {String(index + 1).padStart(2, '0')}
+      </span>
+
+      <span style={{ minWidth: 0 }}>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap' }}>
+          <span
+            className="index-name font-display"
+            style={{
+              fontSize: 'clamp(1.25rem, 2.6vw, 1.7rem)',
+              fontWeight: 700,
+              color: 'var(--color-text-primary)',
+              transition: 'color 0.2s',
+              overflowWrap: 'anywhere',
+            }}
+          >
+            {project.name}
+          </span>
+          <StatusMark status={project.status} />
+        </span>
         <span
           style={{
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            backgroundColor: 'var(--color-success)',
-            display: 'inline-block',
+            display: 'block',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            color: 'var(--color-text-subtle)',
+            marginTop: '6px',
           }}
-        />
-        Live
+        >
+          {project.tags.join(' · ')}
+        </span>
       </span>
-    );
-  }
 
-  if (status === 'wip') {
-    return (
       <span
+        className="index-meta"
         style={{
-          fontSize: '0.75rem',
-          fontWeight: 500,
-          color: 'var(--color-warning)',
+          fontSize: '0.9rem',
+          lineHeight: 1.6,
+          color: 'var(--color-text-muted)',
         }}
       >
-        In Progress
+        {project.description}
       </span>
+
+      <span
+        className="index-arrow"
+        aria-hidden="true"
+        style={{
+          opacity: project.url ? 0.35 : 0,
+          transform: 'translate(-4px, 4px)',
+          transition: 'opacity 0.25s, transform 0.25s',
+          color: 'var(--color-accent)',
+          alignSelf: 'start',
+          paddingTop: '6px',
+        }}
+      >
+        {project.url ? <ArrowUpRight size={20} /> : null}
+      </span>
+    </>
+  );
+
+  const revealProps = {
+    className: 'index-row reveal',
+    'data-delay': String(index * 60),
+  };
+
+  if (project.url) {
+    return (
+      <a href={project.url} target="_blank" rel="noopener noreferrer" {...revealProps}>
+        {inner}
+      </a>
     );
   }
-
-  // internal
-  return (
-    <span
-      style={{
-        fontSize: '0.75rem',
-        fontWeight: 500,
-        color: 'var(--color-text-subtle)',
-      }}
-    >
-      Internal
-    </span>
-  );
+  return <div {...revealProps}>{inner}</div>;
 }
 
 function LazyVideoPreview({ src }: { src: string }) {
@@ -212,10 +291,8 @@ function LazyVideoPreview({ src }: { src: string }) {
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-xl mb-4"
       style={{
-        maxHeight: '180px',
-        height: '180px',
+        height: '150px',
         backgroundColor: 'var(--color-bg-overlay)',
         overflow: 'hidden',
       }}
@@ -223,7 +300,7 @@ function LazyVideoPreview({ src }: { src: string }) {
       {isInView && (
         <video
           src={src}
-          className="w-full h-full rounded-xl object-cover"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           preload="none"
           autoPlay
           muted
@@ -235,93 +312,59 @@ function LazyVideoPreview({ src }: { src: string }) {
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  return (
-    <div
-      className="card card-hover shine reveal"
-      data-delay={String(index * 80)}
-      style={{
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-        cursor: project.url ? 'pointer' : 'default',
-      }}
-    >
-      {project.image && project.image.endsWith('.mp4') && (
-        <LazyVideoPreview src={project.image} />
-      )}
-      {project.image && !project.image.endsWith('.mp4') && (
-        <div className="relative w-full mb-4 rounded-xl overflow-hidden" style={{ height: '160px' }}>
-          <Image src={project.image} alt={project.name} fill className="object-cover" />
-        </div>
-      )}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
-        <h3
-          style={{
-            fontSize: '1rem',
-            fontWeight: 600,
-            color: 'var(--color-text-primary)',
-            margin: 0,
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
-          {project.name}
-        </h3>
-        <StatusBadge status={project.status} />
+function PreviousCard({ project, index }: { project: Project; index: number }) {
+  const media = project.image ? (
+    project.image.endsWith('.mp4') ? (
+      <LazyVideoPreview src={project.image} />
+    ) : (
+      <div style={{ position: 'relative', height: '150px', overflow: 'hidden' }}>
+        <Image src={project.image} alt={project.name} fill style={{ objectFit: 'cover' }} />
       </div>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--color-text-muted)',
-          margin: 0,
-          lineHeight: 1.5,
-        }}
-      >
-        {project.description}
-      </p>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '6px',
-          marginTop: '16px',
-        }}
-      >
-        {project.tags.map((tag) => (
-          <Badge key={tag} label={tag} />
-        ))}
-      </div>
-      <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-        {project.url ? (
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
+    )
+  ) : null;
+
+  const body = (
+    <>
+      {media}
+      <div style={{ padding: '14px 16px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px' }}>
+          <h3
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-              transition: 'opacity 0.2s',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              color: 'var(--color-text-primary)',
+              margin: 0,
+              fontFamily: 'var(--font-mono)',
             }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.7')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
           >
-            <ExternalLink size={13} />
-            {project.url.replace('https://', '')}
-          </a>
-        ) : null}
+            {project.name}
+          </h3>
+          {project.url && <ArrowUpRight size={14} style={{ color: 'var(--color-text-subtle)', flexShrink: 0 }} aria-hidden="true" />}
+        </div>
+        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.5, margin: '6px 0 0 0' }}>
+          {project.description}
+        </p>
       </div>
-    </div>
+    </>
   );
+
+  const shared = {
+    className: 'card card-hover reveal-scale',
+    'data-delay': String(index * 90),
+    style: {
+      overflow: 'hidden',
+      display: 'block',
+      textDecoration: 'none',
+      borderRadius: '16px',
+    } as React.CSSProperties,
+  };
+
+  if (project.url) {
+    return (
+      <a href={project.url} target="_blank" rel="noopener noreferrer" {...shared}>
+        {body}
+      </a>
+    );
+  }
+  return <div {...shared}>{body}</div>;
 }

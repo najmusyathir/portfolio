@@ -28,32 +28,29 @@ export function Hero() {
       >
         {/* ── Left: the words ─────────────────── */}
         <div>
+          <p className="moment-stamp reveal" style={{ marginBottom: '18px' }}>
+            <span className="clock">06:12</span> first light
+          </p>
+
           <p
             className="reveal"
+            data-delay="60"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              fontWeight: 500,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
+              fontSize: '0.78rem',
               color: 'var(--color-text-muted)',
-              background: 'var(--color-bg-elevated)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '999px',
-              padding: '7px 14px',
-              margin: '0 0 28px 0',
+              margin: '0 0 26px 0',
             }}
           >
-            <span className="pulse-dot" />
-            Malaysia · Open to collaborate
+            <span style={{ color: 'var(--color-text-subtle)' }}>~$</span>{' '}
+            open to collaborate <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+            Malaysia (GMT+8) <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+            <span style={{ color: 'var(--color-success)' }}>6 agents online</span>
           </p>
 
           <h1
             className="font-display reveal"
-            data-delay="100"
+            data-delay="120"
             style={{
               fontSize: 'clamp(2.6rem, 6vw, 4.4rem)',
               fontWeight: 800,
@@ -67,7 +64,6 @@ export function Hero() {
             <br />
             I build with an{' '}
             <span className="gradient-text">AI&nbsp;team</span>.
-            <span className="cursor" aria-hidden="true" />
           </h1>
 
           <p
@@ -82,21 +78,33 @@ export function Hero() {
             }}
           >
             Full-stack developer with big energy and a home-grown crew of six
-            AI teammates. Together we turn everyday friction into real
-            products — terminals, dashboards, finance tools — all self-hosted,
-            all live.
+            AI teammates. Every day here starts before sunrise and ends after
+            midnight — scroll through one and see what we make of it.
           </p>
 
           <div
             className="reveal"
             data-delay="300"
-            style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}
+            style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '22px' }}
           >
             <Link href="/#work" className="btn-primary">
-              See what we&apos;ve built
+              Start the day
+              <ArrowRight size={15} aria-hidden="true" />
             </Link>
-            <Link href="/#contact" className="btn-ghost">
-              Let&apos;s talk
+            <Link
+              href="/#contact"
+              className="hero-text-link"
+              style={{
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                color: 'var(--color-text-primary)',
+                textDecoration: 'underline',
+                textDecorationColor: 'var(--color-accent-mid)',
+                textUnderlineOffset: '5px',
+                textDecorationThickness: '1.5px',
+              }}
+            >
+              or skip to midnight — let&apos;s talk
             </Link>
           </div>
         </div>
@@ -142,6 +150,13 @@ export function Hero() {
         }
         .hero-team-link:hover {
           gap: 11px;
+        }
+        .hero-text-link {
+          transition: color 0.2s, text-decoration-color 0.2s;
+        }
+        .hero-text-link:hover {
+          color: var(--color-accent);
+          text-decoration-color: var(--color-accent);
         }
         .hero-grid {
           grid-template-columns: 1fr;

@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { SectionLabel } from '@/components/ui/SectionLabel';
-import { STATS } from '@/lib/data';
 
 const ACTIVITIES = [
   {
@@ -23,6 +21,12 @@ const ACTIVITIES = [
   },
 ];
 
+/**
+ * 17:30 — off the clock. The human behind the constellation.
+ * Photo sits in the polaroid family (no gradient-ring avatar),
+ * the numbers are said out loud in one mono line, not counted
+ * in four template tiles.
+ */
 export function About() {
   return (
     <section
@@ -30,29 +34,31 @@ export function About() {
       style={{
         position: 'relative',
         zIndex: 1,
-        padding: '112px 24px',
+        padding: '96px 24px 112px',
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: '20px' }}>
-          <SectionLabel label="ABOUT" />
-          <h2
-            className="font-display"
-            style={{
-              fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
-              fontWeight: 800,
-              letterSpacing: '-0.015em',
-              color: 'var(--color-text-primary)',
-              margin: '14px 0 0 0',
-            }}
-          >
-            Easy to work with. Hard to out-enthusiasm.
-          </h2>
-        </div>
+        <p className="moment-stamp reveal" style={{ marginBottom: '16px' }}>
+          <span className="clock">17:30</span> off the clock
+        </p>
+
+        <h2
+          className="font-display reveal"
+          data-delay="60"
+          style={{
+            fontSize: 'clamp(1.9rem, 4vw, 2.6rem)',
+            fontWeight: 800,
+            letterSpacing: '-0.015em',
+            color: 'var(--color-text-primary)',
+            margin: '0 0 48px 0',
+          }}
+        >
+          Easy to work with. Hard to out-enthusiasm.
+        </h2>
 
         <div
           className="about-layout"
-          style={{ display: 'grid', gap: '48px', alignItems: 'center', marginBottom: '56px' }}
+          style={{ display: 'grid', gap: '48px', alignItems: 'start', marginBottom: '48px' }}
         >
           <div className="reveal" data-delay="100">
             <p
@@ -102,61 +108,61 @@ export function About() {
             data-delay="200"
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <div className="avatar-ring">
+            <div
+              className="polaroid"
+              style={{
+                background: 'var(--color-bg-elevated)',
+                border: '1px solid var(--color-border)',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                transform: 'rotate(2deg)',
+                transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s',
+                boxShadow: '0 10px 30px -16px rgba(34, 29, 20, 0.22)',
+                padding: '10px 10px 14px',
+              }}
+            >
               <Image
                 src="/profile_pic.jpg"
                 alt="Najmu Syathir"
-                width={180}
-                height={180}
-                style={{ objectFit: 'cover', width: 180, height: 180 }}
+                width={210}
+                height={210}
+                style={{ objectFit: 'cover', width: 210, height: 210, borderRadius: '10px', display: 'block' }}
               />
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.7rem',
+                  color: 'var(--color-text-muted)',
+                  textAlign: 'center',
+                  margin: '10px 0 0 0',
+                }}
+              >
+                the human node
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Stats strip */}
-        <div
-          className="stats-strip reveal"
+        {/* the numbers, said out loud */}
+        <p
+          className="reveal"
           data-delay="150"
           style={{
-            display: 'grid',
-            gap: '14px',
-            marginBottom: '72px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.82rem',
+            color: 'var(--color-text-muted)',
+            borderLeft: '2px solid var(--color-accent-mid)',
+            paddingLeft: '16px',
+            margin: '0 0 72px 0',
+            lineHeight: 1.9,
           }}
         >
-          {STATS.map((stat) => (
-            <div
-              key={stat.label}
-              className="card"
-              style={{
-                padding: '18px 20px',
-                textAlign: 'center',
-              }}
-            >
-              <p
-                className="font-display gradient-text"
-                style={{
-                  fontSize: 'clamp(1.6rem, 3vw, 2.1rem)',
-                  fontWeight: 800,
-                  margin: '0 0 2px 0',
-                  lineHeight: 1.1,
-                }}
-              >
-                {stat.number}
-              </p>
-              <p
-                style={{
-                  fontSize: '0.78rem',
-                  fontWeight: 500,
-                  color: 'var(--color-text-muted)',
-                  margin: 0,
-                }}
-              >
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
+          <span style={{ color: 'var(--color-text-subtle)' }}>$ status —</span>{' '}
+          two years shipping <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+          six products live <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+          six AI teammates <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+          one server humming in my living room
+        </p>
 
         {/* Activity polaroids */}
         <div
@@ -218,9 +224,6 @@ export function About() {
         .about-layout {
           grid-template-columns: 1fr;
         }
-        .stats-strip {
-          grid-template-columns: repeat(2, 1fr);
-        }
         .activities-grid {
           grid-template-columns: 1fr;
         }
@@ -234,9 +237,6 @@ export function About() {
           }
           .about-photo {
             order: 2;
-          }
-          .stats-strip {
-            grid-template-columns: repeat(4, 1fr);
           }
           .activities-grid {
             grid-template-columns: repeat(3, 1fr);

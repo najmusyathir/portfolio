@@ -163,8 +163,23 @@ body::after {
   opacity: 0.07;
 }
 
-/* ─── Ambient sunrise glow ───────────────────── */
-.aurora-container {
+/* ─── The horizon scene — scroll = time of day ──
+   Colors driven by DayScroll via --day-horizon /
+   --day-sky / --day-strength. Defaults = dawn, so
+   pages without the driver (/resume) still glow.  */
+:root {
+  --day-horizon: 255, 141, 60;
+  --day-sky: 255, 93, 138;
+  --day-strength: 0.5;
+}
+
+[data-theme="dark"] {
+  --day-horizon: 255, 122, 85;
+  --day-sky: 255, 123, 163;
+  --day-strength: 0.38;
+}
+
+.horizon-scene {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -172,58 +187,62 @@ body::after {
   pointer-events: none;
 }
 
-.aurora-orb {
+/* the sun side of the sky — anchored low, like a horizon */
+.horizon-glow {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 1;
+  left: 50%;
+  bottom: -42vh;
+  width: 160vw;
+  height: 90vh;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--day-horizon), calc(var(--day-strength) * 0.5)),
+    rgba(var(--day-horizon), calc(var(--day-strength) * 0.16)) 42%,
+    transparent 72%
+  );
+  filter: blur(40px);
 }
 
-.orb-1 {
-  width: 720px;
-  height: 720px;
-  background: radial-gradient(circle, var(--orb-1), transparent 70%);
-  top: -260px;
-  right: -180px;
-  animation: drift-1 28s ease-in-out infinite;
+/* the high sky wash — opposite corner, cooler */
+.sky-wash {
+  position: absolute;
+  top: -35vh;
+  right: -25vw;
+  width: 95vw;
+  height: 85vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--day-sky), calc(var(--day-strength) * 0.30)),
+    transparent 68%
+  );
+  filter: blur(52px);
 }
 
-.orb-2 {
-  width: 540px;
-  height: 540px;
-  background: radial-gradient(circle, var(--orb-2), transparent 70%);
-  bottom: -10%;
-  left: -160px;
-  animation: drift-2 34s ease-in-out infinite;
+/* ─── Moment stamp — the day-timeline eyebrow ─── */
+.moment-stamp {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin: 0;
 }
 
-.orb-3 {
-  width: 460px;
-  height: 460px;
-  background: radial-gradient(circle, var(--orb-3), transparent 70%);
-  top: 45%;
-  left: 55%;
-  animation: drift-3 42s ease-in-out infinite;
+.moment-stamp .clock {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
 }
 
-@keyframes drift-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(-70px, 60px) scale(1.07); }
-  66%  { transform: translate(40px, 110px) scale(0.94); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(80px, -70px) scale(1.1); }
-  70%  { transform: translate(-50px, -30px) scale(0.93); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-60px, -90px) scale(1.12); }
-  100% { transform: translate(0, 0) scale(1); }
+.moment-stamp::after {
+  content: '';
+  align-self: center;
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-accent-mid), transparent);
 }
 
 /* ─── Scroll reveal — blur-rise, staggered ────── */
@@ -287,6 +306,10 @@ body::after {
 
 .marquee:hover .marquee-track {
   animation-play-state: paused;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
 }
 
 @keyframes marquee-scroll {
@@ -437,7 +460,6 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .aurora-orb,
   .marquee-track,
   .cursor,
   .pulse-dot {

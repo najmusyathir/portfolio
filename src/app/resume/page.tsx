@@ -9,6 +9,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Badge } from '@/components/ui/Badge';
 import { ScrollRevealInit } from '@/components/ScrollRevealInit';
+import { MailLink } from '@/components/MailLink';
 
 const CARD_STYLE: React.CSSProperties = {
   backgroundColor: 'color-mix(in srgb, var(--color-bg-elevated) 80%, transparent)',
@@ -302,13 +303,11 @@ export default function ResumePage() {
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                   <Phone size={14} /> +60 13-735 3215
                 </span>
-                <a
-                  href="mailto:alsyathir@gmail.com"
-                  suppressHydrationWarning
+                <MailLink
+                  email="alsyathir@gmail.com"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--color-text-muted)', textDecoration: 'none' }}
-                >
-                  <Mail size={14} /> alsyathir@gmail.com
-                </a>
+                  prefix={<Mail size={14} />}
+                />
               </div>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '28px' }}>

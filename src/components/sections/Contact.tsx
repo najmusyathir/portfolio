@@ -3,15 +3,26 @@
  * the box runs all night, watchdogs armed, agents on cron.
  * Asymmetric: a statement on the left, a contact.yaml on the right.
  * Pure text — a yaml file doesn't have icons, and that's the point.
+ *
+ * The email row renders via MailLink (client-only) — see that
+ * component for why: Cloudflare's Email Obfuscation rewrites any
+ * literal mailto text server-side, which collides with hydration.
  */
 
+import { MailLink } from '@/components/MailLink';
+
+const YAML_ROW_STYLE: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '10px',
+  padding: '8px 10px',
+  margin: '0 -10px',
+  borderRadius: '8px',
+  textDecoration: 'none',
+  color: 'var(--color-text-muted)',
+};
+
 const CONTACT_ENTRIES = [
-  {
-    key: 'email',
-    value: 'alsyathir@gmail.com',
-    href: 'mailto:alsyathir@gmail.com',
-    primary: true,
-  },
   {
     key: 'whatsapp',
     value: 'wa.link/k7r72h',
@@ -114,24 +125,39 @@ export function Contact() {
             <p style={{ color: 'var(--color-text-subtle)', margin: '0 0 14px 0' }}>
               # contact.yaml
             </p>
+
+            <MailLink
+              email="alsyathir@gmail.com"
+              className="yaml-row"
+              style={YAML_ROW_STYLE}
+              valueClassName="yaml-value"
+              valueStyle={{ color: 'var(--color-text-primary)', fontWeight: 600, overflowWrap: 'anywhere' }}
+              prefix={
+                <>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: '7px',
+                      height: '7px',
+                      borderRadius: '50%',
+                      alignSelf: 'center',
+                      flexShrink: 0,
+                      background: 'var(--color-accent)',
+                    }}
+                  />
+                  <span style={{ color: 'var(--color-text-subtle)', minWidth: '86px' }}>email:</span>
+                </>
+              }
+            />
+
             {CONTACT_ENTRIES.map((entry) => (
               <a
                 key={entry.key}
                 href={entry.href}
-                target={entry.href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={entry.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                suppressHydrationWarning={entry.href.startsWith('mailto:') || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="yaml-row"
-                style={{
-                  display: 'flex',
-                  alignItems: 'baseline',
-                  gap: '10px',
-                  padding: '8px 10px',
-                  margin: '0 -10px',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  color: 'var(--color-text-muted)',
-                }}
+                style={YAML_ROW_STYLE}
               >
                 <span
                   aria-hidden="true"

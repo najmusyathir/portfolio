@@ -452,9 +452,9 @@ export default function ResumePage() {
               <h2 style={SECTION_HEADING_STYLE}>Projects</h2>
             </div>
 
-            {/* Group tabs */}
+            {/* Group tabs — never gated behind scroll-reveal: it's a
+                functional control, not decorative scroll content. */}
             <div
-              className="reveal"
               role="tablist"
               aria-label="Project categories"
               style={{
@@ -494,9 +494,15 @@ export default function ResumePage() {
               })}
             </div>
 
+            {/* This div remounts on every tab click (key={currentGroup.key}).
+                useScrollReveal only observes elements present at page-load
+                time, so a "reveal" class here would never get its
+                is-visible class added — the whole tab content would go
+                permanently invisible (but still fully in the DOM/clickable)
+                the moment a tab is switched. Must stay reveal-free. */}
             <div
               key={currentGroup.key}
-              className="projects-grid reveal"
+              className="projects-grid"
               style={{ display: 'grid', gap: '16px' }}
             >
               {currentGroup.items.map((project) => (

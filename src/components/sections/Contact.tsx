@@ -120,6 +120,7 @@ export function Contact() {
                 href={entry.href}
                 target={entry.href.startsWith('mailto:') ? undefined : '_blank'}
                 rel={entry.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                suppressHydrationWarning={entry.href.startsWith('mailto:') || undefined}
                 className="yaml-row"
                 style={{
                   display: 'flex',

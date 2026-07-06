@@ -304,6 +304,7 @@ export default function ResumePage() {
                 </span>
                 <a
                   href="mailto:alsyathir@gmail.com"
+                  suppressHydrationWarning
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--color-text-muted)', textDecoration: 'none' }}
                 >
                   <Mail size={14} /> alsyathir@gmail.com

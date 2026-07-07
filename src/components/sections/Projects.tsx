@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS, type Project } from '@/lib/data';
+import { SectionLabel } from '@/components/ui/SectionLabel';
 
 const ACADEON_PROJECTS = PROJECTS.filter((p) =>
   ['acadeon-cli', 'acadeon-pulse', 'personal-dashboard', 'ai_hub_bridge', 'ssh-web-server', 'Acadeon Academy'].includes(p.name)
@@ -14,12 +15,11 @@ const PREVIOUS_PROJECTS = PROJECTS.filter((p) =>
 );
 
 /**
- * 13:00 — deep work. The shipping hours.
- *
- * Not a card grid: an editorial index. The real products (Acadeon
- * ecosystem) are type-led ledger rows — big names, live links, no
- * decoration they don't earn. Earlier client work sits below as a
- * compact visual strip (that's where the screenshots belong).
+ * Selected work — the proof. Not a card grid: an editorial index.
+ * The real products (Acadeon ecosystem) are type-led ledger rows —
+ * big names, live links, no decoration they don't earn. Earlier
+ * client work sits below as a compact visual strip (that's where
+ * the screenshots belong).
  */
 export function Projects() {
   return (
@@ -32,9 +32,9 @@ export function Projects() {
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <p className="moment-stamp reveal" style={{ marginBottom: '16px' }}>
-          <span className="clock">13:00</span> deep work
-        </p>
+        <div className="reveal" style={{ marginBottom: '16px' }}>
+          <SectionLabel label="WORK" />
+        </div>
 
         <h2
           className="font-display reveal"
@@ -47,7 +47,7 @@ export function Projects() {
             margin: '0 0 14px 0',
           }}
         >
-          The shipping hours.
+          Things I&apos;ve shipped — and still run.
         </h2>
 
         <p
@@ -61,9 +61,10 @@ export function Projects() {
             margin: '0 0 56px 0',
           }}
         >
-          Real products, running right now — most on a server humming away in
-          my own home. Every one started as &quot;wouldn&apos;t it be easier
-          if…&quot;
+          Real products in production, most of them on a server humming away
+          in my own home. I built each one end to end and I keep each one
+          alive — the code, the deploys, the monitoring, the 2am fix when
+          something breaks.
         </p>
 
         {/* ── The ecosystem: type-led ledger ──── */}

@@ -1,7 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { Constellation } from '@/components/Constellation';
 
+/**
+ * Hero — engineer-first identity. Leads with shipped, self-hosted
+ * production work; the AI orchestration is the answer to "how does
+ * one person run all this," not the opening claim. The Constellation
+ * lives on /ai now — this is a warm photo, given real presence.
+ */
 export function Hero() {
   return (
     <section
@@ -28,13 +34,8 @@ export function Hero() {
       >
         {/* ── Left: the words ─────────────────── */}
         <div>
-          <p className="moment-stamp reveal" style={{ marginBottom: '18px' }}>
-            <span className="clock">06:12</span> first light
-          </p>
-
           <p
             className="reveal"
-            data-delay="60"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.78rem',
@@ -45,7 +46,7 @@ export function Hero() {
             <span style={{ color: 'var(--color-text-subtle)' }}>~$</span>{' '}
             open to collaborate <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
             Malaysia (GMT+8) <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
-            <span style={{ color: 'var(--color-success)' }}>6 agents online</span>
+            <span style={{ color: 'var(--color-success)' }}>6 services live</span>
           </p>
 
           <h1
@@ -60,10 +61,8 @@ export function Hero() {
               color: 'var(--color-text-primary)',
             }}
           >
-            Hi, I&apos;m Najmu.
-            <br />
-            I build with an{' '}
-            <span className="gradient-text">AI&nbsp;team</span>.
+            Hi, I&apos;m Najmu — I build software and run it in{' '}
+            <span className="gradient-text">production</span>. Solo.
           </h1>
 
           <p
@@ -77,9 +76,10 @@ export function Hero() {
               margin: '0 0 36px 0',
             }}
           >
-            Full-stack developer with big energy and a home-grown crew of six
-            AI teammates. Every day here starts before sunrise and ends after
-            midnight — scroll through one and see what we make of it.
+            Full-stack engineer building production tools front-to-back —
+            the interface, the API, and the self-hosted server it all runs
+            on. Six of them are live right now, on infrastructure I manage
+            myself.
           </p>
 
           <div
@@ -88,7 +88,7 @@ export function Hero() {
             style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '22px' }}
           >
             <Link href="/#work" className="btn-primary">
-              Start the day
+              See my work
               <ArrowRight size={15} aria-hidden="true" />
             </Link>
             <Link
@@ -104,53 +104,52 @@ export function Hero() {
                 textDecorationThickness: '1.5px',
               }}
             >
-              or skip to midnight — let&apos;s talk
+              Let&apos;s talk
             </Link>
           </div>
+
+          <p
+            className="reveal"
+            data-delay="360"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.82rem',
+              fontStyle: 'italic',
+              color: 'var(--color-text-subtle)',
+              margin: '26px 0 0 0',
+            }}
+          >
+            How does one person run all this? ↓
+          </p>
         </div>
 
-        {/* ── Right: the team, alive ──────────── */}
+        {/* ── Right: the human, given real presence ────── */}
         <div className="reveal-scale" data-delay="200" style={{ textAlign: 'center' }}>
-          <div className="hero-constellation" style={{ width: '100%' }}>
-            <Constellation />
+          <div className="hero-photo-frame">
+            <Image
+              src="/profile_pic.jpg"
+              alt="Najmu Syathir"
+              fill
+              priority
+              style={{ objectFit: 'cover' }}
+              sizes="(min-width: 1024px) 420px, 320px"
+            />
           </div>
           <p
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.72rem',
               color: 'var(--color-text-subtle)',
-              marginTop: '4px',
-              marginBottom: '14px',
+              marginTop: '16px',
+              marginBottom: 0,
             }}
           >
-            this is my actual team — hover the nodes to say hi
+            no hologram, no team on this page — just me
           </p>
-          <Link
-            href="/ai"
-            className="hero-team-link"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '7px',
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-            }}
-          >
-            Meet the team &amp; how we work
-            <ArrowRight size={15} aria-hidden="true" />
-          </Link>
         </div>
       </div>
 
       <style>{`
-        .hero-team-link {
-          transition: gap 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
-        }
-        .hero-team-link:hover {
-          gap: 11px;
-        }
         .hero-text-link {
           transition: color 0.2s, text-decoration-color 0.2s;
         }
@@ -161,15 +160,26 @@ export function Hero() {
         .hero-grid {
           grid-template-columns: 1fr;
         }
-        .hero-constellation {
-          height: 340px;
+        .hero-photo-frame {
+          position: relative;
+          width: 100%;
+          max-width: 320px;
+          aspect-ratio: 4 / 5;
+          margin: 0 auto;
+          border-radius: 28px;
+          overflow: hidden;
+          border: 1px solid var(--color-border);
+          box-shadow: 0 24px 60px -24px rgba(34, 29, 20, 0.35);
+        }
+        [data-theme="dark"] .hero-photo-frame {
+          box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
         }
         @media (min-width: 1024px) {
           .hero-grid {
             grid-template-columns: 1.05fr 0.95fr;
           }
-          .hero-constellation {
-            height: 480px;
+          .hero-photo-frame {
+            max-width: 420px;
           }
         }
       `}</style>

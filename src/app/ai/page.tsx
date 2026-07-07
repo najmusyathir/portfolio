@@ -4,21 +4,25 @@ import { AuroraBackground } from '@/components/layout/AuroraBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollProgress } from '@/components/layout/ScrollProgress';
+import { Constellation } from '@/components/Constellation';
 import { TheTeam } from '@/components/sections/TheTeam';
 import { HowIWork } from '@/components/sections/HowIWork';
+import { ScopeTable } from '@/components/sections/ScopeTable';
 import { ScrollRevealInit } from '@/components/ScrollRevealInit';
 import { HashScroll } from '@/components/HashScroll';
 
 export const metadata: Metadata = {
   title: 'The Team & How I Work — Najmu Syathir',
   description:
-    'Meet the six named AI agents Najmu builds with — and the five-step workflow that keeps every line of code directed, audited, and owned.',
+    'Meet the six named AI agents Najmu builds with, see the constellation live, and check the actual boundary each agent works inside.',
 };
 
 /**
- * /ai — the deep-dive page (.docs/10 §2): the full persona roster
- * plus the restored v2 "How I work with AI" workflow. The homepage
- * constellation is the teaser; this is the story.
+ * /ai — the deep-dive page: the full persona roster, the restored
+ * v2 "How I work with AI" workflow, and now the Constellation as a
+ * real centerpiece (moved here from the homepage — being AI-forward
+ * is the whole point of this page) plus a scope table that turns
+ * "I govern my AI" from a claim into checkable evidence.
  */
 export default function AiPage() {
   return (
@@ -28,7 +32,63 @@ export default function AiPage() {
       <Navbar />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <TheTeam />
+
+        {/* ── The constellation, in full ──────────── */}
+        <section
+          id="constellation"
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            padding: '32px 24px 96px',
+          }}
+        >
+          <div style={{ maxWidth: '1024px', margin: '0 auto', textAlign: 'center' }}>
+            <h2
+              className="font-display reveal"
+              style={{
+                fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.015em',
+                color: 'var(--color-text-primary)',
+                margin: '0 0 12px 0',
+              }}
+            >
+              This is my actual team.
+            </h2>
+            <p
+              className="reveal"
+              data-delay="60"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.85rem',
+                color: 'var(--color-text-subtle)',
+                margin: '0 auto 28px',
+                maxWidth: '34em',
+              }}
+            >
+              Najmu at the center, six scoped agents in orbit — hover the
+              nodes to say hi, and watch the pulses travel where the actual
+              work happens.
+            </p>
+            <div className="reveal-scale constellation-frame" data-delay="120">
+              <Constellation />
+            </div>
+          </div>
+
+          <style>{`
+            .constellation-frame {
+              height: 380px;
+            }
+            @media (min-width: 768px) {
+              .constellation-frame {
+                height: 520px;
+              }
+            }
+          `}</style>
+        </section>
+
         <HowIWork />
+        <ScopeTable />
 
         {/* ── CTA — back into the homepage sections ── */}
         <section

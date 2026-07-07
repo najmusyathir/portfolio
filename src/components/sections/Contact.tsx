@@ -1,8 +1,8 @@
 /**
- * 23:47 — the server hums. The closer, and it's literally true:
- * the box runs all night, watchdogs armed, agents on cron.
- * Asymmetric: a statement on the left, a contact.yaml on the right.
- * Pure text — a yaml file doesn't have icons, and that's the point.
+ * Contact — the closer, and it's literally true: the box runs all
+ * night, watchdogs armed, agents on cron. Asymmetric: a statement
+ * on the left, a contact.yaml on the right. Pure text — a yaml file
+ * doesn't have icons, and that's the point.
  *
  * The email row renders via MailLink (client-only) — see that
  * component for why: Cloudflare's Email Obfuscation rewrites any
@@ -10,6 +10,7 @@
  */
 
 import { MailLink } from '@/components/MailLink';
+import { SectionLabel } from '@/components/ui/SectionLabel';
 
 const YAML_ROW_STYLE: React.CSSProperties = {
   display: 'flex',
@@ -73,9 +74,9 @@ export function Contact() {
       >
         {/* ── Left: the statement ─────────────── */}
         <div>
-          <p className="moment-stamp reveal" style={{ marginBottom: '16px' }}>
-            <span className="clock">23:47</span> the server hums
-          </p>
+          <div className="reveal" style={{ marginBottom: '16px' }}>
+            <SectionLabel label="GET IN TOUCH" />
+          </div>
 
           <h2
             className="font-display reveal"
@@ -104,10 +105,10 @@ export function Contact() {
               margin: 0,
             }}
           >
-            It&apos;s almost midnight here and the server&apos;s still humming —
-            watchdogs armed, agents on cron, someone always awake. Half-formed
-            ideas are my favorite kind: you bring the spark, we&apos;ll shape it
-            into something real by morning.
+            The server&apos;s still humming — watchdogs armed, agents on
+            cron, someone always awake. Half-formed ideas are my favorite
+            kind: you bring the spark, we&apos;ll shape it into something
+            real by morning.
           </p>
         </div>
 

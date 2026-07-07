@@ -3,8 +3,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollProgress } from '@/components/layout/ScrollProgress';
 import { Hero } from '@/components/sections/Hero';
-import { Standup } from '@/components/sections/Standup';
 import { Projects } from '@/components/sections/Projects';
+import { HowIWorkTeaser } from '@/components/sections/HowIWorkTeaser';
 import { Stack } from '@/components/sections/Stack';
 import { About } from '@/components/sections/About';
 import { Contact } from '@/components/sections/Contact';
@@ -13,9 +13,14 @@ import { HashScroll } from '@/components/HashScroll';
 import { DayScroll } from '@/components/DayScroll';
 
 /**
- * The homepage is one continuous day — scroll position is time.
- * 06:12 first light → 09:04 standup → 13:00 deep work →
- * 15:20 tool check → 17:30 off the clock → 23:47 the server hums.
+ * The homepage leads as an engineer: real shipped, self-hosted
+ * production work first. The AI orchestration is revealed as the
+ * answer to "how does one person run all this," not the opening
+ * claim — see HowIWorkTeaser, which doors to /ai for the full story.
+ *
+ * The ambient dawn→night scroll background (DayScroll) stays as the
+ * page's atmospheric signature; the per-section timestamp labels
+ * that used to caption it were dropped in favor of clean eyebrows.
  */
 export default function Home() {
   return (
@@ -26,8 +31,8 @@ export default function Home() {
       <Navbar />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
-        <Standup />
         <Projects />
+        <HowIWorkTeaser />
         <Stack />
         <About />
         <Contact />

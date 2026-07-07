@@ -219,32 +219,6 @@ body::after {
   filter: blur(52px);
 }
 
-/* ─── Moment stamp — the day-timeline eyebrow ─── */
-.moment-stamp {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  margin: 0;
-}
-
-.moment-stamp .clock {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--color-accent);
-  letter-spacing: 0.04em;
-}
-
-.moment-stamp::after {
-  content: '';
-  align-self: center;
-  width: 56px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--color-accent-mid), transparent);
-}
-
 /* ─── Scroll reveal — blur-rise, staggered ────── */
 .reveal {
   opacity: 0;

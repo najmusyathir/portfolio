@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { SectionLabel } from '@/components/ui/SectionLabel';
 
 const ACTIVITIES = [
   {
@@ -22,10 +23,9 @@ const ACTIVITIES = [
 ];
 
 /**
- * 17:30 — off the clock. The human behind the constellation.
- * Photo sits in the polaroid family (no gradient-ring avatar),
- * the numbers are said out loud in one mono line, not counted
- * in four template tiles.
+ * About — the human behind the system. Photo sits in the polaroid
+ * family (no gradient-ring avatar), the numbers are said out loud
+ * in one mono line, not counted in four template tiles.
  */
 export function About() {
   return (
@@ -38,9 +38,9 @@ export function About() {
       }}
     >
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <p className="moment-stamp reveal" style={{ marginBottom: '16px' }}>
-          <span className="clock">17:30</span> off the clock
-        </p>
+        <div className="reveal" style={{ marginBottom: '16px' }}>
+          <SectionLabel label="ABOUT" />
+        </div>
 
         <h2
           className="font-display reveal"
@@ -82,12 +82,14 @@ export function About() {
                 margin: '0 0 20px 0',
               }}
             >
-              What makes me different isn&apos;t just the stack — it&apos;s how
-              I work. I confess ideas out loud, prototype fast, and treat AI as
-              a genuine collaborator. My six-agent team isn&apos;t a gimmick;
-              it&apos;s how a solo developer runs production infrastructure,
-              multiple products, and still has energy left to get excited about
-              the next idea.
+              What makes me different isn&apos;t the stack — it&apos;s the
+              discipline around it. I built a six-agent AI system so one
+              developer can run production infrastructure and multiple
+              products, but I built it the way you build anything that
+              touches prod: scoped permissions, reviewed output, and a hard
+              rule that I never ship code I couldn&apos;t have written
+              myself. AI gives me leverage; it doesn&apos;t get to give me
+              comprehension debt.
             </p>
             <p
               style={{
@@ -160,7 +162,7 @@ export function About() {
           <span style={{ color: 'var(--color-text-subtle)' }}>$ status —</span>{' '}
           two years shipping <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
           six products live <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
-          six AI teammates <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
+          six AI agents, one review gate <span style={{ color: 'var(--color-text-subtle)' }}>·</span>{' '}
           one server humming in my living room
         </p>
 

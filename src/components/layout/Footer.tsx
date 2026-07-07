@@ -26,7 +26,7 @@ export function Footer() {
           margin: 0,
         }}
       >
-        self-hosted with care in Malaysia · 06:12 — and tomorrow it starts again
+        self-hosted with care in Malaysia · the server never really sleeps
       </p>
     </footer>
   );

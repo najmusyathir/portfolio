@@ -22,14 +22,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Najmu Syathir — I build with an AI team',
+  title: 'Najmu Syathir — Full-stack engineer, solo, in production',
   description:
-    "Hi! I'm Najmu — a full-stack developer in Malaysia who treats AI as a creative partner. Together with my AI team, I ship terminals, dashboards, and tools that make daily life lighter.",
+    "Hi! I'm Najmu — a full-stack engineer in Malaysia building production tools front-to-back and running them myself. Six services live right now, on infrastructure I manage solo.",
   keywords: [
     'Najmu Syathir',
-    'full-stack developer',
-    'AI collaboration',
-    'AI orchestration',
+    'full-stack engineer',
+    'self-hosted infrastructure',
     'Next.js',
     'TypeScript',
     'Malaysia',
@@ -38,18 +37,18 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Najmu Syathir' }],
   openGraph: {
-    title: 'Najmu Syathir — I build with an AI team',
+    title: 'Najmu Syathir — Full-stack engineer, solo, in production',
     description:
-      "Full-stack developer in Malaysia who treats AI as a creative partner. Shipping terminals, dashboards, and tools that make daily life lighter.",
+      'Full-stack engineer in Malaysia building production tools front-to-back and running them myself. Six services live, one self-hosted server.',
     url: 'https://najmusyathir.dev',
     siteName: 'Najmu Syathir',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Najmu Syathir — I build with an AI team',
+    title: 'Najmu Syathir — Full-stack engineer, solo, in production',
     description:
-      "Full-stack developer in Malaysia who treats AI as a creative partner. Shipping tools that make daily life lighter.",
+      'Full-stack engineer in Malaysia building production tools front-to-back and running them myself.',
   },
   metadataBase: new URL('https://najmusyathir.dev'),
 };

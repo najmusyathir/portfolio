@@ -3,11 +3,12 @@
 /* ==========================================================================
    Portfolio v6 — design tokens
    --------------------------------------------------------------------------
-   Two visual skins, one component set. Semantic tokens (--c-bg, --c-ink,
+   Three visual skins, one component set. Semantic tokens (--c-bg, --c-ink,
    --c-accent, …) are what every component reads. The default :root values
    are the true-v1 palette (Oxford Blue + Beaver/Sandal browns on light).
-   [data-palette="editorial"] re-skins the exact same components for the
-   /landing-2 comparison. No component ever hardcodes a hex value.
+   [data-palette="editorial"] re-skins for /landing-2 (warm light "Espresso
+   Editorial"); [data-palette="timber"] re-skins for /landing-3 (dark-first
+   "Timber & Stone"). No component ever hardcodes a hex value.
    ========================================================================== */
 
 @theme {
@@ -98,6 +99,38 @@
   --c-line-soft: #f0e7d8;
   --c-shadow: 60 40 24;
   --hero-wash: linear-gradient(180deg, #f1e7d6 0%, #f7f3ec 100%);
+}
+
+/* --------------------------------------------------------------------------
+   DARK SKIN — "Timber & Stone" (/landing-3)
+   Modern-architectural "bungalow in the woods": warm near-black charcoal,
+   graphite surfaces, stone-grey lines, smoked-walnut as a secondary
+   structural warm tone, and ONE brass/amber accent for CTAs/links/highlights.
+   Dark-first. Contrast notes (all measured against --c-bg #1a1917, L≈0.0098):
+     • ink   #f4f1ea ≈ 14.6:1   • body #cfc8bb ≈ 10.6:1   — both well past AA.
+     • accent brass #c6923e ≈ 6.3:1 → AA for link/eyebrow/CTA text on the bg.
+     • muted TEXT is #948d81 ≈ 5.3:1 (AA), NOT the raw stone #6e6a63 (≈3.3:1):
+       the brief's stone grey is used for LINES/borders (where 3.3:1 reads as
+       a crisp architectural rule); text was lightened one step to clear AA.
+     • --c-accent-ink flips to near-black (#1a1917) so dark type on the light
+       brass button hits ≈6.3:1 (white-on-brass would only be ~2:1).
+   Rationale in PORTFOLIO-V6-DESIGN.md §"Timber & Stone (/landing-3)".
+   -------------------------------------------------------------------------- */
+[data-palette="timber"] {
+  --c-bg: #1a1917; /* warm near-black — darkest surface */
+  --c-bg-soft: #211f1b; /* faint graphite band */
+  --c-surface: #2e2c29; /* raised graphite surface (cards) */
+  --c-surface-2: #38342e; /* chips / inset fills */
+  --c-ink: #f4f1ea; /* warm off-white headings */
+  --c-body: #cfc8bb; /* warm light grey body copy */
+  --c-muted: #948d81; /* lightened stone grey for muted TEXT (AA) */
+  --c-accent: #c6923e; /* brass / amber — the single accent */
+  --c-accent-2: #7a5c43; /* smoked walnut — secondary structural warm tone */
+  --c-accent-ink: #1a1917; /* near-black type on the brass button */
+  --c-line: #6e6a63; /* mid stone grey — architectural borders */
+  --c-line-soft: #3a3630; /* subtle divider on dark */
+  --c-shadow: 0 0 0; /* pure-black elevation on dark */
+  --hero-wash: linear-gradient(180deg, #211f1b 0%, #1a1917 100%);
 }
 
 /* --------------------------------------------------------------------------

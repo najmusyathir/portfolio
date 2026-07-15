@@ -183,3 +183,61 @@ Both skins are **light-first** (see deviations re: dark mode).
    v1's exact brand marks. Harmless; left in place to avoid touching plumbing.
 6. **PetCare image.** v1 used a `.mp4` for PetCare; I used the `current_project.png`
    still for a clean, reliable card image (no autoplay video on the grid).
+
+---
+
+## 8. Timber & Stone (`/landing-3`) — third skin, dark-first
+
+A third palette added for side-by-side comparison, same as `/landing-2`: it reuses the
+existing token system with **zero changes to the landing**. `/landing-3` renders the
+identical `<Landing/>` tree inside a `data-palette="timber"` wrapper; the skin is one
+new `[data-palette="timber"]` block in `globals.css` overriding the same semantic vars
+every component already reads. No component or section was duplicated or edited.
+
+**Mood / intent.** "Super-modern bungalow in the woods" — modern-architectural, warm and
+premium, natural materials. Warm near-black charcoal base, graphite raised surfaces,
+stone-grey lines, smoked walnut as a structural warm tone, and a single brass/amber
+accent. Deliberately **not** the purple/cyan "AI-vibecoded" look: no neon, no gradients-
+as-decoration, no glow-everywhere — brass is used with restraint (CTA, eyebrows, links,
+key highlights) and walnut is a secondary structural tone, never a second accent.
+
+**Tokens (semantic → hex):**
+
+| Token | Hex | Role |
+| :-- | :-- | :-- |
+| `--c-bg` | `#1a1917` | warm near-black, darkest surface |
+| `--c-bg-soft` | `#211f1b` | faint graphite band |
+| `--c-surface` / `--c-surface-2` | `#2e2c29` / `#38342e` | raised cards / chips & inset fills |
+| `--c-ink` | `#f4f1ea` | warm off-white headings |
+| `--c-body` | `#cfc8bb` | warm light-grey body copy |
+| `--c-muted` | `#948d81` | muted **text** (lightened stone) |
+| `--c-accent` | `#c6923e` | brass/amber — the single accent |
+| `--c-accent-2` | `#7a5c43` | smoked walnut — secondary structural tone |
+| `--c-accent-ink` | `#1a1917` | near-black type on the brass button |
+| `--c-line` / `--c-line-soft` | `#6e6a63` / `#3a3630` | stone borders / subtle dividers |
+
+**Contrast (dark-first, AA target — measured against `--c-bg` `#1a1917`, L≈0.0098):**
+- ink `#f4f1ea` ≈ **14.6:1**, body `#cfc8bb` ≈ **10.6:1** — both comfortably past AA (and AAA).
+- accent brass `#c6923e` ≈ **6.3:1** — AA even at small size, so it's safe for link/eyebrow/CTA text on the charcoal bg.
+
+**Adjustments I made (as a senior would), keeping the brief's intent:**
+1. **Muted text ≠ raw stone grey.** The brief's mid stone `#6e6a63` is only ≈3.3:1 on the
+   bg — fine for **lines/borders** (it reads as a crisp architectural rule), but it fails
+   AA as body-adjacent text. So `--c-line` keeps `#6e6a63`, while muted **text**
+   (`--c-muted`) is lightened one step to `#948d81` (≈5.3:1) to clear AA. Two roles, two
+   values — same stone family.
+2. **Accent-ink flips to dark.** On light-first skins `--c-accent-ink` is white (white on
+   a dark accent). Brass is a *light* accent, so white-on-brass would be only ~2:1. I set
+   `--c-accent-ink` to near-black `#1a1917` → dark type on the brass button hits ≈6.3:1.
+3. **Light-text value picked for AA.** From the brief's off-white options I used
+   `#f4f1ea` for headings and a slightly softer `#cfc8bb` for body to give real type
+   hierarchy while both stay well past AA.
+4. **Route wrapper gets `minHeight:100vh`** so the charcoal bg covers the viewport and no
+   default-light `body` shows through at overscroll/edges (a dark-first-only concern that
+   doesn't apply to the light `/landing-2`).
+
+This does not contradict deviation #4 above: `/` and all inner pages remain light-first
+and locked; `timber` is an *opt-in alternate skin on its own route*, not a global dark
+mode. Verified: `tsc --noEmit` clean, `next build` clean (all 8 routes static, incl.
+`/landing-3`), `eslint src/**` clean (0/0). Playwright shots at 1440 + 390 confirm it's
+dark, legible, and the brass accent reads well throughout.

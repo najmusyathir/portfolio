@@ -108,16 +108,12 @@ export default function AboutPage() {
                 </h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem", color: "var(--c-body)", fontSize: "var(--text-lg)", maxWidth: "64ch" }}>
                   <p style={{ margin: 0 }}>
-                    Since joining {PROFILE.company} I picked up a new habit that quietly became
-                    part of how I work: a <strong style={{ color: "var(--c-ink)" }}>Kawasaki Ninja 250</strong>. I
-                    ride a lot — and increasingly, I ride <em>to code</em>.
+                    I&apos;m a café hunter — I&apos;ll ride the <strong style={{ color: "var(--c-ink)" }}>Ninja 250</strong> out
+                    to find a spot with the right vibe, settle in, and work. A good ride, a good
+                    brew, a quiet corner: that&apos;s where my focus actually shows up.
                   </p>
                   <p style={{ margin: 0 }}>
-                    &ldquo;Coffee&rdquo; isn&apos;t decoration here. I&apos;m a café hunter: I&apos;ll take the bike
-                    further out to find a spot with the right chill vibe, settle in, and work. That
-                    mix — a good ride, a good brew, a quiet corner — is genuinely where my best
-                    focus shows up. I&apos;ve chased cafés across a few states now (around Johor Bahru,
-                    Melaka, and Kuantan), and I plan to keep exploring more of them by sportbike.
+                    So far around Johor Bahru, Melaka, and Kuantan — with more to find.
                   </p>
                 </div>
 

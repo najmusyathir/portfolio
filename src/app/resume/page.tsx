@@ -28,8 +28,11 @@ const JOBS: Job[] = [
     company: "myFirst Tech Sdn Bhd",
     period: "Mar 2025 – Present",
     bullets: [
-      "Contributing across front-end and back-end systems as a full-stack engineer — architecture, component design, and shipping features end to end.",
+      "Building production web applications with Next.js and TypeScript across the full stack — architecture, component design, and shipping features end to end.",
+      "Integrated payment gateways — Stripe and Airwallex — for transactions and cross-border payments.",
+      "Worked with Go for backend services alongside the TypeScript stack.",
     ],
+    tech: ["Next.js", "TypeScript", "Go", "Stripe", "Airwallex"],
   },
   {
     title: "Junior Software Developer & Operations (FE)",
@@ -89,11 +92,13 @@ const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
 ];
 
 const SKILL_GROUPS: { label: string; items: string[] }[] = [
-  { label: "Languages", items: ["TypeScript", "JavaScript", "Python", "PHP", "HTML5", "CSS3"] },
+  { label: "Languages", items: ["TypeScript", "JavaScript", "Go", "Python", "PHP", "HTML5", "CSS3"] },
   { label: "Frontend", items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "SCSS/SASS"] },
-  { label: "Backend", items: ["Node.js", "FastAPI", "Flask", "Laravel", "REST API design"] },
+  { label: "Backend", items: ["Node.js", "Go", "FastAPI", "Flask", "Laravel", "REST API design"] },
+  { label: "Payments", items: ["Stripe", "Airwallex"] },
   { label: "Database & ORM", items: ["PostgreSQL", "MySQL", "Prisma"] },
   { label: "Infra & DevOps", items: ["Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "tmux"] },
+  { label: "AI Tools", items: ["Claude Code", "Cursor"] },
   { label: "Tools", items: ["Figma", "Sentry", "Android Studio", "Flutter"] },
 ];
 

@@ -11,7 +11,7 @@ import { PROFILE } from "@/lib/content";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "From building PCs to shipping full-stack products — Najmu Syathir's path into engineering, and the sportbike-and-café habit behind Code, Coffee & Chill.",
+    "From building PCs to shipping full-stack products — Najmu Syathir's path into engineering, and the café habit behind Code, Coffee & Chill.",
 };
 
 interface Activity {
@@ -108,9 +108,9 @@ export default function AboutPage() {
                 </h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem", color: "var(--c-body)", fontSize: "var(--text-lg)", maxWidth: "64ch" }}>
                   <p style={{ margin: 0 }}>
-                    I&apos;m a café hunter — I&apos;ll ride the <strong style={{ color: "var(--c-ink)" }}>Ninja 250</strong> out
-                    to find a spot with the right vibe, settle in, and work. A good ride, a good
-                    brew, a quiet corner: that&apos;s where my focus actually shows up.
+                    I&apos;m a café hunter — I&apos;ll head out to find a spot with the right vibe,
+                    settle in, and code. A good brew and a quiet corner: that&apos;s where my
+                    focus actually shows up.
                   </p>
                   <p style={{ margin: 0 }}>
                     So far around Johor Bahru, Melaka, and Kuantan — with more to find.

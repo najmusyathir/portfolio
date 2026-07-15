@@ -1,267 +1,303 @@
 @import "tailwindcss";
 
-/* ─── Light mode (default) ──────────────────── */
-:root,
-[data-theme="light"] {
-  /* Backgrounds */
-  --color-bg-base:       #faf9ff;
-  --color-bg-elevated:   #ffffff;
-  --color-bg-overlay:    #f3f1ff;
-  --color-border:        #e8e5f8;
-  --color-border-strong: #cdc9ef;
+/* ==========================================================================
+   Portfolio v6 — design tokens
+   --------------------------------------------------------------------------
+   Two visual skins, one component set. Semantic tokens (--c-bg, --c-ink,
+   --c-accent, …) are what every component reads. The default :root values
+   are the true-v1 palette (Oxford Blue + Beaver/Sandal browns on light).
+   [data-palette="editorial"] re-skins the exact same components for the
+   /landing-2 comparison. No component ever hardcodes a hex value.
+   ========================================================================== */
 
-  /* Text */
-  --color-text-primary:  #1a1535;
-  --color-text-muted:    #6b6490;
-  --color-text-subtle:   #b0acc8;
+@theme {
+  /* Fonts — system-first (matches v1's character, zero network dependency) */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 
-  /* Accent — gradient */
-  --color-accent-from:   #7c3aed;
-  --color-accent-mid:    #a855f7;
-  --color-accent-to:     #ec4899;
-  --color-accent:        #7c3aed;
+  /* Deliberate type scale (major-third-ish, capped for a portfolio) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
 
-  /* Semantic */
-  --color-success:       #16a34a;
-  --color-warning:       #d97706;
-  --color-error:         #dc2626;
+  /* Fluid display size for hero headings */
+  --text-display: clamp(2.75rem, 7vw, 5rem);
 
-  /* Aurora orbs */
-  --orb-1: rgba(124, 58, 237, 0.12);
-  --orb-2: rgba(236, 72, 153, 0.10);
-  --orb-3: rgba(168, 85, 247, 0.08);
+  /* Spacing rhythm helpers */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
 
-  /* Fonts */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Raw v1 palette (documented, for reference) */
+  --color-oxford: #353e4c;
+  --color-beaver: #906b59;
+  --color-sandal: #a4826a;
+  --color-haze: #ebeeee;
+
+  /* Semantic tokens the components actually consume.
+     Expose them to Tailwind so `bg-bg`, `text-ink`, `border-line` work. */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f5f4f2;
+  --color-surface: #ffffff;
+  --color-ink: #2d3540;
+  --color-body: #55606f;
+  --color-muted: #8a929d;
+  --color-accent: #8a6350;
+  --color-accent-soft: #a4826a;
+  --color-accent-ink: #ffffff;
+  --color-line: #e6e2dc;
+  --color-line-soft: #f0ece6;
 }
 
-/* ─── Dark mode ──────────────────────────────── */
-[data-theme="dark"] {
-  /* Backgrounds */
-  --color-bg-base:       #0d0b14;
-  --color-bg-elevated:   #13101e;
-  --color-bg-overlay:    #1c1729;
-  --color-border:        #251f35;
-  --color-border-strong: #3d3160;
-
-  /* Text */
-  --color-text-primary:  #f0eeff;
-  --color-text-muted:    #8b82a7;
-  --color-text-subtle:   #4a4368;
-
-  /* Accent — slightly brighter on dark */
-  --color-accent-from:   #8b5cf6;
-  --color-accent-mid:    #c084fc;
-  --color-accent-to:     #f472b6;
-  --color-accent:        #8b5cf6;
-
-  /* Semantic */
-  --color-success:       #4ade80;
-  --color-warning:       #fbbf24;
-  --color-error:         #f87171;
-
-  /* Aurora orbs */
-  --orb-1: rgba(139, 92, 246, 0.18);
-  --orb-2: rgba(244, 114, 182, 0.14);
-  --orb-3: rgba(192, 132, 252, 0.12);
+/* --------------------------------------------------------------------------
+   DEFAULT SKIN — true-v1 (Oxford Blue + earthy browns, clean & light)
+   -------------------------------------------------------------------------- */
+:root {
+  --c-bg: #ffffff;
+  --c-bg-soft: #f4f3f1;
+  --c-surface: #ffffff;
+  --c-surface-2: #f6f5f3;
+  --c-ink: #2d3540; /* slightly deepened Oxford Blue for heading contrast */
+  --c-body: #566072;
+  --c-muted: #8b929d;
+  --c-accent: #8a6350; /* Beaver, deepened for AA text contrast */
+  --c-accent-2: #a4826a; /* Sandal */
+  --c-accent-ink: #ffffff;
+  --c-line: #e6e2dc;
+  --c-line-soft: #f0ece6;
+  --c-shadow: 22 30 42;
+  --hero-wash: linear-gradient(180deg, #f6f5f3 0%, #ffffff 100%);
 }
 
-/* ─── Base reset & body ──────────────────────── */
-*,
-*::before,
-*::after {
+/* --------------------------------------------------------------------------
+   PROPOSED SKIN — "Espresso Editorial" (my /landing-2 UI/UX proposal)
+   Warm cream base, near-black espresso ink for stronger hierarchy, one
+   confident clay/terracotta accent that ties to the coffee identity.
+   Rationale lives in PORTFOLIO-V6-DESIGN.md.
+   -------------------------------------------------------------------------- */
+[data-palette="editorial"] {
+  --c-bg: #f7f3ec;
+  --c-bg-soft: #f1ebe0;
+  --c-surface: #fffdf9;
+  --c-surface-2: #f3ede2;
+  --c-ink: #22190f;
+  --c-body: #4c4238;
+  --c-muted: #8a7d6d;
+  --c-accent: #bf5b34; /* clay / roasted terracotta */
+  --c-accent-2: #d98b5f;
+  --c-accent-ink: #fffaf4;
+  --c-line: #e6dbc9;
+  --c-line-soft: #f0e7d8;
+  --c-shadow: 60 40 24;
+  --hero-wash: linear-gradient(180deg, #f1e7d6 0%, #f7f3ec 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+* {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 56px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-primary);
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-body);
   font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  text-rendering: optimizeLegibility;
 }
 
-/* ─── Scroll snap — one section per "screen" ─── */
-main > section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
-/* ─── Gradient utilities ─────────────────────── */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-mid), var(--color-accent-to));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+::selection {
+  background: color-mix(in srgb, var(--c-accent) 22%, transparent);
+  color: var(--c-ink);
 }
 
-.gradient-bg {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-}
-
-/* ─── Dot grid background ────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, var(--color-border, rgba(124,58,237,0.15)) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.5;
-}
-
-/* ─── Aurora background ──────────────────────── */
-.aurora-container {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 1;
-}
-
-.orb-1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--orb-1), transparent 70%);
-  top: -200px;
-  left: -100px;
-  animation: drift-1 25s linear infinite;
-}
-
-.orb-2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--orb-2), transparent 70%);
-  bottom: 10%;
-  right: -150px;
-  animation: drift-2 32s linear infinite;
-}
-
-.orb-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--orb-3), transparent 70%);
-  top: 40%;
-  left: 30%;
-  animation: drift-3 40s linear infinite;
-}
-
-@keyframes drift-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, 60px) scale(1.08); }
-  66%  { transform: translate(-40px, 100px) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(-70px, -80px) scale(1.1); }
-  70%  { transform: translate(50px, -40px) scale(0.92); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, -90px) scale(1.12); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-/* ─── Scroll reveal ──────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── Hero cursor blink ──────────────────────── */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: var(--color-accent);
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: blink 1s ease-in-out infinite;
-}
-
-/* ─── Avatar ring ────────────────────────────── */
-.avatar-ring {
-  padding: 3px;
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.avatar-ring img {
-  border-radius: 50%;
-  display: block;
-}
-
-/* ─── CTA buttons ────────────────────────────── */
-.btn-primary {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-  color: white;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
+a {
+  color: inherit;
   text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--c-ink);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Reusable primitives (kept as classes so JSX stays lean; all token-driven)
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-accent);
 }
 
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--c-accent);
+  opacity: 0.55;
+}
+
+.surface {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+}
+
+.card-hover {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--c-accent) 40%, var(--c-line));
+  box-shadow: 0 18px 40px -24px rgb(var(--c-shadow) / 0.45);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease,
+    color 180ms ease, box-shadow 180ms ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
+  box-shadow: 0 12px 26px -14px color-mix(in srgb, var(--c-accent) 80%, transparent);
+}
 .btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--c-accent) 88%, #000);
 }
-
 .btn-ghost {
   background: transparent;
-  border: 1px solid var(--color-border-strong);
-  color: var(--color-text-primary);
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+.btn-ghost:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
 }
 
-.btn-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+/* Chip / tag */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--c-body);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.75rem;
+  white-space: nowrap;
+}
+
+/* Section vertical rhythm */
+.section {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
+.section-tight {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Scroll-reveal (progressive enhancement). Content is visible by default;
+   only once JS marks <html class="js"> do we hide-then-reveal on scroll, so
+   a no-JS visitor is never left staring at invisible content. */
+.reveal {
+  transition: opacity 620ms ease, transform 620ms ease;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Link with animated underline */
+.link-underline {
+  color: var(--c-accent);
+  font-weight: 600;
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
 }

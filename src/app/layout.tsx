@@ -1,62 +1,49 @@
-import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-import './globals.css';
-import { ThemeProvider } from '@/lib/theme';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-});
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Najmu Syathir — Full-Stack Engineer & Solution Architect',
+  metadataBase: new URL("https://najmusyathir.dev"),
+  title: {
+    default: "Najmu Syathir — Full-Stack Engineer",
+    template: "%s — Najmu Syathir",
+  },
   description:
-    'Solo full-stack engineer based in Malaysia. Building production-grade tools: PTY terminals, uptime monitors, multi-tenant SaaS, async AI pipelines — all self-hosted.',
+    "Najmu Syathir — Full-Stack Engineer. I build full-stack products end to end and run the self-hosted infrastructure they live on. Code, Coffee & Chill.",
   keywords: [
-    'Najmu Syathir',
-    'full-stack engineer',
-    'solution architect',
-    'Next.js',
-    'TypeScript',
-    'Malaysia',
-    'developer portfolio',
-    'Acadeon',
+    "Najmu Syathir",
+    "Full-Stack Engineer",
+    "Next.js",
+    "TypeScript",
+    "self-hosted",
+    "Malaysia developer",
   ],
-  authors: [{ name: 'Najmu Syathir' }],
+  authors: [{ name: "Najmu Syathir" }],
   openGraph: {
-    title: 'Najmu Syathir — Full-Stack Engineer & Solution Architect',
+    title: "Najmu Syathir — Full-Stack Engineer",
     description:
-      'Solo full-stack engineer based in Malaysia. Building production-grade tools: PTY terminals, uptime monitors, multi-tenant SaaS, async AI pipelines — all self-hosted.',
-    url: 'https://najmusyathir.dev',
-    siteName: 'Najmu Syathir',
-    type: 'website',
+      "Full-stack products, self-hosted infrastructure, and AI orchestration. Code, Coffee & Chill.",
+    url: "https://najmusyathir.dev",
+    siteName: "Najmu Syathir",
+    type: "website",
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Najmu Syathir — Full-Stack Engineer & Solution Architect',
-    description:
-      'Solo full-stack engineer based in Malaysia. Building production-grade tools: PTY terminals, uptime monitors, multi-tenant SaaS, async AI pipelines — all self-hosted.',
-  },
-  metadataBase: new URL('https://najmusyathir.dev'),
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable}`}>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+    <html lang="en">
+      <head>
+        {/* Mark JS as active before paint so scroll-reveal only hides content
+            when it can actually reveal it again (no-JS = content visible). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

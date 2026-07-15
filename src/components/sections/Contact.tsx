@@ -1,145 +1,97 @@
-'use client';
-
-import Image from 'next/image';
-import { Mail, ExternalLink, MessageCircle } from 'lucide-react';
-import { SectionLabel } from '@/components/ui/SectionLabel';
-import { SOCIAL_LINKS } from '@/lib/data';
-
-const ICON_MAP: Record<string, React.ReactNode> = {
-  GitHub: <ExternalLink size={18} />,
-  LinkedIn: <ExternalLink size={18} />,
-  Instagram: <ExternalLink size={18} />,
-  Facebook: <ExternalLink size={18} />,
-  WhatsApp: <MessageCircle size={18} />,
-};
+import Image from "next/image";
+import { PROFILE, SOCIALS } from "@/lib/content";
+import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Contact() {
   return (
-    <section
-      id="contact"
-      style={{
-        position: 'relative',
-        zIndex: 1,
-        padding: '112px 24px 144px',
-        textAlign: 'center',
-      }}
-    >
-      <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        <div className="reveal" style={{ marginBottom: '16px' }}>
-          <SectionLabel label="GET IN TOUCH" />
-        </div>
+    <section className="section" id="contact" style={{ background: "var(--c-bg-soft)" }}>
+      <div className="container">
+        <div className="contact-grid">
+          {/* Left — heading + socials */}
+          <Reveal>
+            <SectionHeading
+              eyebrow="Contact"
+              title="Let's build something."
+              intro="Open to interesting work and good conversations. The fastest way to reach me is WhatsApp — or find me on any of these."
+            />
 
-        <h2
-          className="reveal"
-          data-delay="80"
-          style={{
-            fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            margin: '0 0 16px 0',
-            fontFamily: 'var(--font-sans)',
-          }}
-        >
-          Let&apos;s work together
-        </h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginTop: "1.75rem" }}>
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="surface card-hover"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    padding: "0.7rem 1.1rem",
+                    borderRadius: "var(--radius-full)",
+                    color: "var(--c-ink)",
+                    fontSize: "var(--text-sm)",
+                    fontWeight: 600,
+                  }}
+                >
+                  <Icon name={s.icon} size={18} style={{ color: "var(--c-accent)" }} />
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </Reveal>
 
-        <p
-          className="reveal"
-          data-delay="160"
-          style={{
-            fontSize: '1rem',
-            color: 'var(--color-text-muted)',
-            lineHeight: 1.75,
-            margin: '0 auto 40px',
-            maxWidth: '480px',
-          }}
-        >
-          Open to interesting projects, collaborations, or just a good conversation.
-          The best way to reach me is by email.
-        </p>
-
-        {/* Social links */}
-        <div
-          className="reveal"
-          data-delay="200"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '12px',
-            marginBottom: '40px',
-          }}
-        >
-          {SOCIAL_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
+          {/* Right — WhatsApp QR */}
+          <Reveal delay={100}>
+            <div
+              className="surface"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: 'var(--color-text-muted)',
-                textDecoration: 'none',
-                padding: '8px 16px',
-                border: '1px solid var(--color-border)',
-                borderRadius: '999px',
-                backgroundColor: 'var(--color-bg-elevated)',
-                transition: 'color 0.2s, border-color 0.2s, background-color 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.color = 'var(--color-accent)';
-                el.style.borderColor = 'var(--color-accent)';
-                el.style.backgroundColor = 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated))';
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.color = 'var(--color-text-muted)';
-                el.style.borderColor = 'var(--color-border)';
-                el.style.backgroundColor = 'var(--color-bg-elevated)';
+                padding: "1.75rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+                gap: "1rem",
               }}
             >
-              {ICON_MAP[link.label]}
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div
-          className="reveal"
-          data-delay="240"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '24px',
-          }}
-        >
-          <Image src="/qr_ws.png" alt="WhatsApp QR Code" width={140} height={140} className="rounded-xl" />
-          <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>Scan to WhatsApp</span>
-        </div>
-
-        <div
-          className="reveal"
-          data-delay="280"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '16px',
-          }}
-        >
-          <a href="mailto:alsyathir@gmail.com" className="btn-primary" style={{ fontSize: '1rem', padding: '14px 28px' }}>
-            <Mail size={18} />
-            alsyathir@gmail.com
-          </a>
+              <div
+                style={{
+                  borderRadius: "var(--radius)",
+                  overflow: "hidden",
+                  border: "1px solid var(--c-line)",
+                  background: "#fff",
+                  padding: "0.5rem",
+                }}
+              >
+                <Image
+                  src={PROFILE.qrImg}
+                  alt="WhatsApp QR code to message Najmu"
+                  width={190}
+                  height={190}
+                  style={{ display: "block", width: "190px", height: "auto" }}
+                />
+              </div>
+              <a href={PROFILE.whatsapp} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <Icon name="whatsapp" size={16} /> Message on WhatsApp
+              </a>
+            </div>
+          </Reveal>
         </div>
       </div>
+
+      <style>{`
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          align-items: center;
+        }
+        @media (min-width: 820px) {
+          .contact-grid { grid-template-columns: 1.3fr 0.7fr; }
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,30 +1,17 @@
-'use client';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
+import { Icon } from "@/components/ui/Icon";
+import { ChipRow } from "@/components/ui/Chip";
+import { PROFILE } from "@/lib/content";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Download, ExternalLink, Globe, Mail, Phone, MapPin } from 'lucide-react';
-import { AuroraBackground } from '@/components/layout/AuroraBackground';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
-import { SectionLabel } from '@/components/ui/SectionLabel';
-import { Badge } from '@/components/ui/Badge';
-import { ScrollRevealInit } from '@/components/ScrollRevealInit';
-
-const CARD_STYLE: React.CSSProperties = {
-  backgroundColor: 'color-mix(in srgb, var(--color-bg-elevated) 80%, transparent)',
-  backdropFilter: 'blur(8px)',
-  WebkitBackdropFilter: 'blur(8px)',
-  border: '1px solid var(--color-border)',
-  borderRadius: '16px',
-  padding: '24px',
-};
-
-const SECTION_HEADING_STYLE: React.CSSProperties = {
-  fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
-  fontWeight: 700,
-  color: 'var(--color-text-primary)',
-  margin: '12px 0 0 0',
-  fontFamily: 'var(--font-sans)',
+export const metadata: Metadata = {
+  title: "Résumé",
+  description:
+    "Résumé of Najmu Syathir — Full-Stack Engineer. Experience, projects, education and skills.",
 };
 
 interface Job {
@@ -37,40 +24,36 @@ interface Job {
 
 const JOBS: Job[] = [
   {
-    title: 'Full Stack Developer',
-    company: 'myFirst Tech Sdn Bhd',
-    period: 'March 2025 – Present',
+    title: "Full-Stack Engineer",
+    company: "myFirst Tech Sdn Bhd",
+    period: "Mar 2025 – Present",
     bullets: [
-      'Contributing as a full-stack developer across front-end and back-end systems.',
+      "Contributing across front-end and back-end systems as a full-stack engineer — architecture, component design, and shipping features end to end.",
     ],
   },
   {
-    title: 'Junior Software Developer and Operations (FE)',
-    company: 'Guard Genius Sdn Bhd',
-    period: 'August 2024 – March 2025',
+    title: "Junior Software Developer & Operations (FE)",
+    company: "Guard Genius Sdn Bhd",
+    period: "Aug 2024 – Mar 2025",
     bullets: [
-      'Developed and optimized responsive web applications using Vue.js and Tailwind CSS, ensuring cross-device compatibility and a seamless user experience.',
-      'Collaborated with cross-functional teams to integrate RESTful APIs, enhancing data flow and application performance.',
-      'Maintained code quality through Git version control, using branching strategies (staging/development) for efficient integration.',
-      'Redesigned and restructured the company’s website using Figma, improving UX and aligning with business objectives.',
-      'Utilized Sentry for bug tracking and resolution, improving application performance and reducing load times.',
-      'Implemented email automation via a mail server API, automating customer communication.',
-      'Refactored and cleaned up legacy code, improving maintainability and readability.',
+      "Developed and optimised responsive web applications with Vue.js and Tailwind CSS, ensuring cross-device compatibility.",
+      "Integrated RESTful APIs with cross-functional teams to improve data flow and performance.",
+      "Maintained code quality through Git branching strategies (staging/development).",
+      "Redesigned the company website in Figma, improving UX and aligning with business goals.",
+      "Used Sentry for bug tracking and resolution; implemented email automation via a mail server API.",
     ],
-    tech: ['Vue.js', 'Flask', 'MySQL', 'Git', 'Figma'],
+    tech: ["Vue.js", "Flask", "MySQL", "Git", "Figma"],
   },
   {
-    title: 'Software Developer Intern',
-    company: 'AQ Wise Sdn Bhd',
-    period: 'March 2024 – June 2024',
+    title: "Software Developer Intern",
+    company: "AQ Wise Sdn Bhd",
+    period: "Mar 2024 – Jun 2024",
     bullets: [
-      'Gained hands-on experience in Flutter development through a supervisor-led short course.',
-      'Contributed to a Flutter project by adding a responsive sidebar, improving navigation.',
-      'Developed an e-commerce platform using Laravel, including product management and shopping cart features.',
-      'Designed and managed MySQL databases for product catalogs, user profiles, and order histories.',
-      'Built dynamic interfaces with Blade templates.',
+      "Built an e-commerce platform in Laravel with product management and shopping-cart features.",
+      "Designed and managed MySQL databases for catalogs, user profiles and order histories.",
+      "Contributed a responsive sidebar to a Flutter project; built dynamic interfaces with Blade.",
     ],
-    tech: ['Flutter', 'Laravel', 'HTML', 'CSS', 'PHP', 'Tailwind CSS'],
+    tech: ["Flutter", "Laravel", "PHP", "Tailwind CSS"],
   },
 ];
 
@@ -82,519 +65,195 @@ interface ResumeProject {
   note?: string;
 }
 
-const PROJECT_GROUPS: { key: string; label: string; items: ResumeProject[] }[] = [
+const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
   {
-    key: 'freelance',
-    label: 'Freelance / Client Work',
+    label: "Personal / Self-Hosted",
     items: [
-      {
-        name: 'MNS Tech Store',
-        desc: 'E-commerce platform for PC parts and accessories. Deployed on InfinityFree.',
-        tags: ['Laravel MVC', 'Blade', 'MySQL', 'Tailwind CSS'],
-      },
-      {
-        name: 'Bakers Heist',
-        desc: 'E-commerce platform for a cake shop and bakery.',
-        tags: ['HTML5', 'CSS3', 'JavaScript'],
-        url: 'https://bakers-heist.vercel.app',
-      },
-      {
-        name: 'Astral Apparel',
-        desc: 'Online store for Muslimah fashion — abaya, baju kurung, modest wear.',
-        tags: ['HTML5', 'CSS3', 'JavaScript'],
-        url: 'https://astral-apparel.vercel.app',
-      },
-      {
-        name: 'PetCare Clinic System',
-        desc: 'Grooming and vet booking platform with appointments, pet profiles, service management.',
-        tags: ['Laravel', 'Blade', 'MySQL', 'JavaScript'],
-      },
+      { name: "personal-dashboard", desc: "AI-connected personal life assistant — finance, scheduling, meetings, career, tasks.", tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"] },
+      { name: "acadeon-cli", desc: "Browser-based PTY terminal with TOTP auth.", tags: ["Next.js", "TypeScript", "node-pty"], url: "https://cli.najmusyathir.dev" },
+      { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"], url: "https://pulse.najmusyathir.dev" },
+      { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"], url: "https://ssh.najmusyathir.dev" },
+      { name: "ai_hub_bridge", desc: "Async AI job queue bridging the Claude CLI to web and Telegram.", tags: ["Next.js", "TypeScript", "Supabase Realtime"] },
+      { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project — browser extension on Lazada's cart to verify CPU/motherboard compatibility. Awarded Best Industrial Panel FYP (2024).", tags: ["Python", "FastAPI", "Docker", "Data scraping"] },
     ],
   },
   {
-    key: 'personal',
-    label: 'Personal / Self-Hosted Projects',
+    label: "Client / Freelance",
     items: [
-      {
-        name: 'acadeon-cli',
-        desc: 'Browser-based PTY terminal with TOTP auth.',
-        tags: ['Next.js', 'TypeScript', 'node-pty', 'Supabase'],
-        url: 'https://cli.najmusyathir.dev',
-      },
-      {
-        name: 'acadeon-pulse',
-        desc: 'Uptime monitor PWA with escalating push alerts.',
-        tags: ['Next.js', 'TypeScript', 'Supabase', 'PWA'],
-        url: 'https://pulse.najmusyathir.dev',
-      },
-      {
-        name: 'ssh-web-server',
-        desc: 'Browser-based SSH client, zero install.',
-        tags: ['Next.js', 'TypeScript', 'WebSocket'],
-        url: 'https://ssh.najmusyathir.dev',
-      },
-      {
-        name: 'personal-dashboard',
-        desc: 'Multi-tenant SaaS with finance, vault, kanban, and AI chat modules.',
-        tags: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-      },
-      {
-        name: 'ai_hub_bridge',
-        desc: 'Async AI job queue bridging Claude CLI to web and Telegram.',
-        tags: ['Next.js', 'TypeScript', 'Supabase Realtime'],
-      },
-      {
-        name: 'CPU Motherboard Compatibility Checker',
-        desc: 'Final Year Project: web extension integrated with Lazada’s cart page to verify CPU/motherboard compatibility. Awarded Best Industrial Panel Final Year Project (2024).',
-        tags: ['HTML', 'CSS', 'JavaScript', 'Python', 'Docker', 'FastAPI', 'Data Scraping', 'Regex'],
-      },
-      {
-        name: 'Project Management System (Mobile)',
-        desc: 'University group project; Android app with RecyclerView, Firebase push notifications.',
-        tags: ['Android Studio', 'CSS', 'JavaScript'],
-      },
-      {
-        name: 'Personal Portfolio (v1)',
-        desc: 'Original portfolio built with React.js and React Router. Superseded by this current site.',
-        tags: ['React.js', 'React Router', 'Tailwind CSS'],
-        url: 'https://portfolio-v1.najmusyathir.dev',
-        note: 'Previous version',
-      },
-    ],
-  },
-  {
-    key: 'onhold',
-    label: 'On Hold',
-    items: [
-      {
-        name: 'Acadeon Academy',
-        desc: 'Multi-school management platform — students, staff, classes, co-curriculars, sports, exams, records.',
-        tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Tailwind', 'Docker'],
-        note: 'On hold',
-      },
+      { name: "MNS Tech Store", desc: "E-commerce platform for PC parts and accessories.", tags: ["Laravel", "Blade", "MySQL", "Tailwind CSS"] },
+      { name: "Bakers Heist", desc: "E-commerce storefront for a cake shop and bakery.", tags: ["HTML5", "CSS3", "JavaScript"], url: "https://bakers-heist.vercel.app" },
+      { name: "Astral Apparel", desc: "Online store for Muslimah fashion — abaya, baju kurung, modest wear.", tags: ["HTML5", "CSS3", "JavaScript"], url: "https://astral-apparel.vercel.app" },
+      { name: "PetCare Clinic System", desc: "Grooming and vet booking — appointments, pet profiles, service management.", tags: ["Laravel", "Blade", "MySQL", "JavaScript"] },
     ],
   },
 ];
 
 const SKILL_GROUPS: { label: string; items: string[] }[] = [
-  { label: 'Languages', items: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'HTML5', 'CSS3'] },
-  { label: 'Frontend', items: ['React.js', 'Next.js', 'Vue.js', 'Tailwind CSS', 'Bootstrap 5', 'SCSS/SASS'] },
-  { label: 'Backend', items: ['Node.js', 'FastAPI', 'Flask', 'Laravel', 'RESTful API design'] },
-  { label: 'Database & ORM', items: ['PostgreSQL', 'MySQL', 'Prisma'] },
-  {
-    label: 'Infrastructure & DevOps',
-    items: ['Docker', 'Git', 'Self-hosted Linux server administration', 'Cloudflare (Tunnels, Zero Trust)', 'Supabase (Auth, Realtime, Storage)', 'tmux'],
-  },
-  { label: 'Mobile', items: ['Flutter', 'Android Studio (Java)'] },
-  { label: 'Tools', items: ['Figma', 'Sentry', 'Data scraping / regex'] },
+  { label: "Languages", items: ["TypeScript", "JavaScript", "Python", "PHP", "HTML5", "CSS3"] },
+  { label: "Frontend", items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "SCSS/SASS"] },
+  { label: "Backend", items: ["Node.js", "FastAPI", "Flask", "Laravel", "REST API design"] },
+  { label: "Database & ORM", items: ["PostgreSQL", "MySQL", "Prisma"] },
+  { label: "Infra & DevOps", items: ["Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "tmux"] },
+  { label: "Tools", items: ["Figma", "Sentry", "Android Studio", "Flutter"] },
 ];
 
-function ProjectTile({ project }: { project: ResumeProject }) {
-  return (
-    <div
-      style={{
-        ...CARD_STYLE,
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
-        <h3
-          style={{
-            fontSize: '0.9375rem',
-            fontWeight: 600,
-            color: 'var(--color-text-primary)',
-            margin: 0,
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
-          {project.name}
-        </h3>
-        {project.note && (
-          <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--color-text-subtle)', whiteSpace: 'nowrap' }}>
-            {project.note}
-          </span>
-        )}
-      </div>
-      <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: 1.55 }}>
-        {project.desc}
-      </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
-        {project.tags.map((tag) => (
-          <Badge key={tag} label={tag} />
-        ))}
-      </div>
-      {project.url && (
-        <div style={{ marginTop: '8px' }}>
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-            }}
-          >
-            <ExternalLink size={13} />
-            {project.url.replace('https://', '')}
-          </a>
-        </div>
-      )}
-    </div>
-  );
-}
+const EDUCATION = [
+  { title: "Bachelor of Computer Science (Hons.)", school: "Universiti Teknologi MARA, Melaka (Kampus Jasin)", meta: "Jun 2023 · CGPA 3.18" },
+  { title: "Diploma in Applied Science", school: "Universiti Teknologi MARA, Perlis (Kampus Arau)", meta: "Feb 2021 · CGPA 3.21" },
+];
+
+const cardStyle: React.CSSProperties = { padding: "1.5rem" };
 
 export default function ResumePage() {
-  const [activeGroup, setActiveGroup] = useState(PROJECT_GROUPS[0].key);
-  const currentGroup = PROJECT_GROUPS.find((g) => g.key === activeGroup) ?? PROJECT_GROUPS[0];
-
   return (
     <>
-      <AuroraBackground />
       <Navbar />
-      <main style={{ position: 'relative', zIndex: 1 }}>
+      <main>
         {/* Header */}
-        <section style={{ padding: '80px 24px 48px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal">
-              <h1
-                className="gradient-text"
-                style={{
-                  fontSize: 'clamp(2rem, 5vw, 3rem)',
-                  fontWeight: 800,
-                  margin: 0,
-                  fontFamily: 'var(--font-sans)',
-                  lineHeight: 1.1,
-                }}
-              >
-                Muhammad Najmu Al Syathir Bin Azemi
+        <section className="section-tight" style={{ background: "var(--hero-wash)", borderBottom: "1px solid var(--c-line-soft)" }}>
+          <div className="container">
+            <Reveal>
+              <span className="eyebrow" style={{ marginBottom: "1rem" }}>Résumé</span>
+              <h1 style={{ fontSize: "var(--text-4xl)", margin: "1rem 0 0.4rem", lineHeight: 1.05 }}>
+                {PROFILE.fullName}
               </h1>
-              <p
-                style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-                  color: 'var(--color-text-muted)',
-                  margin: '12px 0 20px 0',
-                }}
-              >
-                Full-Stack Developer
+              <p style={{ fontSize: "var(--text-xl)", fontWeight: 600, color: "var(--c-accent)", margin: "0 0 1.25rem" }}>
+                {PROFILE.role}
               </p>
-
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                  fontSize: '0.875rem',
-                  color: 'var(--color-text-muted)',
-                  marginBottom: '20px',
-                }}
-              >
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <MapPin size={14} /> Kuala Lumpur, Malaysia
-                </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <Phone size={14} /> +60 13-735 3215
-                </span>
-                <a
-                  href="mailto:alsyathir@gmail.com"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--color-text-muted)', textDecoration: 'none' }}
-                >
-                  <Mail size={14} /> alsyathir@gmail.com
-                </a>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "1.25rem", color: "var(--c-body)", fontSize: "var(--text-sm)", marginBottom: "1.5rem" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><Icon name="map-pin" size={15} /> {PROFILE.location}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><Icon name="phone" size={15} /> {PROFILE.phone}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><Icon name="mail" size={15} /> {PROFILE.email}</span>
               </div>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '28px' }}>
-                <a
-                  href="https://github.com/najmusyathir"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost"
-                  style={{ padding: '8px 16px', fontSize: '0.8125rem' }}
-                >
-                  <ExternalLink size={14} /> GitHub
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+                <a href={PROFILE.resumePdf} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                  <Icon name="download" size={16} /> Download PDF
                 </a>
-                <a
-                  href="https://linkedin.com/in/najmusyathir"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost"
-                  style={{ padding: '8px 16px', fontSize: '0.8125rem' }}
-                >
-                  <ExternalLink size={14} /> LinkedIn
+                <a href="https://github.com/najmusyathir" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                  <Icon name="github" size={16} /> GitHub
                 </a>
-                <Link href="/" className="btn-ghost" style={{ padding: '8px 16px', fontSize: '0.8125rem' }}>
-                  <Globe size={14} /> najmusyathir.dev
-                </Link>
+                <Link href="/" className="btn btn-ghost">najmusyathir.dev</Link>
               </div>
-
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-                style={{ fontSize: '0.9375rem', padding: '12px 24px' }}
-              >
-                <Download size={16} />
-                Download PDF
-              </a>
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* Professional Summary */}
-        <section style={{ padding: '24px 24px 56px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal" style={CARD_STYLE}>
-              <p style={{ fontSize: '1rem', color: 'var(--color-text-muted)', lineHeight: 1.75, margin: 0 }}>
-                Full-stack developer with 2+ years of professional experience across front-end and back-end
-                development, plus a growing personal infrastructure of self-hosted projects — browser-based PTY
-                terminals, uptime monitoring, multi-tenant SaaS, and async AI orchestration pipelines, all running
-                on infrastructure I manage myself. Comfortable owning the full stack: front-end (React, Vue.js,
-                Next.js), back-end (Node.js, Python, PHP), and infrastructure (Linux server administration, Docker,
-                Cloudflare). Currently a Full Stack Developer at myFirst Tech Sdn Bhd.
-              </p>
-            </div>
+        {/* Summary */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal>
+              <div className="surface" style={{ padding: "1.75rem" }}>
+                <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
+                  Full-stack engineer with 2+ years of professional experience across front-end and
+                  back-end development, plus a growing personal infrastructure of self-hosted
+                  projects — browser-based terminals, uptime monitoring, multi-tenant SaaS, and
+                  async AI orchestration, all running on infrastructure I manage myself. Comfortable
+                  owning the full stack: front-end (React, Vue.js, Next.js), back-end (Node.js,
+                  Python, PHP), and infrastructure (Linux, Docker, Cloudflare). Currently a
+                  Full-Stack Engineer at {PROFILE.company}.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* Work Experience */}
-        <section style={{ padding: '0 24px 56px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '32px' }}>
-              <SectionLabel label="EXPERIENCE" />
-              <h2 style={SECTION_HEADING_STYLE}>Work Experience</h2>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {/* Experience */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Experience" title="Work experience" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               {JOBS.map((job, i) => (
-                <div key={job.company} style={{ display: 'flex', gap: '20px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, paddingTop: '6px' }}>
-                    <div
-                      style={{
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to))',
-                        flexShrink: 0,
-                      }}
-                    />
-                    {i < JOBS.length - 1 && (
-                      <div
-                        style={{
-                          width: '2px',
-                          flex: 1,
-                          minHeight: '40px',
-                          background: 'linear-gradient(to bottom, var(--color-accent-from), var(--color-accent-to))',
-                          opacity: 0.4,
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  <div
-                    className="reveal"
-                    data-delay={String(i * 80)}
-                    style={{ ...CARD_STYLE, marginBottom: '24px', flex: 1 }}
-                  >
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-                      <h3 style={{ fontSize: '1.0625rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
-                        {job.title}
-                      </h3>
-                      <span
-                        style={{
-                          fontSize: '0.75rem',
-                          fontWeight: 500,
-                          color: 'var(--color-text-subtle)',
-                          fontFamily: 'var(--font-mono)',
-                          whiteSpace: 'nowrap',
-                          paddingTop: '3px',
-                        }}
-                      >
-                        {job.period}
-                      </span>
+                <Reveal key={job.company} delay={i * 70}>
+                  <div className="surface" style={cardStyle}>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <h3 style={{ fontSize: "var(--text-lg)" }}>{job.title}</h3>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{job.period}</span>
                     </div>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--color-accent)', margin: '0 0 14px 0' }}>
-                      {job.company}
-                    </p>
-                    <ul style={{ margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {job.bullets.map((bullet, bi) => (
-                        <li key={bi} style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
-                          {bullet}
-                        </li>
+                    <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
+                    <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                      {job.bullets.map((b, bi) => (
+                        <li key={bi} style={{ color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{b}</li>
                       ))}
                     </ul>
-                    {job.tech && (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '16px' }}>
-                        {job.tech.map((tag) => (
-                          <Badge key={tag} label={tag} />
-                        ))}
-                      </div>
-                    )}
+                    {job.tech && <div style={{ marginTop: "1rem" }}><ChipRow items={job.tech} /></div>}
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
         {/* Projects */}
-        <section style={{ padding: '0 24px 56px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '32px' }}>
-              <SectionLabel label="WORK" />
-              <h2 style={SECTION_HEADING_STYLE}>Projects</h2>
-            </div>
-
-            {/* Group tabs */}
-            <div
-              className="reveal"
-              role="tablist"
-              aria-label="Project categories"
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '8px',
-                marginBottom: '24px',
-                borderBottom: '1px solid var(--color-border)',
-                paddingBottom: '16px',
-              }}
-            >
-              {PROJECT_GROUPS.map((group) => {
-                const isActive = group.key === activeGroup;
-                return (
-                  <button
-                    key={group.key}
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => setActiveGroup(group.key)}
-                    style={{
-                      background: isActive
-                        ? 'linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to))'
-                        : 'var(--color-bg-elevated)',
-                      border: `1px solid ${isActive ? 'transparent' : 'var(--color-border)'}`,
-                      color: isActive ? 'white' : 'var(--color-text-muted)',
-                      fontSize: '0.8125rem',
-                      fontWeight: 600,
-                      padding: '8px 16px',
-                      borderRadius: '999px',
-                      cursor: 'pointer',
-                      transition: 'opacity 0.2s, border-color 0.2s',
-                    }}
-                  >
-                    {group.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div
-              key={currentGroup.key}
-              className="projects-grid reveal"
-              style={{ display: 'grid', gap: '16px' }}
-            >
-              {currentGroup.items.map((project) => (
-                <ProjectTile key={project.name} project={project} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Education */}
-        <section style={{ padding: '0 24px 56px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '32px' }}>
-              <SectionLabel label="EDUCATION" />
-              <h2 style={SECTION_HEADING_STYLE}>Education</h2>
-            </div>
-
-            <div className="education-grid" style={{ display: 'grid', gap: '16px' }}>
-              <div className="reveal" style={CARD_STYLE}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 4px 0' }}>
-                  Bachelor of Computer Science (Hons.)
-                </h3>
-                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', margin: '0 0 8px 0' }}>
-                  Universiti Teknologi MARA, Melaka (Kampus Jasin)
-                </p>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-subtle)', fontFamily: 'var(--font-mono)', margin: 0 }}>
-                  June 2023 &middot; CGPA 3.18
-                </p>
-              </div>
-              <div className="reveal" data-delay="80" style={CARD_STYLE}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 4px 0' }}>
-                  Diploma in Applied Science
-                </h3>
-                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', margin: '0 0 8px 0' }}>
-                  Universiti Teknologi MARA, Perlis (Kampus Arau)
-                </p>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-subtle)', fontFamily: 'var(--font-mono)', margin: 0 }}>
-                  February 2021 &middot; CGPA 3.21
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Skills */}
-        <section style={{ padding: '0 24px 112px' }}>
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '32px' }}>
-              <SectionLabel label="TOOLS" />
-              <h2 style={SECTION_HEADING_STYLE}>Skills</h2>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {SKILL_GROUPS.map((group, i) => (
-                <div
-                  key={group.label}
-                  className="reveal"
-                  data-delay={String(i * 60)}
-                  style={CARD_STYLE}
-                >
-                  <p
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      color: 'var(--color-accent)',
-                      fontFamily: 'var(--font-mono)',
-                      margin: '0 0 12px 0',
-                    }}
-                  >
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Work" title="Projects" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+              {PROJECT_GROUPS.map((group, gi) => (
+                <Reveal key={group.label} delay={gi * 60}>
+                  <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--c-muted)", margin: "0 0 1rem" }}>
                     {group.label}
                   </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {group.items.map((skill) => (
-                      <Badge key={skill} label={skill} />
+                  <div className="resume-proj-grid">
+                    {group.items.map((p) => (
+                      <div key={p.name} className="surface" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        <h4 style={{ fontSize: "var(--text-base)", fontFamily: "var(--font-mono)", color: "var(--c-ink)" }}>{p.name}</h4>
+                        <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", flex: 1 }}>{p.desc}</p>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                          {p.tags.map((t) => (
+                            <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
+                          ))}
+                        </div>
+                        {p.url && (
+                          <a href={p.url} target="_blank" rel="noopener noreferrer" className="link-underline" style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>
+                            {p.url.replace("https://", "")}
+                          </a>
+                        )}
+                      </div>
                     ))}
                   </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Education + Skills */}
+        <section className="section" style={{ background: "var(--c-bg-soft)" }}>
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Education" title="Education" /></Reveal>
+            <div className="resume-edu-grid" style={{ marginTop: "1.75rem" }}>
+              {EDUCATION.map((e) => (
+                <div key={e.title} className="surface" style={cardStyle}>
+                  <h3 style={{ fontSize: "var(--text-base)", marginBottom: "0.3rem" }}>{e.title}</h3>
+                  <p style={{ margin: "0 0 0.5rem", color: "var(--c-body)", fontSize: "var(--text-sm)" }}>{e.school}</p>
+                  <p style={{ margin: 0, color: "var(--c-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>{e.meta}</p>
                 </div>
               ))}
+            </div>
+
+            <div style={{ marginTop: "3rem" }}>
+              <Reveal><SectionHeading eyebrow="Tools" title="Skills" /></Reveal>
+              <div style={{ marginTop: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {SKILL_GROUPS.map((g, i) => (
+                  <Reveal key={g.label} delay={i * 50}>
+                    <div className="surface" style={{ padding: "1.25rem" }}>
+                      <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
+                      <ChipRow items={g.items} />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       </main>
       <Footer />
-      <ScrollRevealInit />
 
       <style>{`
-        @media (min-width: 640px) {
-          .education-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (min-width: 768px) {
-          .projects-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
+        .resume-proj-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media (min-width: 700px) { .resume-proj-grid { grid-template-columns: repeat(2, 1fr); } }
+        .resume-edu-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media (min-width: 640px) { .resume-edu-grid { grid-template-columns: repeat(2, 1fr); } }
       `}</style>
     </>
   );

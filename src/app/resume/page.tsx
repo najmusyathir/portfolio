@@ -6,106 +6,15 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
+import { DownloadResume } from "@/components/ui/DownloadResume";
 import { PROFILE } from "@/lib/content";
+import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
 
 export const metadata: Metadata = {
   title: "Résumé",
   description:
     "Résumé of Najmu Syathir — Full-Stack Engineer. Experience, projects, education and skills.",
 };
-
-interface Job {
-  title: string;
-  company: string;
-  period: string;
-  bullets: string[];
-  tech?: string[];
-}
-
-const JOBS: Job[] = [
-  {
-    title: "Full-Stack Engineer",
-    company: "myFirst Tech Sdn Bhd",
-    period: "Mar 2025 – Present",
-    bullets: [
-      "Building production web applications with Next.js and TypeScript across the full stack — architecture, component design, and shipping features end to end.",
-      "Integrated payment gateways — Stripe and Airwallex — for transactions and cross-border payments.",
-      "Worked with Go for backend services alongside the TypeScript stack.",
-    ],
-    tech: ["Next.js", "TypeScript", "Go", "Stripe", "Airwallex"],
-  },
-  {
-    title: "Junior Software Developer & Operations (FE)",
-    company: "Guard Genius Sdn Bhd",
-    period: "Aug 2024 – Mar 2025",
-    bullets: [
-      "Developed and optimised responsive web applications with Vue.js and Tailwind CSS, ensuring cross-device compatibility.",
-      "Integrated RESTful APIs with cross-functional teams to improve data flow and performance.",
-      "Maintained code quality through Git branching strategies (staging/development).",
-      "Redesigned the company website in Figma, improving UX and aligning with business goals.",
-      "Used Sentry for bug tracking and resolution; implemented email automation via a mail server API.",
-    ],
-    tech: ["Vue.js", "Flask", "MySQL", "Git", "Figma"],
-  },
-  {
-    title: "Software Developer Intern",
-    company: "AQ Wise Sdn Bhd",
-    period: "Mar 2024 – Jun 2024",
-    bullets: [
-      "Built an e-commerce platform in Laravel with product management and shopping-cart features.",
-      "Designed and managed MySQL databases for catalogs, user profiles and order histories.",
-      "Contributed a responsive sidebar to a Flutter project; built dynamic interfaces with Blade.",
-    ],
-    tech: ["Flutter", "Laravel", "PHP", "Tailwind CSS"],
-  },
-];
-
-interface ResumeProject {
-  name: string;
-  desc: string;
-  tags: string[];
-  url?: string;
-  note?: string;
-}
-
-const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
-  {
-    label: "Personal / Self-Hosted",
-    items: [
-      { name: "personal-dashboard", desc: "AI-connected personal life assistant — finance, scheduling, meetings, career, tasks.", tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"] },
-      { name: "acadeon-cli", desc: "Browser-based PTY terminal with TOTP auth.", tags: ["Next.js", "TypeScript", "node-pty"], url: "https://cli.najmusyathir.dev" },
-      { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"], url: "https://pulse.najmusyathir.dev" },
-      { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"], url: "https://ssh.najmusyathir.dev" },
-      { name: "ai_hub_bridge", desc: "Async AI job queue bridging the Claude CLI to web and Telegram.", tags: ["Next.js", "TypeScript", "Supabase Realtime"] },
-      { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project — browser extension on Lazada's cart to verify CPU/motherboard compatibility. Awarded Best Industrial Panel FYP (2024).", tags: ["Python", "FastAPI", "Docker", "Data scraping"] },
-    ],
-  },
-  {
-    label: "Client / Freelance",
-    items: [
-      { name: "MNS Tech Store", desc: "E-commerce platform for PC parts and accessories.", tags: ["Laravel", "Blade", "MySQL", "Tailwind CSS"] },
-      { name: "Bakers Heist", desc: "E-commerce storefront for a cake shop and bakery.", tags: ["HTML5", "CSS3", "JavaScript"], url: "https://bakers-heist.vercel.app" },
-      { name: "Astral Apparel", desc: "Online store for Muslimah fashion — abaya, baju kurung, modest wear.", tags: ["HTML5", "CSS3", "JavaScript"], url: "https://astral-apparel.vercel.app" },
-      { name: "PetCare Clinic System", desc: "Grooming and vet booking — appointments, pet profiles, service management.", tags: ["Laravel", "Blade", "MySQL", "JavaScript"] },
-    ],
-  },
-];
-
-const SKILL_GROUPS: { label: string; items: string[] }[] = [
-  { label: "Languages", items: ["TypeScript", "JavaScript", "Go", "Python", "PHP", "HTML5", "CSS3"] },
-  { label: "Frontend", items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "SCSS/SASS"] },
-  { label: "Backend", items: ["Node.js", "Go", "FastAPI", "Flask", "Laravel", "REST API design"] },
-  { label: "Payments", items: ["Stripe", "Airwallex"] },
-  { label: "Database & ORM", items: ["PostgreSQL", "MySQL", "Prisma"] },
-  { label: "Infra & DevOps", items: ["Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "tmux"] },
-  { label: "AI Tools", items: ["Claude Code", "Cursor"] },
-  { label: "Tools", items: ["Figma", "Sentry", "Android Studio", "Flutter"] },
-];
-
-const EDUCATION = [
-  { title: "Bachelor of Computer Science (Hons.)", school: "Universiti Teknologi MARA, Melaka (Kampus Jasin)", meta: "Jun 2023 · CGPA 3.18" },
-  { title: "Diploma in Applied Science", school: "Universiti Teknologi MARA, Perlis (Kampus Arau)", meta: "Feb 2021 · CGPA 3.21" },
-];
 
 const cardStyle: React.CSSProperties = { padding: "1.5rem" };
 
@@ -131,9 +40,7 @@ export default function ResumePage() {
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}><Icon name="mail" size={15} /> {PROFILE.email}</span>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
-                <a href={PROFILE.resumePdf} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  <Icon name="download" size={16} /> Download PDF
-                </a>
+                <DownloadResume />
                 <a href="https://github.com/najmusyathir" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
                   <Icon name="github" size={16} /> GitHub
                 </a>
@@ -149,13 +56,7 @@ export default function ResumePage() {
             <Reveal>
               <div className="surface" style={{ padding: "1.75rem" }}>
                 <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
-                  Full-stack engineer with 2+ years of professional experience across front-end and
-                  back-end development, plus a growing personal infrastructure of self-hosted
-                  projects — browser-based terminals, uptime monitoring, multi-tenant SaaS, and
-                  async AI orchestration, all running on infrastructure I manage myself. Comfortable
-                  owning the full stack: front-end (React, Vue.js, Next.js), back-end (Node.js,
-                  Python, PHP), and infrastructure (Linux, Docker, Cloudflare). Currently a
-                  Full-Stack Engineer at {PROFILE.company}.
+                  {SUMMARY}
                 </p>
               </div>
             </Reveal>

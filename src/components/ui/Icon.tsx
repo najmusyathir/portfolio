@@ -21,7 +21,10 @@ export type IconName =
   | "map-pin"
   | "mail"
   | "phone"
-  | "check";
+  | "check"
+  | "chevron-down"
+  | "file-text"
+  | "history";
 
 interface IconProps {
   name: IconName;
@@ -165,6 +168,30 @@ export function Icon({ name, size = 20, className, style, title }: IconProps) {
         <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
           {title && <title>{title}</title>}
           <path d="M20 6 9 17l-5-5" />
+        </svg>
+      );
+    case "chevron-down":
+      return (
+        <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+          {title && <title>{title}</title>}
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      );
+    case "file-text":
+      return (
+        <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+          {title && <title>{title}</title>}
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+        </svg>
+      );
+    case "history":
+      return (
+        <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+          {title && <title>{title}</title>}
+          <path d="M3 3v5h5" />
+          <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
+          <path d="M12 7v5l4 2" />
         </svg>
       );
     default:

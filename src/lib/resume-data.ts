@@ -64,9 +64,9 @@ export const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
     label: "Personal / Self-Hosted",
     items: [
       { name: "personal-dashboard", desc: "AI-connected personal life assistant — finance, scheduling, meetings, career, tasks.", tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"] },
-      { name: "acadeon-cli", desc: "Browser-based PTY terminal with TOTP auth.", tags: ["Next.js", "TypeScript", "node-pty"], url: "https://cli.najmusyathir.dev" },
-      { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"], url: "https://pulse.najmusyathir.dev" },
-      { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"], url: "https://ssh.najmusyathir.dev" },
+      { name: "acadeon-cli", desc: "Browser-based PTY terminal with TOTP auth.", tags: ["Next.js", "TypeScript", "node-pty"] },
+      { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"] },
+      { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"] },
       { name: "ai_hub_bridge", desc: "Async AI job queue bridging the Claude CLI to web and Telegram.", tags: ["Next.js", "TypeScript", "Supabase Realtime"] },
       { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project — browser extension on Lazada's cart to verify CPU/motherboard compatibility. Awarded Best Industrial Panel FYP (2024).", tags: ["Python", "FastAPI", "Docker", "Data scraping"] },
     ],

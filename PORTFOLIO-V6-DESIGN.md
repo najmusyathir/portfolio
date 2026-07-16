@@ -244,110 +244,115 @@ dark, legible, and the brass accent reads well throughout.
 
 ---
 
-## 9. Pinewood (SITE-WIDE DEFAULT) + stone texture
+## 9. Charcoal & Oud (SITE-WIDE DEFAULT) — supersedes Pinewood; texture removed
 
-Supersedes the old true-v1 default. `/` and **all** inner pages (`/about`,
-`/projects`, `/ai`, `/resume`) now render in **Pinewood** — the new `:root`
-palette — automatically. The old v1-light default was retired (it lived on no
-named route, so nothing else depended on it). `/landing-2` (editorial) and
-`/landing-3` (timber) are untouched reference routes; they keep their own footer
-look via skin-scoped `--c-footer-*` tokens (see below).
+Supersedes the rejected **Pinewood** default (smoke-grey base + pine-green
+accent + stone-vein texture). `/` and **all** inner pages (`/about`,
+`/projects`, `/ai`, `/resume`) now render in **Charcoal & Oud** — the new
+`:root` palette — automatically. `/landing-2` (editorial) and `/landing-3`
+(timber) are untouched reference routes; they keep their own footer look via
+skin-scoped `--c-footer-*` tokens (see below).
 
-### Reference → mood
-Derived from a dark-timber mid-century bungalow in the woods at dusk: a
-**smoke-grey gravel path dominating the foreground**, dark-brown/near-black
-**timber cladding**, deep **pine-green foliage**, and a warm **amber window
-glow**. The gravel is the dominant surface; the timber is grounding depth
-sitting in the grey; pine is the identity accent, amber the warm second accent.
+### Why the change (Abang's feedback)
+Pinewood was rejected: the **pine-green accent** was disliked, the smoke-grey
+base read **too warm/yellowish**, and the **stone-vein texture "messed up
+everything."** Abang wanted the site **darker / more black-charcoal** ("kayu
+arang"), **cooler (bluish) tones**, **dark OUD wood**, and liked the dark look
+of `/landing-3`. Charcoal & Oud is a **refined, cooler, blacker evolution of
+the `/landing-3` timber skin**.
 
-### Light-first, smoke-grey-forward — and why
-Pinewood is **light-first**: a smoke-grey ("kelabu asap") base is the dominant
-surface everywhere, with **dark-timber grounding** (the footer, deepest text)
-and pine/amber accents. This matches Abang's lean ("kelabu asap tu banyak" +
-dark timber grounding) and keeps the site's clean, readable, personal feel
-rather than flipping to a dark theme. No purple/cyan anywhere (avoids the
-"AI-vibecoded" look).
+### Direction → mood
+Dark-first. **Cool charcoal near-black** ("kayu arang") is the dominant base —
+every grey/dark carries a **cool/bluish undertone** (the explicit fix for
+Pinewood's warm/yellow cast). **Dark OUD wood** (near-black agarwood brown) is
+the grounding depth that drives the footer. A **single warm brass/amber accent**
+(replaces pine green — **no green anywhere**) carries eyebrows, links, CTAs and
+key highlights. No purple/cyan (avoids the "AI-vibecoded" look).
 
-### Final tokens (semantic → hex) — the 4 roles
+### Final tokens (semantic → hex) — the roles
 | Role | Token(s) | Hex | Use |
 | :-- | :-- | :-- | :-- |
-| **Background — smoke grey (gravel), DOMINANT** | `--c-bg` / `--c-bg-soft` | `#e6e3dc` / `#d8d4ca` | page base + alternating "gravel" bands |
-| | `--c-surface` / `--c-surface-2` | `#f1efea` / `#dcd8ce` | raised cards (lift a step) / chips + insets |
-| | `--c-ink` (deepest text) | `#1c1a15` | warm near-black headings/depth |
-| | `--c-body` / `--c-muted` | `#3d362c` / `#5e564a` | body copy / muted meta |
-| | `--c-line` / `--c-line-soft` | `#c7c2b7` / `#d9d5cb` | gravel-tone borders / dividers |
-| **Primary — pine-leaf green (foliage)** | `--c-accent` | `#45592f` | eyebrows, links, primary CTA bg, key highlights (identity) |
-| | `--c-accent-bright` | `#5a7340` | primary-button hover (brighter foliage) |
-| | `--c-accent-ink` | `#f5f3ec` | warm off-white type on the pine button |
-| **Secondary — warm amber/honey (window glow)** | `--c-accent-2` | `#ad6a22` | card-hover borders, focus rings — a genuine warm 2nd accent, used as a NON-TEXT accent |
-| **Tertiary — dark timber brown (cladding)** | `--c-timber` / `--c-timber-2` | `#2e211a` / `#5a4636` | grounding depth; drives the footer wash |
-| | footer set `--c-footer-*` | bg `#2e211a`, ink `#ece7de`, body `#beb4a3`, muted `#a79c89`, line `#4a3a2f`, accent `#8aa862` | dark-timber footer grounding on every page |
+| **Base — cool charcoal near-black, DOMINANT** | `--c-bg` / `--c-bg-soft` | `#16181a` / `#1c1f22` | page base + alternating cool bands |
+| | `--c-surface` / `--c-surface-2` | `#212528` / `#2c3135` | raised cards (lift a step) / chips + insets |
+| | `--c-ink` (brightest text) | `#e8ecee` | cool off-white headings |
+| | `--c-body` / `--c-muted` | `#c3c9ce` / `#949ca2` | cool body copy / cool muted meta |
+| | `--c-line` / `--c-line-soft` | `#3a4247` / `#262b2f` | cool charcoal borders / subtle dividers |
+| **Accent — warm brass/amber (the ONLY accent)** | `--c-accent` | `#c6923e` | eyebrows, links, primary CTA bg, key highlights (identity) |
+| | `--c-accent-bright` | `#d9a85a` | primary-button hover (brighter brass) |
+| | `--c-accent-ink` | `#16181a` | near-black type on the brass button |
+| **Secondary — warm bronze (NON-TEXT)** | `--c-accent-2` | `#9c6b34` | card-hover borders, focus rings — brass/amber family, non-text only |
+| **Tertiary — dark OUD wood** | `--c-timber` / `--c-timber-2` | `#221b17` / `#3a2e26` | grounding depth; drives the footer wash |
+| | footer set `--c-footer-*` | bg `#221b17`, ink `#ece7e1`, body `#c4bbb0`, muted `#9a9189`, line `#3a2e26`, accent `#d9a85a` | dark-oud footer grounding on every page |
 
-Amber is a real second accent (not scattered): it warms **interaction** — the
-card-hover "window-glow" border and the résumé menu's focus ring — while pine
-stays the identity accent (eyebrows/links/CTAs/icon tiles). Primary buttons
-brighten to `--c-accent-bright` on hover (foliage catching light).
+Brass is the single identity accent (eyebrows/links/CTAs/icon tiles); bronze
+`--c-accent-2` stays in the same warm brass/amber family and is used only for
+non-text interaction (card-hover border, résumé focus ring). Primary buttons
+brighten to `--c-accent-bright` on hover.
 
-### Contrast adjustments (WCAG AA, validated with a luminance script)
-All body/heading/accent-as-text pairs clear AA; measured on the surface each
+### Cooler + blacker than /landing-3 (deliberate)
+`/landing-3`'s base is a **warm** near-black (`#1a1917`, warm/brown undertone);
+Charcoal & Oud shifts it **cooler and deeper** (`#16181a`, blue-grey undertone)
+and its greys (`--c-body` `#c3c9ce`, `--c-muted` `#949ca2`, `--c-line`
+`#3a4247`) all carry a cool cast, versus landing-3's warm `#cfc8bb` / `#948d81`
+/ `#6e6a63`. Wood grounding also went darker: OUD `#221b17` vs landing-3's
+timber `#2e2c29`. Same brass accent family, so it still reads as a refined
+cousin of the landing-3 look Abang liked.
+
+### Contrast (WCAG AA, validated with a luminance script)
+All body/heading/accent-as-text pairs clear AA, measured on the surface each
 token actually sits on:
-- ink `#1c1a15` ≈ **13.6:1**, body `#3d362c` ≈ **9.3:1** on `--c-bg` — past AA (and AAA).
-- **muted was darkened to `#5e564a`** (from an earlier `#6e6659` that was only
-  ≈3.8:1 on the soft gravel band) so it clears AA everywhere it's small meta
-  text: ≈**5.6:1** on bg, ≈**4.9:1** on `--c-bg-soft`, ≈**6.3:1** on surface.
-- accent pine `#45592f` ≈ **6.0:1** on bg (≈5.2:1 on the soft band) → AA as
-  link/eyebrow/CTA text; accent-ink on the pine button ≈ **7.0:1** (hover
-  bright ≈ **4.8:1**).
-- **amber `#ad6a22` is deliberately NOT used as body text** (it's ~2.9–3.4:1 on
-  the light surfaces — fine for the 3:1 non-text UI-component bar it's held to as
-  a hover-border/focus-ring, but it would fail as small text). Kept to non-text
-  roles only.
-- footer dark-timber grounding: ink `#ece7de` ≈ **12.6:1**, body `#beb4a3` ≈
-  **7.6:1**, muted `#a79c89` ≈ **5.8:1**, footer-accent `#8aa862` ≈ **5.8:1**,
-  all on `#2e211a` — AA. (Footer-accent is a brightened pine because the base
-  `--c-accent` pine is too dark to read on the timber footer.)
+- ink `#e8ecee` ≈ **14.97:1**, body `#c3c9ce` ≈ **10.65:1** on `--c-bg` — past AA (AAA).
+- body on surface ≈ **9.24:1**, on surface-2 ≈ **7.86:1** — AA.
+- **muted was lightened to `#949ca2`** (from a first pass `#8a9299` that was only
+  ≈4.16:1 on `--c-surface-2`) so it clears AA everywhere it's small meta text,
+  incl. the résumé-menu hover row (surface-2): ≈**5.64:1** on bg, ≈**4.72:1** on
+  surface-2.
+- accent brass `#c6923e` ≈ **6.43:1** on bg (≈**4.75:1** on surface-2) → AA as
+  link/eyebrow/CTA text; accent-ink `#16181a` on the brass button ≈ **6.43:1**
+  (hover bright `#d9a85a` ≈ **8.22:1**).
+- **bronze `#9c6b34` (`--c-accent-2`) is deliberately NOT body text** — ≈3.87:1
+  on bg, fine for the 3:1 non-text UI-component bar (hover border / focus ring),
+  never used as small text.
+- `--c-line` `#3a4247` (nudged up one step from the `#333a3f` direction for
+  card-edge definition on the dark base) and `--c-line-soft` are subtle
+  architectural rules, not text-bearing.
+- footer dark-oud grounding: ink `#ece7e1` ≈ **13.81:1**, body `#c4bbb0` ≈
+  **8.96:1**, muted `#9a9189` ≈ **5.48:1**, footer-accent `#d9a85a` ≈ **7.84:1**,
+  all on `#221b17` — AA. (Footer-accent is the brighter brass for AA on oud.)
 
-### Stone-vein texture ("rekahan batu") + toggle
-- **Implementation:** two **self-contained inline-SVG** layers (no external
-  files) painted on a fixed, full-viewport `body::before` and blended with
-  `mix-blend-mode: soft-light` at `opacity: 0.5`: (1) an organic
-  fractal-noise **cracked-stone vein** layer (`feTurbulence` fractalNoise →
-  `feColorMatrix` alpha threshold, tuned near-isotropic so it reads as organic
-  cracked stone rather than directional woodgrain), and (2) a fine stone
-  **grain**. Both are embedded as percent-encoded `data:image/svg+xml` URIs.
-  Low-contrast by design — verified body text stays fully legible with it on.
-- **Layering:** the overlay sits at `z-index: 40` (below the sticky navbar `50`
-  and the résumé menu `60`) so floating UI stays crisp; `pointer-events: none`.
-- **Toggle:** `<TextureToggle>` in the footer — an accessible ARIA `switch`
-  (`role="switch"` + `aria-checked`), keyboard-operable via the native
-  `<button>` (verified: focus ring + Space flips it), inline-SVG icon (house
-  rule). It flips `data-texture` on `<html>` and persists to
-  `localStorage['pw-texture']`. A pre-paint inline script in the root layout
-  resolves the preference before first paint (no flash). **Default: ON.**
-- The texture is a **global** background feature, so it also overlays the
-  reference routes subtly (barely perceptible on the dark `/landing-3`); this is
-  intentional and consistent.
+### Stone-vein texture — REMOVED
+The stone-vein texture ("rekahan batu") was **removed entirely** per Abang
+("messed up everything"). Deleted: the `body::before` two-layer inline-SVG
+overlay + its `html[data-texture]` / reduced-motion CSS, the `.texture-toggle`
+styles, the `<TextureToggle>` component (`src/components/ui/TextureToggle.tsx`),
+its usage in `Footer.tsx`, and the `data-texture`/`localStorage['pw-texture']`
+pre-paint logic in `layout.tsx` (the `html.js` flag was kept). Grep confirms no
+remaining reference to `texture` / `data-texture` / `pw-texture` / `body::before`
+in `src/` (only this doc + a note-comment in `globals.css`). The background is
+now the clean cool-charcoal color.
 
 ### Reference-route handling
 - `/landing-2` (**editorial**) and `/landing-3` (**timber**) are **kept as
-  working reference routes**, visually unchanged. To ground the default footer
-  in dark timber without mutating those skins, the footer now reads
-  skin-scoped `--c-footer-*` tokens: Pinewood sets them to dark timber; the two
-  reference skins set them back to their original footer look. `Footer.tsx` was
-  updated to consume these tokens (+ the texture toggle was added to it).
+  working reference routes, visually unchanged.** They are `[data-palette]`
+  skins that override the same semantic vars, so re-skinning `:root` does not
+  touch them; verified both still render their own distinct looks (editorial =
+  warm light + terracotta; timber = warm dark + brass). Their footers still read
+  the skin-scoped `--c-footer-*` tokens (each skin sets its own), so the new
+  default footer being dark-oud does not leak into them. No changes were made to
+  either skin block.
 
 ### Verification
 - `tsc --noEmit` clean · `next build` clean (all 11 routes static, incl.
-  `/resume/print`) · `eslint src/**` clean (0/0 — the toggle's mount sync uses
-  the repo's `requestAnimationFrame` pattern to satisfy `set-state-in-effect`).
-- Playwright (Chromium) 1440 + 390 shots of every page in default Pinewood,
-  plus texture-ON/OFF states, résumé download-dropdown open, and the footer
-  toggle focus ring + keyboard operation. All pages read well: hero washes,
-  gravel section bands, lifted cards, chips, pine buttons, résumé split-button
-  + menu, QR card, timber footer.
+  `/resume/print`) · `eslint src/**` clean (0/0).
+- Playwright (Chromium) 1440 + 390 shots of every page (`/`, `/about`,
+  `/projects`, `/ai`, `/resume`) in the new default, plus the résumé
+  download-dropdown open, and both reference routes. Confirmed: cool (not warm)
+  dark charcoal base, dark-oud footer, brass accent, **no green, no texture**,
+  AA-legible — hero washes, section bands, lifted cards, chips, brass buttons,
+  résumé split-button + open menu, QR card.
 - The only non-token color left is the QR code's `#fff` backing in `Contact.tsx`
-  — kept white **intentionally** for scannability (a coloured QR backing hurts
-  scanning); it reads as a deliberate white card on the smoke-grey surface.
+  — kept white **intentionally** for scannability; it reads as a deliberate
+  white card on the charcoal surface.
 - The `/resume/print` route (the PDF source) is fully self-contained with its
   own black-on-white print styles and shares no tokens — untouched, PDFs
   unchanged.

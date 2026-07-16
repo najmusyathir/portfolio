@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PROFILE, SOCIALS } from "@/lib/content";
 import { Icon } from "@/components/ui/Icon";
-import { TextureToggle } from "@/components/ui/TextureToggle";
 
 export function Footer() {
   return (
@@ -80,7 +79,6 @@ export function Footer() {
             View alternate theme
           </Link>
         </p>
-        <TextureToggle />
       </div>
     </footer>
   );

@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { PROFILE, SOCIALS } from "@/lib/content";
 import { Icon } from "@/components/ui/Icon";
+import { TextureToggle } from "@/components/ui/TextureToggle";
 
 export function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid var(--c-line)",
-        background: "var(--c-bg-soft)",
+        borderTop: "1px solid var(--c-footer-line)",
+        background: "var(--c-footer-bg)",
+        color: "var(--c-footer-body)",
       }}
     >
       <div
@@ -22,10 +24,10 @@ export function Footer() {
         }}
       >
         <div>
-          <p style={{ fontWeight: 700, color: "var(--c-ink)", margin: 0, fontSize: "var(--text-lg)" }}>
+          <p style={{ fontWeight: 700, color: "var(--c-footer-ink)", margin: 0, fontSize: "var(--text-lg)" }}>
             {PROFILE.name}
           </p>
-          <p style={{ margin: "0.25rem 0 0", color: "var(--c-muted)", fontSize: "var(--text-sm)" }}>
+          <p style={{ margin: "0.25rem 0 0", color: "var(--c-footer-muted)", fontSize: "var(--text-sm)" }}>
             {PROFILE.role} · {PROFILE.quote}
           </p>
         </div>
@@ -45,9 +47,9 @@ export function Footer() {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "var(--radius-full)",
-                border: "1px solid var(--c-line)",
-                color: "var(--c-body)",
-                background: "var(--c-surface)",
+                border: "1px solid var(--c-footer-line)",
+                color: "var(--c-footer-body)",
+                background: "color-mix(in srgb, var(--c-footer-ink) 6%, transparent)",
                 transition: "color 160ms ease, border-color 160ms ease",
               }}
             >
@@ -57,13 +59,28 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container" style={{ paddingBottom: "2rem" }}>
-        <p style={{ margin: 0, color: "var(--c-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>
+      <div
+        className="container"
+        style={{
+          paddingBottom: "2rem",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "1rem",
+        }}
+      >
+        <p style={{ margin: 0, color: "var(--c-footer-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>
           © {new Date().getFullYear()} {PROFILE.name} · Built with Next.js.{" "}
-          <Link href="/landing-2" className="link-underline">
+          <Link
+            href="/landing-2"
+            className="link-underline"
+            style={{ color: "var(--c-footer-accent)" }}
+          >
             View alternate theme
           </Link>
         </p>
+        <TextureToggle />
       </div>
     </footer>
   );

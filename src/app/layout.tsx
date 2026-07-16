@@ -36,10 +36,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Mark JS as active before paint so scroll-reveal only hides content
-            when it can actually reveal it again (no-JS = content visible). */}
+            when it can actually reveal it again (no-JS = content visible).
+            Also resolve the stone-texture preference before paint (default ON)
+            so the background never flashes the wrong state on load. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "document.documentElement.classList.add('js');try{document.documentElement.setAttribute('data-texture',localStorage.getItem('pw-texture')==='off'?'off':'on')}catch(e){document.documentElement.setAttribute('data-texture','on')}",
           }}
         />
       </head>

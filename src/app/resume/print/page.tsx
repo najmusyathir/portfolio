@@ -124,8 +124,8 @@ export default function ResumePrintPage() {
           background: #ffffff;
           color: var(--body);
           font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-          font-size: 10.5px;
-          line-height: 1.5;
+          font-size: 12px;
+          line-height: 1.55;
           max-width: 190mm;
           margin: 0 auto;
           padding: 4mm 0 2mm;
@@ -138,11 +138,11 @@ export default function ResumePrintPage() {
 
         /* Header */
         .head { border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 14px; }
-        .head h1 { font-size: 22px; letter-spacing: -0.01em; }
-        .head .role { font-size: 12px; font-weight: 600; color: var(--accent); margin-top: 2px; }
+        .head h1 { font-size: 25px; letter-spacing: -0.01em; }
+        .head .role { font-size: 14px; font-weight: 600; color: var(--accent); margin-top: 2px; }
         .head .contact {
           display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
-          font-size: 9.5px; color: var(--muted); margin-top: 6px;
+          font-size: 11px; color: var(--muted); margin-top: 6px;
           font-family: var(--mono);
         }
         .head .contact .dot { color: var(--line); }
@@ -150,31 +150,31 @@ export default function ResumePrintPage() {
         /* Section */
         .block { margin-bottom: 13px; break-inside: avoid; }
         .block > h2 {
-          font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+          font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
           color: var(--accent); margin-bottom: 7px;
           padding-bottom: 3px; border-bottom: 1px solid var(--line);
         }
-        .summary { font-size: 10.5px; line-height: 1.6; }
+        .summary { font-size: 12px; line-height: 1.6; }
 
         /* Cards */
         .card { break-inside: avoid; margin-bottom: 9px; }
         .card:last-child { margin-bottom: 0; }
         .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-        .card-head h3 { font-size: 12px; }
-        .card .period { font-family: var(--mono); font-size: 9px; color: var(--muted); white-space: nowrap; }
-        .card .company { font-size: 10px; font-weight: 600; color: var(--accent); margin-top: 1px; }
-        .card ul { margin: 5px 0 0; padding-left: 15px; }
-        .card li { margin-bottom: 2.5px; line-height: 1.45; }
-        .tech { font-family: var(--mono); font-size: 8.8px; color: var(--muted); margin-top: 5px; }
+        .card-head h3 { font-size: 14px; }
+        .card .period { font-family: var(--mono); font-size: 10.5px; color: var(--muted); white-space: nowrap; }
+        .card .company { font-size: 11.5px; font-weight: 600; color: var(--accent); margin-top: 1px; }
+        .card ul { margin: 5px 0 0; padding-left: 16px; }
+        .card li { margin-bottom: 3px; line-height: 1.5; }
+        .tech { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 5px; }
 
         /* Education card headings a touch smaller */
-        .edu-grid .card h3 { font-size: 11px; }
-        .card .meta { font-family: var(--mono); font-size: 8.8px; color: var(--muted); margin-top: 3px; }
+        .edu-grid .card h3 { font-size: 12.5px; }
+        .card .meta { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; }
 
         /* Projects */
         .group { margin-bottom: 10px; break-inside: avoid; }
         .group-label {
-          font-family: var(--mono); font-size: 8.5px; font-weight: 700;
+          font-family: var(--mono); font-size: 10px; font-weight: 700;
           letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
         }
         .proj-grid, .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px; }
@@ -182,21 +182,21 @@ export default function ResumePrintPage() {
           margin-bottom: 0; padding: 7px 9px;
           border: 1px solid var(--line); border-radius: 7px; break-inside: avoid;
         }
-        .proj h4 { font-family: var(--mono); font-size: 10px; }
-        .proj-desc { font-size: 9.3px; line-height: 1.4; margin-top: 2px; }
-        .proj-url { font-family: var(--mono); font-size: 8.5px; color: var(--accent); margin-top: 3px; }
+        .proj h4 { font-family: var(--mono); font-size: 11.5px; }
+        .proj-desc { font-size: 10.5px; line-height: 1.45; margin-top: 2px; }
+        .proj-url { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-top: 3px; }
         .edu-grid .card {
           padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px;
         }
 
         /* Skills */
         .skills { display: flex; flex-direction: column; gap: 4px; }
-        .skill-row { display: grid; grid-template-columns: 96px 1fr; gap: 10px; align-items: baseline; break-inside: avoid; }
+        .skill-row { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; break-inside: avoid; }
         .skill-label {
-          font-family: var(--mono); font-size: 8.8px; font-weight: 700;
+          font-family: var(--mono); font-size: 10px; font-weight: 700;
           letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
         }
-        .skill-items { font-size: 9.6px; color: var(--body); }
+        .skill-items { font-size: 11px; color: var(--body); }
       `}</style>
     </div>
   );

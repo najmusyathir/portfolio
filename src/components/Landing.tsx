@@ -6,11 +6,7 @@ import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { AITeaser } from "@/components/sections/AITeaser";
 import { Contact } from "@/components/sections/Contact";
 
-/**
- * The full landing, composed once. `/` renders it with the default (v1)
- * palette; `/landing-2` renders the exact same tree inside a
- * data-palette="editorial" wrapper — same content, different skin.
- */
+/** The full landing, composed once. Rendered at `/`. */
 export function Landing() {
   return (
     <>

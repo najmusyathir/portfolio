@@ -23,14 +23,10 @@
                          has explicitly saved theme="light", so there is no
                          flash of the light baseline.
 
-   [data-palette="editorial"] re-skins /landing-2 (warm light "Espresso
-   Editorial"); [data-palette="timber"] re-skins /landing-3 (dark-first
-   "Timber & Stone") — both are fixed, opt-in reference routes: they set
-   every semantic token themselves on their own wrapper element, so the
-   light/dark toggle has no visible effect on them (a locally-set custom
-   property always wins over an inherited one, regardless of the html.dark
-   class). (The old stone-vein texture overlay was removed — the Charcoal &
-   Oud background is the clean cool-charcoal color.)
+   (The old /landing-2 "Espresso Editorial" and /landing-3 "Timber & Stone"
+   reference routes + their [data-palette] skins were removed once Charcoal &
+   Oud was confirmed as the real theme. The old stone-vein texture overlay
+   was removed earlier — the background is the clean cool-charcoal color.)
    ========================================================================== */
 
 @theme {
@@ -208,77 +204,6 @@
   --c-footer-muted: #9a9189;
   --c-footer-line: #3a2e26;
   --c-footer-accent: #d9a85a; /* brightened brass for AA on dark oud */
-}
-
-/* --------------------------------------------------------------------------
-   PROPOSED SKIN — "Espresso Editorial" (my /landing-2 UI/UX proposal)
-   Warm cream base, near-black espresso ink for stronger hierarchy, one
-   confident clay/terracotta accent that ties to the coffee identity.
-   Rationale lives in PORTFOLIO-V6-DESIGN.md.
-   -------------------------------------------------------------------------- */
-[data-palette="editorial"] {
-  --c-bg: #f7f3ec;
-  --c-bg-soft: #f1ebe0;
-  --c-surface: #fffdf9;
-  --c-surface-2: #f3ede2;
-  --c-ink: #22190f;
-  --c-body: #4c4238;
-  --c-muted: #8a7d6d;
-  --c-accent: #bf5b34; /* clay / roasted terracotta */
-  --c-accent-bright: #d98b5f;
-  --c-accent-2: #d98b5f;
-  --c-accent-ink: #fffaf4;
-  --c-line: #e6dbc9;
-  --c-line-soft: #f0e7d8;
-  --c-shadow: 60 40 24;
-  --hero-wash: linear-gradient(180deg, #f1e7d6 0%, #f7f3ec 100%);
-  /* Reference route: keep the original light editorial footer. */
-  --c-footer-bg: #f1ebe0;
-  --c-footer-ink: #22190f;
-  --c-footer-body: #4c4238;
-  --c-footer-muted: #8a7d6d;
-  --c-footer-line: #e6dbc9;
-  --c-footer-accent: #bf5b34;
-}
-
-/* --------------------------------------------------------------------------
-   DARK SKIN — "Timber & Stone" (/landing-3)
-   Modern-architectural "bungalow in the woods": warm near-black charcoal,
-   graphite surfaces, stone-grey lines, smoked-walnut as a secondary
-   structural warm tone, and ONE brass/amber accent for CTAs/links/highlights.
-   Dark-first. Contrast notes (all measured against --c-bg #1a1917, L≈0.0098):
-     • ink   #f4f1ea ≈ 14.6:1   • body #cfc8bb ≈ 10.6:1   — both well past AA.
-     • accent brass #c6923e ≈ 6.3:1 → AA for link/eyebrow/CTA text on the bg.
-     • muted TEXT is #948d81 ≈ 5.3:1 (AA), NOT the raw stone #6e6a63 (≈3.3:1):
-       the brief's stone grey is used for LINES/borders (where 3.3:1 reads as
-       a crisp architectural rule); text was lightened one step to clear AA.
-     • --c-accent-ink flips to near-black (#1a1917) so dark type on the light
-       brass button hits ≈6.3:1 (white-on-brass would only be ~2:1).
-   Rationale in PORTFOLIO-V6-DESIGN.md §"Timber & Stone (/landing-3)".
-   -------------------------------------------------------------------------- */
-[data-palette="timber"] {
-  --c-bg: #1a1917; /* warm near-black — darkest surface */
-  --c-bg-soft: #211f1b; /* faint graphite band */
-  --c-surface: #2e2c29; /* raised graphite surface (cards) */
-  --c-surface-2: #38342e; /* chips / inset fills */
-  --c-ink: #f4f1ea; /* warm off-white headings */
-  --c-body: #cfc8bb; /* warm light grey body copy */
-  --c-muted: #948d81; /* lightened stone grey for muted TEXT (AA) */
-  --c-accent: #c6923e; /* brass / amber — the single accent */
-  --c-accent-bright: #d9a856; /* brighter brass — accent hover */
-  --c-accent-2: #7a5c43; /* smoked walnut — secondary structural warm tone */
-  --c-accent-ink: #1a1917; /* near-black type on the brass button */
-  --c-line: #6e6a63; /* mid stone grey — architectural borders */
-  --c-line-soft: #3a3630; /* subtle divider on dark */
-  --c-shadow: 0 0 0; /* pure-black elevation on dark */
-  --hero-wash: linear-gradient(180deg, #211f1b 0%, #1a1917 100%);
-  /* Reference route: keep the original dark timber footer. */
-  --c-footer-bg: #211f1b;
-  --c-footer-ink: #f4f1ea;
-  --c-footer-body: #cfc8bb;
-  --c-footer-muted: #948d81;
-  --c-footer-line: #3a3630;
-  --c-footer-accent: #c6923e;
 }
 
 /* --------------------------------------------------------------------------

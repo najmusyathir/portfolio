@@ -5,9 +5,8 @@
  * - Primary segment force-downloads the CURRENT résumé (/resume.pdf).
  * - Chevron segment opens a small menu to pick the current résumé or the
  *   older v1 version (/portfolio-v1.pdf).
- * Fully theme-token driven so it re-skins across all three palettes
- * (default, /landing-2 editorial, /landing-3 timber). Keyboard-accessible:
- * opens/closes with the chevron, closes on Escape or outside click.
+ * Fully theme-token driven so it re-skins across light/dark. Keyboard-
+ * accessible: opens/closes with the chevron, closes on Escape or outside click.
  */
 
 import { useEffect, useId, useRef, useState } from "react";

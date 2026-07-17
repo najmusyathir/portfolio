@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PROFILE, SOCIALS } from "@/lib/content";
 import { Icon } from "@/components/ui/Icon";
 
@@ -70,14 +69,7 @@ export function Footer() {
         }}
       >
         <p style={{ margin: 0, color: "var(--c-footer-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>
-          © {new Date().getFullYear()} {PROFILE.name} · Built with Next.js.{" "}
-          <Link
-            href="/landing-2"
-            className="link-underline"
-            style={{ color: "var(--c-footer-accent)" }}
-          >
-            View alternate theme
-          </Link>
+          © {new Date().getFullYear()} {PROFILE.name} · Built with Next.js.
         </p>
       </div>
     </footer>

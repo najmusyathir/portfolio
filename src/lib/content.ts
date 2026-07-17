@@ -1,6 +1,6 @@
 /**
  * Single source of truth for site content. Pages/components read from here so
- * copy stays consistent across the landing, /landing-2, and inner pages.
+ * copy stays consistent across the landing and inner pages.
  */
 
 export const PROFILE = {

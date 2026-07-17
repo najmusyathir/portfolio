@@ -356,3 +356,121 @@ now the clean cool-charcoal color.
 - The `/resume/print` route (the PDF source) is fully self-contained with its
   own black-on-white print styles and shares no tokens — untouched, PDFs
   unchanged.
+
+---
+
+## 10. Dark/light theme toggle (class-based, pd pattern) + project image fixes
+
+### Theme toggle
+Replicates personal-dashboard's `ThemeContext`/`ThemeToggleButton` pattern
+exactly (same state shape, same `localStorage["theme"]` key, same
+add/remove `"dark"` class on `document.documentElement`), with one
+deliberate difference: **default is DARK**, not light (pd defaults light).
+
+- **Files:** `src/context/ThemeContext.tsx` (provider + `useTheme()`),
+  `src/components/layout/ThemeToggle.tsx` (button), wired into
+  `src/app/layout.tsx` (provider + pre-paint script) and
+  `src/components/layout/Navbar.tsx` (always-visible toggle, not hidden
+  behind the mobile hamburger).
+- **No-flash:** an inline `<script>` in `layout.tsx`'s `<head>` (same
+  technique as the retired texture flag) sets `html.classList` before
+  paint: `dark` unless `localStorage.theme === "light"`. `ThemeContext`'s
+  first effect only *syncs React state* to whatever the script already
+  applied — deferred one frame via `requestAnimationFrame` (same fix
+  pattern already used in `Reveal.tsx`) to avoid the
+  `react-hooks/set-state-in-effect` lint error without suppressing it.
+- **Palette restructure:** the old single `:root` (Charcoal & Oud) is now
+  `:root.dark` verbatim, unchanged. A new `:root` (no `.dark`) carries the
+  light theme.
+- **Reference routes unaffected:** `/landing-2` and `/landing-3` set every
+  semantic token on their own wrapper `div[data-palette]`, so a locally-set
+  custom property always wins over the inherited `:root`/`:root.dark`
+  value — the toggle has no visible effect on them. Verified both still
+  render their own fixed look at every viewport, with the toggle switched
+  either way. (Also added `minHeight: 100vh` to `/landing-2`'s wrapper,
+  matching `/landing-3`'s existing pattern, for parity/robustness against
+  the body-fallback-color edge case at overscroll.)
+
+### Light theme — v2, per Abang's direct spec (not the v1-restore first draft)
+Abang gave a concrete spec rather than "restore v1": cool light-**mid**
+grey base (not stark white, not dark), the dark theme's near-black
+charcoal reused as text, the **same** brass/amber accent as Charcoal &
+Oud, and some card surfaces going a further-darkened cool grey (his
+explicit preference). Implemented as a first pass, deliberately not
+polished further — he'll review and iterate.
+
+- `--c-bg #d9dbdd` → `--c-bg-soft #cfd1d3` → `--c-surface #bfc3c5` →
+  `--c-surface-2 #b2b6b9`: four steps of the same cool grey, each a bit
+  darker, so cards/chips/footer can sit visibly apart from the page.
+- `--c-ink #16181a` / `--c-body #212528` / `--c-muted #3a4247` are
+  **literally** the dark skin's `--c-bg` / `--c-surface` / `--c-line` hex
+  values — the neutral scale that is *background* in dark becomes *text*
+  in light, same family, inverted role. All AA (in fact AAA) at every
+  surface tier.
+- `--c-accent #c6923e` / `--c-accent-bright #d9a85a` / `--c-accent-2
+  #9c6b34`: the exact same brass/amber/bronze hexes as Charcoal & Oud, per
+  "let's try that first."
+- **Known, flagged gap (not silently patched):** the literal brass is
+  mathematically incapable of ≥3:1 against any bg this light (it only
+  clears AA against a bg lighter than L≈1.66, impossible, or darker than
+  L≈0.03) — it works great as a **button/CTA background** (ink text on top
+  passes ≈6.4:1, identical math to the dark skin) but every place the
+  component tree uses `--c-accent` directly as **text/icon color**
+  (`.eyebrow`, `.link-underline`, project/URL labels) will read
+  low-contrast (~1.4–2:1) in this light theme. This is a direct,
+  unavoidable consequence of reusing the literal dark-mode hex on a light
+  bg with the current one-token-drives-both-bg-and-text architecture — not
+  something I quietly worked around, since Abang asked to try the literal
+  value first. Flagged with the exact numbers in `globals.css`'s `:root`
+  comment block. Two options for a follow-up pass: (a) a text-safe deepened
+  variant (~`#5c3e10`–`#664511`, same hue family, clears AA at every tier —
+  already worked out and ready to drop in), or (b) restyle those specific
+  spots to use ink/muted in light mode. `--c-accent-2` (non-text hover
+  border/focus ring) has the same shape of gap, milder — low-stakes since
+  it's a diluted decorative hover accent only.
+- Footer stays in the same grey family (not a dark "bookend" — an earlier
+  v1-restore draft did that, dropped once the real spec came in), same
+  charcoal-family text on top, per "header/footer wash... could sit on a
+  darker grey band."
+
+### Project image fixes
+1. **Flagship (`personal-dashboard`) now has an image.** `FLAGSHIP.image`
+   in `src/lib/content.ts` points at `/current_project.png` — confirmed by
+   inspection to be a TailAdmin-style dashboard screenshot (matches the
+   flagship's actual product), previously mis-assigned to PetCare instead.
+   Rendered as a framed two-column headline (text + screenshot, rounded
+   card, border, soft shadow using the `--c-shadow` token) in both
+   `FeaturedWork.tsx` (landing) and `projects/page.tsx`, via `next/image`
+   with `fill` + `sizes`, matching the existing `about/page.tsx` two-column
+   pattern. Responsive: stacks to a single column under 860px (new
+   `.flagship-grid` CSS in both files).
+2. **PetCare Clinic System gets a real thumbnail extracted from its demo
+   video.** The Playwright-bundled ffmpeg (`~/.cache/ms-playwright/ffmpeg-1011`)
+   is a stripped build (webm/vp8/mjpeg only) and can't demux the MP4, and
+   there's no system `ffmpeg`/`ffprobe`/opencv installed — so per the
+   fallback plan, a small Node/Playwright script loaded `public/project3.mp4`
+   in a real Chromium `<video>` element (native MP4/H.264 decode), sought to
+   several timestamps, and screenshotted just the video element's box.
+   Sampled ~15 frames across the 117s clip; picked the `t=30s` frame ("My
+   Pets" screen — sidebar nav + pet management table, clean, no browser-UI
+   artifacts) over frames with an autofill popup overlay or a bare
+   login/register form. Compressed with `sharp` (resize to 1600px wide,
+   mozjpeg quality 82) to `public/petcare.jpg` — 23KB (smaller than
+   project1/2.png's 700KB+, but that's expected: a flat-color UI screenshot
+   compresses far better than a photo). `EARLIER_WORK`'s PetCare entry's
+   `image` now points at `/petcare.jpg` instead of the wrong
+   `/current_project.png`.
+
+### Verification
+- `tsc --noEmit` clean · `next build` clean (all 11 routes static) ·
+  `eslint src/**` clean (0/0, including the new `ThemeContext.tsx`/
+  `ThemeToggle.tsx`).
+- Playwright (Chromium, `reducedMotion: "reduce"` so scroll-gated `.reveal`
+  content isn't screenshotted mid-animation) at 1440 + 390: default (no
+  `localStorage`) is dark on both viewports; toggle flips the whole site to
+  the light baseline and back; `localStorage.theme` persists across
+  reload with no flash; `/landing-2` and `/landing-3` render their own
+  fixed look regardless of toggle state, on desktop and mobile; flagship
+  dashboard image renders correctly on `/` and `/projects`, both themes,
+  both viewports; PetCare card shows the new video-frame thumbnail on
+  `/projects`; `/about`, `/ai`, `/resume` sanity-checked in both themes.

@@ -36,33 +36,54 @@ export default function ProjectsPage() {
         <section className="section">
           <div className="container">
             <Reveal>
-              <article className="surface" style={{ padding: "clamp(1.75rem, 4vw, 2.75rem)" }}>
-                <span
+              <article className="surface flagship-grid" style={{ padding: "clamp(1.75rem, 4vw, 2.75rem)" }}>
+                <div>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "var(--text-xs)",
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "var(--c-accent)",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    <Icon name="spark" size={14} /> Flagship
+                  </span>
+                  <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "0.35rem", fontFamily: "var(--font-mono)" }}>
+                    {FLAGSHIP.name}
+                  </h2>
+                  <p style={{ fontSize: "var(--text-xl)", fontWeight: 600, color: "var(--c-ink)", margin: "0 0 1rem" }}>
+                    {FLAGSHIP.tagline}
+                  </p>
+                  <p style={{ fontSize: "var(--text-lg)", color: "var(--c-body)", maxWidth: "64ch", margin: "0 0 1.5rem" }}>
+                    {FLAGSHIP.description}
+                  </p>
+                  <ChipRow items={FLAGSHIP.tags} />
+                </div>
+                <div
                   style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "var(--text-xs)",
-                    fontWeight: 600,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--c-accent)",
-                    marginBottom: "1rem",
+                    position: "relative",
+                    borderRadius: "var(--radius)",
+                    overflow: "hidden",
+                    border: "1px solid var(--c-line)",
+                    boxShadow: "0 24px 50px -26px rgb(var(--c-shadow) / 0.5)",
+                    aspectRatio: "16 / 10",
+                    background: "var(--c-surface-2)",
                   }}
                 >
-                  <Icon name="spark" size={14} /> Flagship
-                </span>
-                <h2 style={{ fontSize: "var(--text-3xl)", marginBottom: "0.35rem", fontFamily: "var(--font-mono)" }}>
-                  {FLAGSHIP.name}
-                </h2>
-                <p style={{ fontSize: "var(--text-xl)", fontWeight: 600, color: "var(--c-ink)", margin: "0 0 1rem" }}>
-                  {FLAGSHIP.tagline}
-                </p>
-                <p style={{ fontSize: "var(--text-lg)", color: "var(--c-body)", maxWidth: "64ch", margin: "0 0 1.5rem" }}>
-                  {FLAGSHIP.description}
-                </p>
-                <ChipRow items={FLAGSHIP.tags} />
+                  <Image
+                    src={FLAGSHIP.image}
+                    alt={`${FLAGSHIP.name} dashboard preview`}
+                    fill
+                    sizes="(max-width: 900px) 90vw, 460px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
               </article>
             </Reveal>
           </div>
@@ -167,6 +188,15 @@ export default function ProjectsPage() {
       <Footer />
 
       <style>{`
+        .flagship-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.75rem;
+          align-items: center;
+        }
+        @media (min-width: 860px) {
+          .flagship-grid { grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; }
+        }
         .proj-eco-grid {
           display: grid;
           grid-template-columns: 1fr;

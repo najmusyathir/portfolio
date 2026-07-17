@@ -81,6 +81,7 @@ export const FLAGSHIP = {
   description:
     "The biggest thing I run: a personal assistant that keeps you ahead of your own life — finances, event scheduling, meetings, career, and day-to-day tasks. Built around one idea: use software, and AI, to genuinely boost human productivity.",
   tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "AI"],
+  image: "/current_project.png",
 } as const;
 
 /** Self-hosted ecosystem grid on the landing + projects page. */
@@ -159,7 +160,7 @@ export const EARLIER_WORK: EarlierProject[] = [
     tags: ["Laravel", "Blade", "MySQL", "JavaScript"],
     date: "Mar 2025",
     url: null,
-    image: "/current_project.png",
+    image: "/petcare.jpg",
   },
 ];
 

@@ -131,9 +131,9 @@
    -------------------------------------------------------------------------- */
 :root {
   --c-bg: #d9dbdd; /* cool light-mid grey — dominant light base (not white, not dark) */
-  --c-bg-soft: #cfd1d3; /* alternating section band, a touch darker */
-  --c-surface: #bfc3c5; /* cards — a further, cooler darker grey (liked look) */
-  --c-surface-2: #b2b6b9; /* chips / inset fills — darkest grey tier */
+  --c-bg-soft: #cfd1d3; /* alternating section band (Featured Work, etc.) — a touch darker, liked */
+  --c-surface: #eef0f1; /* cards (flagship, pillars) — pop LIGHTER than the section band, not darker */
+  --c-surface-2: #e3e5e6; /* chips / inset icon tiles — light, between surface and bg */
   --c-ink: #16181a; /* dark-theme's charcoal bg, reused as heading text */
   --c-body: #212528; /* dark-theme's charcoal surface, reused as body text */
   --c-muted: #3a4247; /* dark-theme's charcoal line, reused as muted text */

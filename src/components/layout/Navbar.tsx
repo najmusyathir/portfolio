@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PROFILE } from "@/lib/content";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -64,60 +65,65 @@ export function Navbar() {
           Najmu<span style={{ color: "var(--c-accent)" }}>.</span>
         </Link>
 
-        {/* Desktop links */}
-        <div className="nav-desktop" style={{ alignItems: "center", gap: "0.35rem" }}>
-          {LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                padding: "0.5rem 0.85rem",
-                borderRadius: "var(--radius-full)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 600,
-                color: isActive(link.href) ? "var(--c-ink)" : "var(--c-muted)",
-                background: isActive(link.href) ? "var(--c-surface-2)" : "transparent",
-                transition: "color 160ms ease, background 160ms ease",
-              }}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          {/* Desktop links */}
+          <div className="nav-desktop" style={{ alignItems: "center", gap: "0.35rem" }}>
+            {LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: "0.5rem 0.85rem",
+                  borderRadius: "var(--radius-full)",
+                  fontSize: "var(--text-sm)",
+                  fontWeight: 600,
+                  color: isActive(link.href) ? "var(--c-ink)" : "var(--c-muted)",
+                  background: isActive(link.href) ? "var(--c-surface-2)" : "transparent",
+                  transition: "color 160ms ease, background 160ms ease",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href={PROFILE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ marginLeft: "0.5rem", padding: "0.6rem 1.1rem" }}
             >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href={PROFILE.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-            style={{ marginLeft: "0.5rem", padding: "0.6rem 1.1rem" }}
-          >
-            Get in touch
-          </a>
-        </div>
+              Get in touch
+            </a>
+          </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          className="nav-toggle"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          style={{
-            background: "transparent",
-            border: "1px solid var(--c-line)",
-            borderRadius: "10px",
-            width: "42px",
-            height: "42px",
-            display: "none",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            color: "var(--c-ink)",
-          }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
-            {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-        </button>
+          {/* Theme toggle — always visible, desktop + mobile */}
+          <ThemeToggle />
+
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            style={{
+              background: "transparent",
+              border: "1px solid var(--c-line)",
+              borderRadius: "10px",
+              width: "42px",
+              height: "42px",
+              display: "none",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              color: "var(--c-ink)",
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+              {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile panel */}

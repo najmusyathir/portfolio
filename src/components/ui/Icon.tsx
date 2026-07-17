@@ -24,7 +24,9 @@ export type IconName =
   | "check"
   | "chevron-down"
   | "file-text"
-  | "history";
+  | "history"
+  | "sun"
+  | "moon";
 
 interface IconProps {
   name: IconName;
@@ -192,6 +194,21 @@ export function Icon({ name, size = 20, className, style, title }: IconProps) {
           <path d="M3 3v5h5" />
           <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
           <path d="M12 7v5l4 2" />
+        </svg>
+      );
+    case "sun":
+      return (
+        <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+          {title && <title>{title}</title>}
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      );
+    case "moon":
+      return (
+        <svg {...common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+          {title && <title>{title}</title>}
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
         </svg>
       );
     default:

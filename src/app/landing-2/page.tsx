@@ -14,7 +14,7 @@ export const metadata: Metadata = {
  */
 export default function LandingTwoPage() {
   return (
-    <div data-palette="editorial" style={{ background: "var(--c-bg)" }}>
+    <div data-palette="editorial" style={{ background: "var(--c-bg)", minHeight: "100vh" }}>
       <Landing />
     </div>
   );

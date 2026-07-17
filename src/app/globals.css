@@ -3,16 +3,34 @@
 /* ==========================================================================
    Portfolio v6 — design tokens
    --------------------------------------------------------------------------
-   Three visual skins, one component set. Semantic tokens (--c-bg, --c-ink,
-   --c-accent, …) are what every component reads. The default :root values are
-   the "Charcoal & Oud" palette (dark-first, COOL charcoal near-black base +
-   dark-oud grounding + a single warm brass/amber accent) — the SITE-WIDE
-   DEFAULT for / and all inner pages.
+   Class-based light/dark theming (same convention as personal-dashboard:
+   a "dark" class on <html> toggles the skin). Semantic tokens (--c-bg,
+   --c-ink, --c-accent, …) are what every component reads — no component ever
+   hardcodes a hex value.
+
+     :root            → LIGHT theme, v2 first pass (cool light-mid grey base,
+                         the dark theme's near-black charcoal reused as text,
+                         the SAME brass/amber accent as Charcoal & Oud, some
+                         card surfaces a further-darkened cool grey) — an
+                         exploratory pass per Abang's spec, not final; see
+                         PORTFOLIO-V6-DESIGN.md for the known accent-as-text
+                         contrast gap flagged for his review.
+     :root.dark        → "Charcoal & Oud" (cool charcoal near-black base +
+                         dark-oud grounding + a single warm brass/amber
+                         accent). This is the DEFAULT experience — a
+                         pre-paint inline script in layout.tsx adds the
+                         "dark" class before first render unless the visitor
+                         has explicitly saved theme="light", so there is no
+                         flash of the light baseline.
+
    [data-palette="editorial"] re-skins /landing-2 (warm light "Espresso
    Editorial"); [data-palette="timber"] re-skins /landing-3 (dark-first
-   "Timber & Stone") — both are opt-in reference routes. No component ever
-   hardcodes a hex value. (The old stone-vein texture overlay was removed —
-   the background is now the clean cool-charcoal color.)
+   "Timber & Stone") — both are fixed, opt-in reference routes: they set
+   every semantic token themselves on their own wrapper element, so the
+   light/dark toggle has no visible effect on them (a locally-set custom
+   property always wins over an inherited one, regardless of the html.dark
+   class). (The old stone-vein texture overlay was removed — the Charcoal &
+   Oud background is the clean cool-charcoal color.)
    ========================================================================== */
 
 @theme {
@@ -66,7 +84,82 @@
 }
 
 /* --------------------------------------------------------------------------
-   DEFAULT SKIN — "Charcoal & Oud" (SITE-WIDE DEFAULT for / and all inner pages)
+   LIGHT BASELINE (:root, no .dark) — v2 first pass, per Abang's direct spec
+   (supersedes an earlier v1-restore draft). NOT final — a quick, AA-tuned
+   pass for Abang to react to, exploratory by his own framing.
+
+   Spec as given: cool light-MID grey base (not stark white, not dark) to
+   match the dark theme's cool undertone; the SAME warm brass/amber accent
+   as Charcoal & Oud (#c6923e / #d9a85a); main text reuses the dark theme's
+   near-black charcoal family; some surfaces/cards go a further-darkened cool
+   grey (his call, "kinda cool too").
+
+   Reuse trick: ink/body/muted are literally the dark skin's --c-bg /
+   --c-surface / --c-line hex values — the neutral scale that was BACKGROUND
+   in dark becomes TEXT in light, same family, inverted role. That's also
+   why --c-accent-ink (dark ink on the brass button) is identical to --c-ink.
+
+   Contrast (validated with a luminance script, measured against the surface
+   each token sits on):
+     • ink #16181a: 12.8:1 (bg) / 11.6:1 (bg-soft) / 10.0:1 (surface) /
+       8.7:1 (surface-2) — AAA everywhere.
+     • body #212528: 11.1:1 / 10.1:1 / 8.7:1 / 7.6:1 — AAA everywhere.
+     • muted #3a4247: 7.4:1 / 6.7:1 / 5.8:1 / 5.0:1 — AA everywhere.
+     • accent-ink #16181a on the brass button ≈6.43:1, hover-bright
+       ≈8.22:1 — AA (identical math to the dark skin, since it's the same
+       brass + the same near-black ink).
+
+   ⚠ KNOWN GAP, flagged for review (not silently fixed): the literal brass
+   #c6923e is mathematically incapable of ≥3:1 against ANY bg lighter than
+   ~L 0.03 (i.e. any grey this light) when used as itself — it only reaches
+   ~1.4–2.0:1 as foreground here. It works great as a BUTTON/CTA BACKGROUND
+   (ink text on top passes AA, as above) and is fine for non-text hover
+   borders, but everywhere the component tree uses --c-accent directly as
+   TEXT or icon color (the .eyebrow labels, .link-underline, project/URL
+   labels, some icon fills) it will render low-contrast in this light theme.
+   This is a direct, unavoidable consequence of reusing the literal dark-mode
+   hex on a light-mid bg with the current one-token-drives-both-bg-and-text
+   architecture — flagging with the numbers rather than quietly darkening
+   the brass, since Abang asked to try the literal value first. Two options
+   for the next pass: (a) darken --c-accent specifically for text contexts
+   (a deepened bronze around #5c3e10–#664511 clears AA at every tier while
+   staying in the same hue family), or (b) restyle those specific text spots
+   to use ink/muted in light mode. accent-2 (bronze, non-text hover
+   border/focus ring) has the same shape of gap, milder (≈2.6–3.3:1
+   depending on tier) — low-stakes since it's a diluted decorative hover
+   accent, not load-bearing.
+   -------------------------------------------------------------------------- */
+:root {
+  --c-bg: #d9dbdd; /* cool light-mid grey — dominant light base (not white, not dark) */
+  --c-bg-soft: #cfd1d3; /* alternating section band, a touch darker */
+  --c-surface: #bfc3c5; /* cards — a further, cooler darker grey (liked look) */
+  --c-surface-2: #b2b6b9; /* chips / inset fills — darkest grey tier */
+  --c-ink: #16181a; /* dark-theme's charcoal bg, reused as heading text */
+  --c-body: #212528; /* dark-theme's charcoal surface, reused as body text */
+  --c-muted: #3a4247; /* dark-theme's charcoal line, reused as muted text */
+  --c-accent: #c6923e; /* SAME brass as Charcoal & Oud — reused literally (see gap note above) */
+  --c-accent-bright: #d9a85a; /* SAME bright brass as Charcoal & Oud — hover */
+  --c-accent-2: #9c6b34; /* SAME bronze as Charcoal & Oud — non-text secondary */
+  --c-accent-ink: #16181a; /* near-black ink on the brass button — identical to --c-ink */
+  --c-line: #a4a8ab; /* cool grey borders, distinct from surface */
+  --c-line-soft: #c7cacc; /* subtle cool dividers */
+  --c-timber: #c7cacc; /* tertiary — currently unused by components */
+  --c-timber-2: #b2b6b9; /* secondary structural tone — currently unused by components */
+  --c-shadow: 22 24 26; /* charcoal-tinted (same family as ink) shadow, soft on a light bg */
+  --hero-wash: linear-gradient(180deg, #cfd1d3 0%, #d9dbdd 62%, #d3d6d8 100%);
+
+  /* Footer stays in the grey family (not a dark bookend this time) — the
+     "darker grey band" Abang liked, same charcoal-family text on top. */
+  --c-footer-bg: #bfc3c5;
+  --c-footer-ink: #16181a;
+  --c-footer-body: #212528;
+  --c-footer-muted: #3a4247;
+  --c-footer-line: #a4a8ab;
+  --c-footer-accent: #c6923e; /* same known text-contrast gap as --c-accent above */
+}
+
+/* --------------------------------------------------------------------------
+   DARK SKIN — "Charcoal & Oud" (:root.dark — the DEFAULT experience)
    A refined, cooler, blacker evolution of the /landing-3 dark look. Cool
    charcoal near-black ("kayu arang") is the dominant base — every grey/dark
    carries a COOL/bluish undertone (deliberately no warm/yellow cast). Dark
@@ -88,7 +181,7 @@
      • footer is dark-oud #221b17 grounding: ink #ece7e1 ≈13.81:1,
        body #c4bbb0 ≈8.96:1, muted #9a9189 ≈5.48:1, accent #d9a85a ≈7.84:1 — AA.
    -------------------------------------------------------------------------- */
-:root {
+:root.dark {
   --c-bg: #16181a; /* cool charcoal near-black "kayu arang" — dominant base */
   --c-bg-soft: #1c1f22; /* faint cool graphite band for alternating sections */
   --c-surface: #212528; /* raised cards — cool charcoal, a step above the base */

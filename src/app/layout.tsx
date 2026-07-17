@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://najmusyathir.dev"),
@@ -42,8 +43,21 @@ export default function RootLayout({
             __html: "document.documentElement.classList.add('js')",
           }}
         />
+        {/* Set the theme class before paint (no-flash). Default is DARK
+            (Charcoal & Oud) unless the visitor explicitly saved "light" —
+            same no-flash approach as the retired texture flag. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('theme');" +
+              "document.documentElement.classList.toggle('dark', t!=='light');" +
+              "}catch(e){document.documentElement.classList.add('dark');}",
+          }}
+        />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

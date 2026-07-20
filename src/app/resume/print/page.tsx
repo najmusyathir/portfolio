@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { PROFILE } from "@/lib/content";
+import { PROFILE, SOCIALS } from "@/lib/content";
 import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
+
+const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
 
 /**
  * Print-only résumé route. Renders ONLY the résumé content — no navbar,
@@ -29,9 +31,9 @@ export default function ResumePrintPage() {
           <span className="dot">·</span>
           <span>{PROFILE.email}</span>
           <span className="dot">·</span>
-          <span>najmusyathir.dev</span>
+          <span>{PROFILE.siteUrl.replace("https://", "")}</span>
           <span className="dot">·</span>
-          <span>github.com/najmusyathir</span>
+          <span>{GITHUB.href.replace("https://", "")}</span>
         </p>
       </header>
 

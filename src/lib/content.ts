@@ -13,6 +13,7 @@ export const PROFILE = {
   quote: "Code, Coffee & Chill",
   valueProp:
     "I build full-stack products end to end — and run the self-hosted infrastructure they live on.",
+  siteUrl: "https://najmusyathir.dev",
   whatsapp: "https://wa.link/k7r72h",
   email: "alsyathir@gmail.com",
   phone: "+60 13-735 3215",
@@ -24,14 +25,15 @@ export const PROFILE = {
 export interface Social {
   label: string;
   href: string;
-  icon: "instagram" | "facebook" | "github" | "linkedin" | "whatsapp";
+  icon: "instagram" | "facebook" | "github" | "linkedin" | "whatsapp" | "leetcode";
 }
 
 export const SOCIALS: Social[] = [
   { label: "GitHub", href: "https://github.com/najmusyathir", icon: "github" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/najmusyathir/", icon: "linkedin" },
-  { label: "Instagram", href: "https://www.instagram.com/najmusyathir", icon: "instagram" },
-  { label: "Facebook", href: "https://www.facebook.com/najmusyathir", icon: "facebook" },
+  { label: "Instagram", href: "https://www.instagram.com/njmsythr", icon: "instagram" },
+  { label: "Facebook", href: "https://www.facebook.com/njmsythr", icon: "facebook" },
+  { label: "LeetCode", href: "https://leetcode.com/najmusyathir/", icon: "leetcode" },
 ];
 
 /** Landing "What I do" — three pillars, one glance. */

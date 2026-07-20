@@ -1,163 +1,180 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Sun, Moon, Download, ChevronDown } from 'lucide-react';
-import { useTheme } from '@/lib/theme';
-import { VersionSwitcher } from './VersionSwitcher';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { PROFILE } from "@/lib/content";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/ai", label: "AI" },
+  { href: "/resume", label: "Résumé" },
+];
 
 export function Navbar() {
-  const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <nav
-      className="px-4 sm:px-6"
+    <header
       style={{
-        position: 'sticky',
+        position: "sticky",
         top: 0,
         zIndex: 50,
-        backgroundColor: 'color-mix(in srgb, var(--color-bg-base) 70%, transparent)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: '1px solid var(--color-border)',
-        height: '56px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        background: scrolled
+          ? "color-mix(in srgb, var(--c-bg) 82%, transparent)"
+          : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: `1px solid ${scrolled ? "var(--c-line)" : "transparent"}`,
+        transition: "background 240ms ease, border-color 240ms ease",
       }}
     >
-      <Link href="/" className="flex flex-col leading-tight">
-        <span className="font-mono text-sm font-semibold">
-          <span style={{ color: 'var(--color-text-muted)' }}>&lt;</span>
-          <span className="gradient-text">najmu</span>
-          <span style={{ color: 'var(--color-text-muted)' }}> /&gt;</span>
-        </span>
-        <span className="text-[10px] tracking-widest uppercase" style={{ color: 'var(--color-text-muted)' }}>
-          Najmu Syathir
-        </span>
-      </Link>
-
-      <div className="gap-3 sm:gap-6" style={{ display: 'flex', alignItems: 'center' }}>
+      <nav
+        className="container"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "68px",
+        }}
+      >
         <Link
-          href="/#work"
-          className="hidden md:block"
+          href="/"
           style={{
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            color: 'var(--color-text-muted)',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
+            fontWeight: 700,
+            fontSize: "var(--text-lg)",
+            letterSpacing: "-0.02em",
+            color: "var(--c-ink)",
           }}
-          onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-primary)')}
-          onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
         >
-          Work
-        </Link>
-        <Link
-          href="/#about"
-          className="hidden md:block"
-          style={{
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            color: 'var(--color-text-muted)',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}
-          onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-primary)')}
-          onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
-        >
-          About
-        </Link>
-        <Link
-          href="/#contact"
-          className="hidden md:block"
-          style={{
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            color: 'var(--color-text-muted)',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}
-          onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-primary)')}
-          onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-text-muted)')}
-        >
-          Contact
+          Najmu<span style={{ color: "var(--c-accent)" }}>.</span>
         </Link>
 
-        <VersionSwitcher />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          {/* Desktop links */}
+          <div className="nav-desktop" style={{ alignItems: "center", gap: "0.35rem" }}>
+            {LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: "0.5rem 0.85rem",
+                  borderRadius: "var(--radius-full)",
+                  fontSize: "var(--text-sm)",
+                  fontWeight: 600,
+                  color: isActive(link.href) ? "var(--c-ink)" : "var(--c-muted)",
+                  background: isActive(link.href) ? "var(--c-surface-2)" : "transparent",
+                  transition: "color 160ms ease, background 160ms ease",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href={PROFILE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ marginLeft: "0.5rem", padding: "0.6rem 1.1rem" }}
+            >
+              Get in touch
+            </a>
+          </div>
 
-        <div
-          style={{
-            background: 'var(--color-bg-elevated)',
-            border: '1px solid var(--color-border)',
-            display: 'flex',
-            alignItems: 'stretch',
-            borderRadius: '999px',
-            overflow: 'hidden',
-            transition: 'border-color 0.2s',
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--color-border-strong)')}
-          onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
-        >
-          <a
-            href="/resume.pdf"
-            download="Najmu_Syathir_Resume.pdf"
-            aria-label="Download resume"
+          {/* Theme toggle — always visible, desktop + mobile */}
+          <ThemeToggle />
+
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px',
-              padding: '5px 10px',
-              color: 'var(--color-text-muted)',
-              fontSize: '0.75rem',
-              fontWeight: 500,
-              textDecoration: 'none',
-              transition: 'color 0.2s',
+              background: "transparent",
+              border: "1px solid var(--c-line)",
+              borderRadius: "10px",
+              width: "42px",
+              height: "42px",
+              display: "none",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              color: "var(--c-ink)",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
           >
-            <Download size={12} />
-            <span className="hidden sm:inline">Download Resume</span>
-          </a>
-
-          <span style={{ width: '1px', background: 'var(--color-border)', margin: '5px 0' }} />
-
-          <a
-            href="/resume"
-            aria-label="View full resume page"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px 8px',
-              color: 'var(--color-text-muted)',
-              textDecoration: 'none',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-          >
-            <ChevronDown size={12} />
-          </a>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+              {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
         </div>
+      </nav>
 
-        <button
-          onClick={toggleTheme}
-          aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+      {/* Mobile panel */}
+      {open && (
+        <div
+          className="nav-mobile"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--color-text-muted)',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '4px',
-            borderRadius: '6px',
-            transition: 'color 0.2s',
+            borderTop: "1px solid var(--c-line)",
+            background: "var(--c-bg)",
           }}
         >
-          {theme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
-      </div>
-    </nav>
+          <div className="container" style={{ paddingBlock: "1rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+            {LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                style={{
+                  padding: "0.75rem 0.5rem",
+                  borderRadius: "10px",
+                  fontSize: "var(--text-base)",
+                  fontWeight: 600,
+                  color: isActive(link.href) ? "var(--c-accent)" : "var(--c-ink)",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href={PROFILE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ marginTop: "0.5rem" }}
+            >
+              Get in touch
+            </a>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        .nav-desktop { display: none; }
+        @media (min-width: 860px) {
+          .nav-desktop { display: flex; }
+          .nav-toggle { display: none !important; }
+        }
+        @media (max-width: 859px) {
+          .nav-toggle { display: flex !important; }
+        }
+      `}</style>
+    </header>
   );
 }

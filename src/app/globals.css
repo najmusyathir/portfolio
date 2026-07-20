@@ -1,267 +1,410 @@
 @import "tailwindcss";
 
-/* ─── Light mode (default) ──────────────────── */
-:root,
-[data-theme="light"] {
-  /* Backgrounds */
-  --color-bg-base:       #faf9ff;
-  --color-bg-elevated:   #ffffff;
-  --color-bg-overlay:    #f3f1ff;
-  --color-border:        #e8e5f8;
-  --color-border-strong: #cdc9ef;
+/* ==========================================================================
+   Portfolio v6 — design tokens
+   --------------------------------------------------------------------------
+   Class-based light/dark theming (same convention as personal-dashboard:
+   a "dark" class on <html> toggles the skin). Semantic tokens (--c-bg,
+   --c-ink, --c-accent, …) are what every component reads — no component ever
+   hardcodes a hex value.
 
-  /* Text */
-  --color-text-primary:  #1a1535;
-  --color-text-muted:    #6b6490;
-  --color-text-subtle:   #b0acc8;
+     :root            → LIGHT theme, v2 first pass (cool light-mid grey base,
+                         the dark theme's near-black charcoal reused as text,
+                         the SAME brass/amber accent as Charcoal & Oud, some
+                         card surfaces a further-darkened cool grey) — an
+                         exploratory pass per Abang's spec, not final; see
+                         PORTFOLIO-V6-DESIGN.md for the known accent-as-text
+                         contrast gap flagged for his review.
+     :root.dark        → "Charcoal & Oud" (cool charcoal near-black base +
+                         dark-oud grounding + a single warm brass/amber
+                         accent). This is the DEFAULT experience — a
+                         pre-paint inline script in layout.tsx adds the
+                         "dark" class before first render unless the visitor
+                         has explicitly saved theme="light", so there is no
+                         flash of the light baseline.
 
-  /* Accent — gradient */
-  --color-accent-from:   #7c3aed;
-  --color-accent-mid:    #a855f7;
-  --color-accent-to:     #ec4899;
-  --color-accent:        #7c3aed;
+   (The old /landing-2 "Espresso Editorial" and /landing-3 "Timber & Stone"
+   reference routes + their [data-palette] skins were removed once Charcoal &
+   Oud was confirmed as the real theme. The old stone-vein texture overlay
+   was removed earlier — the background is the clean cool-charcoal color.)
+   ========================================================================== */
 
-  /* Semantic */
-  --color-success:       #16a34a;
-  --color-warning:       #d97706;
-  --color-error:         #dc2626;
+@theme {
+  /* Fonts — system-first (matches v1's character, zero network dependency) */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 
-  /* Aurora orbs */
-  --orb-1: rgba(124, 58, 237, 0.12);
-  --orb-2: rgba(236, 72, 153, 0.10);
-  --orb-3: rgba(168, 85, 247, 0.08);
+  /* Deliberate type scale (major-third-ish, capped for a portfolio) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
 
-  /* Fonts */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Fluid display size for hero headings */
+  --text-display: clamp(2.75rem, 7vw, 5rem);
+
+  /* Spacing rhythm helpers */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* Raw "Charcoal & Oud" reference palette (cool charcoal + dark agarwood).
+     Cool charcoal near-black = dominant base ("kayu arang"); dark oud wood =
+     grounding depth; warm brass/amber = the single accent. No green. */
+  --color-charcoal: #16181a; /* cool near-black "kayu arang" — dominant base */
+  --color-oud: #221b17; /* dark oud / agarwood — grounding depth */
+  --color-brass: #c6923e; /* brass / amber — the single accent */
+  --color-bronze: #9c6b34; /* warm bronze — secondary non-text accent */
+
+  /* Semantic tokens the components actually consume.
+     Expose them to Tailwind so `bg-bg`, `text-ink`, `border-line` work.
+     Values mirror the Charcoal & Oud :root skin below. */
+  --color-bg: #16181a;
+  --color-bg-soft: #1c1f22;
+  --color-surface: #212528;
+  --color-ink: #e8ecee;
+  --color-body: #c3c9ce;
+  --color-muted: #949ca2;
+  --color-accent: #c6923e;
+  --color-accent-soft: #9c6b34;
+  --color-accent-ink: #16181a;
+  --color-line: #3a4247;
+  --color-line-soft: #262b2f;
 }
 
-/* ─── Dark mode ──────────────────────────────── */
-[data-theme="dark"] {
-  /* Backgrounds */
-  --color-bg-base:       #0d0b14;
-  --color-bg-elevated:   #13101e;
-  --color-bg-overlay:    #1c1729;
-  --color-border:        #251f35;
-  --color-border-strong: #3d3160;
+/* --------------------------------------------------------------------------
+   LIGHT BASELINE (:root, no .dark) — v2 first pass, per Abang's direct spec
+   (supersedes an earlier v1-restore draft). NOT final — a quick, AA-tuned
+   pass for Abang to react to, exploratory by his own framing.
 
-  /* Text */
-  --color-text-primary:  #f0eeff;
-  --color-text-muted:    #8b82a7;
-  --color-text-subtle:   #4a4368;
+   Spec as given: cool light-MID grey base (not stark white, not dark) to
+   match the dark theme's cool undertone; the SAME warm brass/amber accent
+   as Charcoal & Oud (#c6923e / #d9a85a); main text reuses the dark theme's
+   near-black charcoal family; some surfaces/cards go a further-darkened cool
+   grey (his call, "kinda cool too").
 
-  /* Accent — slightly brighter on dark */
-  --color-accent-from:   #8b5cf6;
-  --color-accent-mid:    #c084fc;
-  --color-accent-to:     #f472b6;
-  --color-accent:        #8b5cf6;
+   Reuse trick: ink/body/muted are literally the dark skin's --c-bg /
+   --c-surface / --c-line hex values — the neutral scale that was BACKGROUND
+   in dark becomes TEXT in light, same family, inverted role. That's also
+   why --c-accent-ink (dark ink on the brass button) is identical to --c-ink.
 
-  /* Semantic */
-  --color-success:       #4ade80;
-  --color-warning:       #fbbf24;
-  --color-error:         #f87171;
+   Contrast (validated with a luminance script, measured against the surface
+   each token sits on):
+     • ink #16181a: 12.8:1 (bg) / 11.6:1 (bg-soft) / 10.0:1 (surface) /
+       8.7:1 (surface-2) — AAA everywhere.
+     • body #212528: 11.1:1 / 10.1:1 / 8.7:1 / 7.6:1 — AAA everywhere.
+     • muted #3a4247: 7.4:1 / 6.7:1 / 5.8:1 / 5.0:1 — AA everywhere.
+     • accent-ink #16181a on the brass button ≈6.43:1, hover-bright
+       ≈8.22:1 — AA (identical math to the dark skin, since it's the same
+       brass + the same near-black ink).
 
-  /* Aurora orbs */
-  --orb-1: rgba(139, 92, 246, 0.18);
-  --orb-2: rgba(244, 114, 182, 0.14);
-  --orb-3: rgba(192, 132, 252, 0.12);
+   ⚠ KNOWN GAP, flagged for review (not silently fixed): the literal brass
+   #c6923e is mathematically incapable of ≥3:1 against ANY bg lighter than
+   ~L 0.03 (i.e. any grey this light) when used as itself — it only reaches
+   ~1.4–2.0:1 as foreground here. It works great as a BUTTON/CTA BACKGROUND
+   (ink text on top passes AA, as above) and is fine for non-text hover
+   borders, but everywhere the component tree uses --c-accent directly as
+   TEXT or icon color (the .eyebrow labels, .link-underline, project/URL
+   labels, some icon fills) it will render low-contrast in this light theme.
+   This is a direct, unavoidable consequence of reusing the literal dark-mode
+   hex on a light-mid bg with the current one-token-drives-both-bg-and-text
+   architecture — flagging with the numbers rather than quietly darkening
+   the brass, since Abang asked to try the literal value first. Two options
+   for the next pass: (a) darken --c-accent specifically for text contexts
+   (a deepened bronze around #5c3e10–#664511 clears AA at every tier while
+   staying in the same hue family), or (b) restyle those specific text spots
+   to use ink/muted in light mode. accent-2 (bronze, non-text hover
+   border/focus ring) has the same shape of gap, milder (≈2.6–3.3:1
+   depending on tier) — low-stakes since it's a diluted decorative hover
+   accent, not load-bearing.
+   -------------------------------------------------------------------------- */
+:root {
+  --c-bg: #d9dbdd; /* cool light-mid grey — dominant light base (not white, not dark) */
+  --c-bg-soft: #cfd1d3; /* alternating section band (Featured Work, etc.) — a touch darker, liked */
+  --c-surface: #eef0f1; /* cards (flagship, pillars) — pop LIGHTER than the section band, not darker */
+  --c-surface-2: #e3e5e6; /* chips / inset icon tiles — light, between surface and bg */
+  --c-ink: #16181a; /* dark-theme's charcoal bg, reused as heading text */
+  --c-body: #212528; /* dark-theme's charcoal surface, reused as body text */
+  --c-muted: #3a4247; /* dark-theme's charcoal line, reused as muted text */
+  --c-accent: #c6923e; /* SAME brass as Charcoal & Oud — reused literally (see gap note above) */
+  --c-accent-bright: #d9a85a; /* SAME bright brass as Charcoal & Oud — hover */
+  --c-accent-2: #9c6b34; /* SAME bronze as Charcoal & Oud — non-text secondary */
+  --c-accent-ink: #16181a; /* near-black ink on the brass button — identical to --c-ink */
+  --c-line: #a4a8ab; /* cool grey borders, distinct from surface */
+  --c-line-soft: #c7cacc; /* subtle cool dividers */
+  --c-timber: #c7cacc; /* tertiary — currently unused by components */
+  --c-timber-2: #b2b6b9; /* secondary structural tone — currently unused by components */
+  --c-shadow: 22 24 26; /* charcoal-tinted (same family as ink) shadow, soft on a light bg */
+  --hero-wash: linear-gradient(180deg, #cfd1d3 0%, #d9dbdd 62%, #d3d6d8 100%);
+
+  /* Footer stays in the grey family (not a dark bookend this time) — the
+     "darker grey band" Abang liked, same charcoal-family text on top. */
+  --c-footer-bg: #bfc3c5;
+  --c-footer-ink: #16181a;
+  --c-footer-body: #212528;
+  --c-footer-muted: #3a4247;
+  --c-footer-line: #a4a8ab;
+  --c-footer-accent: #c6923e; /* same known text-contrast gap as --c-accent above */
 }
 
-/* ─── Base reset & body ──────────────────────── */
-*,
-*::before,
-*::after {
+/* --------------------------------------------------------------------------
+   DARK SKIN — "Charcoal & Oud" (:root.dark — the DEFAULT experience)
+   A refined, cooler, blacker evolution of the /landing-3 dark look. Cool
+   charcoal near-black ("kayu arang") is the dominant base — every grey/dark
+   carries a COOL/bluish undertone (deliberately no warm/yellow cast). Dark
+   OUD wood (near-black agarwood brown) is the grounding depth for the footer.
+   A single warm brass/amber accent (NO green anywhere) carries eyebrows,
+   links, CTAs and key highlights.
+
+   Dark-first. Contrast (measured against the surface each token sits on; all
+   AA, validated with a luminance script):
+     • ink  #e8ecee ≈ 14.97:1 / body #c3c9ce ≈ 10.65:1 on bg — well past AA (AAA).
+     • body on surface ≈ 9.24:1, on surface-2 ≈ 7.86:1 — AA.
+     • muted #949ca2 ≈ 5.64:1 on bg, ≈4.72:1 on surface-2 (résumé-menu hover) — AA.
+     • accent brass #c6923e ≈ 6.43:1 on bg (≈4.75:1 on surface-2) → AA as
+       link/eyebrow/CTA text; accent-ink #16181a on the brass button ≈6.43:1
+       (hover bright #d9a85a ≈8.22:1) — AA.
+     • accent-2 bronze #9c6b34 is a NON-TEXT accent (hover borders, focus ring)
+       ≈3.87:1 on bg — clears the 3:1 UI-component bar; never used as body text.
+     • --c-line / --c-line-soft are subtle architectural rules (not text-bearing).
+     • footer is dark-oud #221b17 grounding: ink #ece7e1 ≈13.81:1,
+       body #c4bbb0 ≈8.96:1, muted #9a9189 ≈5.48:1, accent #d9a85a ≈7.84:1 — AA.
+   -------------------------------------------------------------------------- */
+:root.dark {
+  --c-bg: #16181a; /* cool charcoal near-black "kayu arang" — dominant base */
+  --c-bg-soft: #1c1f22; /* faint cool graphite band for alternating sections */
+  --c-surface: #212528; /* raised cards — cool charcoal, a step above the base */
+  --c-surface-2: #2c3135; /* chips / inset fills — cool charcoal */
+  --c-ink: #e8ecee; /* cool off-white — deepest/brightest text */
+  --c-body: #c3c9ce; /* cool light-grey body copy */
+  --c-muted: #949ca2; /* cool muted meta text (AA on every surface) */
+  --c-accent: #c6923e; /* brass / amber — the SINGLE identity accent */
+  --c-accent-bright: #d9a85a; /* brighter brass — accent hover */
+  --c-accent-2: #9c6b34; /* warm bronze — SECONDARY (non-text, hover/focus) */
+  --c-accent-ink: #16181a; /* near-black type on the brass button */
+  --c-line: #3a4247; /* cool charcoal borders */
+  --c-line-soft: #262b2f; /* subtle cool dividers */
+  --c-timber: #221b17; /* dark OUD wood — TERTIARY grounding block */
+  --c-timber-2: #3a2e26; /* darker walnut — secondary structural warm tone */
+  --c-shadow: 0 0 0; /* pure-black elevation on the dark base */
+  --hero-wash: linear-gradient(180deg, #1c1f22 0%, #16181a 62%, #202427 100%);
+
+  /* Footer is the dark-oud grounding band (skin-scoped so the reference
+     routes below keep their own footer look). Light type on oud wood. */
+  --c-footer-bg: #221b17;
+  --c-footer-ink: #ece7e1;
+  --c-footer-body: #c4bbb0;
+  --c-footer-muted: #9a9189;
+  --c-footer-line: #3a2e26;
+  --c-footer-accent: #d9a85a; /* brightened brass for AA on dark oud */
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+* {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 56px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-primary);
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-body);
   font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  text-rendering: optimizeLegibility;
 }
 
-/* ─── Scroll snap — one section per "screen" ─── */
-main > section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
-/* ─── Gradient utilities ─────────────────────── */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-mid), var(--color-accent-to));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+::selection {
+  background: color-mix(in srgb, var(--c-accent) 22%, transparent);
+  color: var(--c-ink);
 }
 
-.gradient-bg {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-}
-
-/* ─── Dot grid background ────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, var(--color-border, rgba(124,58,237,0.15)) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.5;
-}
-
-/* ─── Aurora background ──────────────────────── */
-.aurora-container {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 1;
-}
-
-.orb-1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--orb-1), transparent 70%);
-  top: -200px;
-  left: -100px;
-  animation: drift-1 25s linear infinite;
-}
-
-.orb-2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--orb-2), transparent 70%);
-  bottom: 10%;
-  right: -150px;
-  animation: drift-2 32s linear infinite;
-}
-
-.orb-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--orb-3), transparent 70%);
-  top: 40%;
-  left: 30%;
-  animation: drift-3 40s linear infinite;
-}
-
-@keyframes drift-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, 60px) scale(1.08); }
-  66%  { transform: translate(-40px, 100px) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(-70px, -80px) scale(1.1); }
-  70%  { transform: translate(50px, -40px) scale(0.92); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, -90px) scale(1.12); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-/* ─── Scroll reveal ──────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── Hero cursor blink ──────────────────────── */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: var(--color-accent);
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: blink 1s ease-in-out infinite;
-}
-
-/* ─── Avatar ring ────────────────────────────── */
-.avatar-ring {
-  padding: 3px;
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.avatar-ring img {
-  border-radius: 50%;
-  display: block;
-}
-
-/* ─── CTA buttons ────────────────────────────── */
-.btn-primary {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-  color: white;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
+a {
+  color: inherit;
   text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--c-ink);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Reusable primitives (kept as classes so JSX stays lean; all token-driven)
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-accent);
 }
 
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--c-accent);
+  opacity: 0.55;
+}
+
+.surface {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+}
+
+.card-hover {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  /* warm bronze highlight on hover (the secondary non-text accent) */
+  border-color: color-mix(in srgb, var(--c-accent-2) 55%, var(--c-line));
+  box-shadow: 0 18px 40px -24px rgb(var(--c-shadow) / 0.45);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease,
+    color 180ms ease, box-shadow 180ms ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
+  box-shadow: 0 12px 26px -14px color-mix(in srgb, var(--c-accent) 80%, transparent);
+}
 .btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background: var(--c-accent-bright);
 }
-
 .btn-ghost {
   background: transparent;
-  border: 1px solid var(--color-border-strong);
-  color: var(--color-text-primary);
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+.btn-ghost:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
 }
 
-.btn-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+/* Chip / tag */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--c-body);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.75rem;
+  white-space: nowrap;
+}
+
+/* Section vertical rhythm */
+.section {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
+.section-tight {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Scroll-reveal (progressive enhancement). Content is visible by default;
+   only once JS marks <html class="js"> do we hide-then-reveal on scroll, so
+   a no-JS visitor is never left staring at invisible content. */
+.reveal {
+  transition: opacity 620ms ease, transform 620ms ease;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Link with animated underline */
+.link-underline {
+  color: var(--c-accent);
+  font-weight: 600;
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
 }

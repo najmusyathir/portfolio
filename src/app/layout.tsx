@@ -43,15 +43,17 @@ export default function RootLayout({
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        {/* Set the theme class before paint (no-flash). Default is DARK
-            (Charcoal & Oud) unless the visitor explicitly saved "light" —
-            same no-flash approach as the retired texture flag. */}
+        {/* Set the theme class before paint (no-flash). An explicit saved
+            choice always wins; with no saved preference, follow the
+            visitor's OS/browser prefers-color-scheme — same no-flash
+            approach as the retired texture flag. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
               "try{var t=localStorage.getItem('theme');" +
-              "document.documentElement.classList.toggle('dark', t!=='light');" +
-              "}catch(e){document.documentElement.classList.add('dark');}",
+              "var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);" +
+              "document.documentElement.classList.toggle('dark', d);" +
+              "}catch(e){}",
           }}
         />
       </head>

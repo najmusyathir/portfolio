@@ -3,9 +3,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { PROFILE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://najmusyathir.dev"),
+  metadataBase: new URL(PROFILE.siteUrl),
   title: {
     default: "Najmu Syathir — Full-Stack Engineer",
     template: "%s — Najmu Syathir",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     title: "Najmu Syathir — Full-Stack Engineer",
     description:
       "Full-stack products, self-hosted infrastructure, and AI orchestration. Code, Coffee & Chill.",
-    url: "https://najmusyathir.dev",
+    url: PROFILE.siteUrl,
     siteName: "Najmu Syathir",
     type: "website",
   },

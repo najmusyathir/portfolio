@@ -6,7 +6,9 @@ import { Footer } from "@/components/layout/Footer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
-import { PROFILE } from "@/lib/content";
+import { PROFILE, SOCIALS } from "@/lib/content";
+
+const LEETCODE = SOCIALS.find((s) => s.icon === "leetcode")!;
 
 export const metadata: Metadata = {
   title: "About",
@@ -37,7 +39,7 @@ const ACTIVITIES: Activity[] = [
   {
     title: "Coding & problem-solving",
     desc: "Sharpening fundamentals, shipping real products, and staying curious about the tools that make the web better.",
-    href: "https://leetcode.com/najmusyathir/",
+    href: LEETCODE.href,
     image: "/aboutme_3.png",
   },
 ];

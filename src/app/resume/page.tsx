@@ -7,8 +7,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
 import { DownloadResume } from "@/components/ui/DownloadResume";
-import { PROFILE } from "@/lib/content";
+import { PROFILE, SOCIALS } from "@/lib/content";
 import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
+
+const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
 
 export const metadata: Metadata = {
   title: "Résumé",
@@ -41,10 +43,10 @@ export default function ResumePage() {
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
                 <DownloadResume />
-                <a href="https://github.com/najmusyathir" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                <a href={GITHUB.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
                   <Icon name="github" size={16} /> GitHub
                 </a>
-                <Link href="/" className="btn btn-ghost">najmusyathir.dev</Link>
+                <Link href="/" className="btn btn-ghost">{PROFILE.siteUrl.replace("https://", "")}</Link>
               </div>
             </Reveal>
           </div>

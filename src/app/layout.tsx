@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Analytics } from "@vercel/analytics/next";
@@ -42,7 +43,9 @@ export default function RootLayout({
       <head>
         {/* Mark JS as active before paint so scroll-reveal only hides content
             when it can actually reveal it again (no-JS = content visible). */}
-        <script
+        <Script
+          id="js-class-script"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: "document.documentElement.classList.add('js')",
           }}
@@ -51,7 +54,9 @@ export default function RootLayout({
             choice always wins; with no saved preference, follow the
             visitor's OS/browser prefers-color-scheme — same no-flash
             approach as the retired texture flag. */}
-        <script
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
               "try{var t=localStorage.getItem('theme');" +

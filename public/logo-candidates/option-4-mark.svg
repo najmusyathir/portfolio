@@ -1,0 +1,12 @@
+<!--
+  Option 4 — "Line": the shipped N's exact silhouette, redrawn as an
+  outline/stroke instead of a solid fill — same letterform construction and
+  proportions, one variable changed (fill -> stroke) so it reads as a
+  genuinely lighter, quieter companion mark rather than an unrelated concept.
+  Container stays the shipped rx 7 rounded square on purpose, to keep the
+  outline-vs-solid contrast the only thing being judged here.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Najmu Syathir monogram — line direction">
+  <rect width="32" height="32" rx="7" fill="#16181a"/>
+  <path d="M6 6 L6 26 L10 26 L10 11 L22 26 L26 26 L26 6 L22 6 L22 21 L10 6 Z" fill="none" stroke="#c6923e" stroke-width="2.3" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,12 @@
+<!--
+  Option 4 — "Line": pairs with option-4-mark.svg.
+  Medium weight (500) instead of the shipped bold (700) — the typographic
+  equivalent of "outline instead of fill," lighter without going thin/frail.
+  The accent is the same rounded square as the shipped wordmark's, but drawn
+  as an outline/ring instead of solid brass, matching the monogram's own
+  fill->stroke move so the whole system reads consistently lighter.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40" role="img" aria-label="Najmu Syathir — line direction">
+  <text x="4" y="28" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="27" font-weight="500" fill="#e8ecee">N<tspan dx="-1.5">a</tspan><tspan dx="-0.3">j</tspan><tspan dx="-0.6">m</tspan><tspan dx="-0.4">u</tspan></text>
+  <rect x="88" y="20.5" width="7.5" height="7.5" rx="1.6" fill="none" stroke="#c6923e" stroke-width="1.6"/>
+</svg>

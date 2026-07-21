@@ -1,0 +1,13 @@
+<!--
+  Option 2 — "Terminal": pairs with option-2-mark.svg.
+  Monospace type (site's own font-mono token stack), lowercase "najmu" (command
+  convention, not title case), and a solid brass block cursor after it
+  instead of a dot or rule — the same cursor motif as the monogram's
+  bottom-right block. No manual per-letter kerning needed here (unlike the
+  shipped grotesque-sans wordmark): monospace's fixed-width grid already
+  supplies the even, deliberate rhythm that direction was reaching for by hand.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 40" role="img" aria-label="Najmu Syathir — terminal direction">
+  <text x="4" y="28" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="24" font-weight="700" fill="#e8ecee">najmu</text>
+  <rect x="78" y="8" width="8" height="22" fill="#c6923e"/>
+</svg>

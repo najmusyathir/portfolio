@@ -30,7 +30,8 @@ export const metadata: Metadata = {
     siteName: "Najmu Syathir",
     type: "website",
   },
-  icons: { icon: "/favicon.ico" },
+  // No explicit `icons` config: src/app/icon.svg + src/app/favicon.ico are
+  // picked up automatically by Next.js's file-based metadata convention.
 };
 
 export default function RootLayout({

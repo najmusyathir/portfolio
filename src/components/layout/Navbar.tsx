@@ -54,10 +54,8 @@ export function Navbar() {
           height: "68px",
         }}
       >
-        {/* TEMPORARY: pointed at /logo-preview for logo candidate review.
-            Revert href back to "/" once Abang picks a final direction. */}
         <Link
-          href="/logo-preview"
+          href="/"
           style={{
             display: "inline-flex",
             alignItems: "center",

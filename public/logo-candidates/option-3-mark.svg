@@ -1,0 +1,15 @@
+<!--
+  Option 3 — "Interlocking": the N is not a single letterform but two —
+  the primary solid N (same construction as the shipped mark) plus a second,
+  mirrored diagonal echo of itself threaded behind it. The second diagonal
+  is fully hidden where it sits under the primary N's solid body, and only
+  reveals itself in the N's own negative-space counters (top-right and
+  bottom-left) — the same two-color-only constraint, no opacity/blend
+  tricks, just literal overlap and reveal. Degrades gracefully at 16px: the
+  interlock detail softens but the shape still reads clearly as a solid N.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Najmu Syathir monogram — interlocking direction">
+  <rect width="32" height="32" rx="4" fill="#16181a"/>
+  <path d="M22.1 8 L18.9 8 L9.9 24 L13.1 24 Z" fill="#c6923e"/>
+  <path d="M6 6 L6 26 L10 26 L10 11 L22 26 L26 26 L26 6 L22 6 L22 21 L10 6 Z" fill="#c6923e"/>
+</svg>

@@ -4,22 +4,21 @@
 // No checkboxes are interactive here.
 
 import ChecklistBoard from "./_components/ChecklistBoard";
-import { CTC_NOTES } from "@/lib/ctc-data";
+import NotesBanner from "./_components/NotesBanner";
 
 export default function CtcViewPage() {
   return (
     <main>
-      <h1 className="mb-4 text-xl font-semibold text-slate-900 dark:text-slate-100">
-        CTC Checklist — Semakan
-      </h1>
+      <header className="mb-6">
+        <p className="text-xs font-extrabold uppercase leading-none tracking-[0.14em] text-[var(--ctc-muted)]">
+          CTC Checklist
+        </p>
+        <h1 className="mt-2 text-[26px] leading-tight sm:text-3xl">
+          Semakan Progress
+        </h1>
+      </header>
 
-      <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200">
-        <ul className="list-disc space-y-1 pl-4">
-          {CTC_NOTES.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
-      </div>
+      <NotesBanner />
 
       <ChecklistBoard editable={false} />
     </main>

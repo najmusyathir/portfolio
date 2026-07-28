@@ -4,27 +4,25 @@
 // Each checkbox persists immediately on click via /api/ctc — no save button.
 
 import ChecklistBoard from "../_components/ChecklistBoard";
-import { CTC_NOTES } from "@/lib/ctc-data";
+import NotesBanner from "../_components/NotesBanner";
 
 export default function CtcEditPage() {
   return (
     <main>
-      <h1 className="mb-4 text-xl font-semibold text-slate-900 dark:text-slate-100">
-        CTC Checklist
-      </h1>
+      <header className="mb-6">
+        <p className="text-xs font-extrabold uppercase leading-none tracking-[0.14em] text-[var(--ctc-muted)]">
+          CTC Checklist
+        </p>
+        <h1 className="mt-2 text-[26px] leading-tight sm:text-3xl">
+          Tanda Copy
+        </h1>
+        <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--ctc-body)]">
+          Tap kotak untuk tanda copy yang sudah siap — auto-save, tak payah
+          tekan apa-apa lagi.
+        </p>
+      </header>
 
-      <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200">
-        <ul className="list-disc space-y-1 pl-4">
-          {CTC_NOTES.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
-      </div>
-
-      <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
-        Tap kotak untuk tanda copy yang sudah siap. Auto-save, tak perlu tekan
-        apa-apa lagi.
-      </p>
+      <NotesBanner />
 
       <ChecklistBoard editable />
     </main>

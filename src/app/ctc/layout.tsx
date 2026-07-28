@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./ctc.css";
 
 // THROWAWAY — /ctc checklist. Not linked from anywhere in the real site;
@@ -9,7 +9,7 @@ import "./ctc.css";
 // portfolio — own font, own palette, own scoped stylesheet (ctc.css). See
 // ctc.css for why plain scoped CSS (not just Tailwind classes) is needed to
 // actually escape the portfolio's global heading/body styles.
-const nunito = Nunito({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
   variable: "--font-ctc",
@@ -23,9 +23,7 @@ export const metadata: Metadata = {
 
 export default function CtcLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${nunito.variable} ctc-scope`}>
-      <div className="ctc-glow ctc-glow--one" aria-hidden="true" />
-      <div className="ctc-glow ctc-glow--two" aria-hidden="true" />
+    <div className={`${inter.variable} ctc-scope`}>
       <div className="ctc-shell">{children}</div>
     </div>
   );

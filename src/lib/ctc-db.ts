@@ -81,6 +81,15 @@ export function getCtcState(): CtcState {
   return { notes: [], items };
 }
 
+// Destructive — clears every checkbox back to unchecked. Used by the
+// "Reset" action on /ctc/edit only; confirmation happens client-side before
+// this is ever called.
+export function resetCtcState(): CtcState {
+  const instance = getDb();
+  instance.exec("UPDATE ctc_checkbox SET checked = 0");
+  return getCtcState();
+}
+
 export function toggleCtcCheckbox(itemIndex: number, copyIndex: number): CtcState {
   const item = CTC_ITEMS[itemIndex];
   if (!item || copyIndex < 0 || copyIndex >= item.copies) {

@@ -14,38 +14,41 @@
    un-layered, so `.ctc-scope h1` (specificity 0,1,1) correctly outranks the
    global `h1` (0,0,1) and the override stays scoped to this route only.
 
-   Palette: "Warm Paper & Clay" — warm cream/sand neutrals, one confident
-   terracotta accent for brand/notes/progress, a separate fresh green
+   Palette: "Cool Minimal" — near-white/blue-slate neutrals, one confident
+   teal-blue accent for brand/notes/progress, a separate clean green
    reserved only for the checked/complete state. No relation to the
    portfolio's charcoal/brass.
 */
 
 .ctc-scope {
-  --ctc-bg: #f7ecd9;
-  --ctc-bg-soft: #f0e2c8;
-  --ctc-surface: #fffbf3;
+  --ctc-bg: #f5f9fb;
+  --ctc-bg-soft: #e9f0f4;
+  --ctc-surface: #ffffff;
   --ctc-surface-raised: #ffffff;
-  --ctc-ink: #382a1f;
-  --ctc-body: #5b4936;
-  --ctc-muted: #8a7458;
-  --ctc-line: #e6d6b8;
-  --ctc-line-soft: #efe3c9;
-  --ctc-accent: #c1552c;
-  --ctc-accent-bright: #d97540;
-  --ctc-accent-soft: #f4ddd0;
-  --ctc-accent-ink: #fff8f2;
-  --ctc-success: #2f9e63;
-  --ctc-success-soft: #e3f3e7;
-  --ctc-danger: #b3431f;
-  --ctc-danger-bg: #fbe4dc;
-  --ctc-danger-border: #e3b3a0;
-  --ctc-shadow: 56 38 20;
+  --ctc-ink: #0f2733;
+  --ctc-body: #445a68;
+  --ctc-muted: #6f8494;
+  --ctc-line: #dce6ec;
+  --ctc-line-soft: #e8eff3;
+  --ctc-accent: #0c7792;
+  --ctc-accent-bright: #12a2c4;
+  --ctc-accent-soft: #e3f4f8;
+  --ctc-accent-ink: #ffffff;
+  --ctc-success: #1f9d6c;
+  --ctc-success-soft: #e1f5ec;
+  --ctc-danger: #d64545;
+  --ctc-danger-bg: #fceeee;
+  --ctc-danger-border: #f0c2c2;
+  --ctc-warn: #b45309;
+  --ctc-warn-soft: #fdf1e0;
+  --ctc-warn-border: #f0d5a6;
+  --ctc-shadow: 15 39 51;
 
   position: relative;
   min-height: 100vh;
   background: var(--ctc-bg);
   color: var(--ctc-body);
-  font-family: var(--font-ctc), "Nunito", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-ctc), "Inter", system-ui, -apple-system, sans-serif;
   line-height: 1.55;
   overflow-x: hidden;
 }
@@ -55,7 +58,7 @@
 .ctc-scope h3,
 .ctc-scope h4 {
   color: var(--ctc-ink);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.2;
   margin: 0;
@@ -64,33 +67,6 @@
 .ctc-scope a {
   color: var(--ctc-accent);
   text-decoration: none;
-}
-
-/* Soft decorative glows — purely cosmetic, sit behind content, fixed so
-   they don't add scrollable height. */
-.ctc-glow {
-  position: fixed;
-  border-radius: 999px;
-  filter: blur(64px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-}
-
-.ctc-glow--one {
-  top: -70px;
-  right: -70px;
-  width: 260px;
-  height: 260px;
-  background: var(--ctc-accent-soft);
-}
-
-.ctc-glow--two {
-  bottom: 6%;
-  left: -110px;
-  width: 240px;
-  height: 240px;
-  background: var(--ctc-success-soft);
 }
 
 .ctc-shell {

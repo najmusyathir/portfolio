@@ -85,6 +85,116 @@ function OverallRing({
   );
 }
 
+function ResetIcon() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4"
+      aria-hidden="true"
+    >
+      <path d="M15.5 6.5A6 6 0 1 0 16.9 11" />
+      <path d="M16 3v4h-4" />
+    </svg>
+  );
+}
+
+function ResetConfirmModal({
+  resetting,
+  onCancel,
+  onConfirm,
+}: {
+  resetting: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  useEffect(() => {
+    function handleKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onCancel();
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onCancel]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[rgb(var(--ctc-shadow)/0.45)] px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ctc-reset-title"
+      onClick={onCancel}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl border border-[var(--ctc-line)] bg-[var(--ctc-surface)] p-5 shadow-[0_24px_48px_-16px_rgb(var(--ctc-shadow)/0.35)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <h2 id="ctc-reset-title" className="text-lg font-bold text-[var(--ctc-ink)]">
+          Reset semua progress?
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--ctc-body)]">
+          Semua checkbox akan kembali kosong. Tindakan ini tak boleh undo.
+        </p>
+        <div className="mt-5 flex justify-end gap-2.5">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="rounded-full border border-[var(--ctc-line)] bg-[var(--ctc-surface)] px-4 py-2 text-sm font-bold text-[var(--ctc-muted)] transition-colors hover:bg-[var(--ctc-bg-soft)]"
+          >
+            Batal
+          </button>
+          <button
+            type="button"
+            disabled={resetting}
+            onClick={onConfirm}
+            className="rounded-full bg-[var(--ctc-warn)] px-4 py-2 text-sm font-bold text-white transition-opacity disabled:opacity-50"
+          >
+            {resetting ? "Resetting…" : "Ya, reset"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ResetAction({
+  onReset,
+  resetting,
+}: {
+  onReset: () => Promise<void>;
+  resetting: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+
+  async function handleConfirm() {
+    await onReset();
+    setOpen(false);
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--ctc-warn-border)] bg-[var(--ctc-warn-soft)] px-3.5 py-1.5 text-xs font-bold text-[var(--ctc-warn)] transition-colors hover:bg-[var(--ctc-warn-border)]"
+      >
+        <ResetIcon />
+        Reset checklist
+      </button>
+      {open && (
+        <ResetConfirmModal
+          resetting={resetting}
+          onCancel={() => setOpen(false)}
+          onConfirm={handleConfirm}
+        />
+      )}
+    </>
+  );
+}
+
 function OverallBar({
   percent,
   fullyCheckedItems,
@@ -116,6 +226,7 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
   const [state, setState] = useState<CtcState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pendingKey, setPendingKey] = useState<string | null>(null);
+  const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -160,6 +271,21 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
     }
   }
 
+  async function handleReset() {
+    setResetting(true);
+    setError(null);
+    try {
+      const res = await fetch(CTC_API_PATH, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to reset — try again");
+      const data: CtcState = await res.json();
+      setState(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to reset — try again");
+    } finally {
+      setResetting(false);
+    }
+  }
+
   if (!state) {
     return (
       <div className="rounded-2xl border border-[var(--ctc-line)] bg-[var(--ctc-surface)] px-4 py-6 text-center text-sm font-semibold text-[var(--ctc-muted)]">
@@ -189,6 +315,8 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
   return (
     <div>
       {editable ? <OverallBar {...progress} /> : <OverallRing {...progress} />}
+
+      {editable && <ResetAction onReset={handleReset} resetting={resetting} />}
 
       {error && (
         <p className="mb-4 rounded-xl border border-[var(--ctc-danger-border)] bg-[var(--ctc-danger-bg)] px-3 py-2 text-sm font-semibold text-[var(--ctc-danger)]">
@@ -230,7 +358,7 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
 
                   if (editable) {
                     const stateClasses = checked
-                      ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white shadow-[0_6px_14px_-6px_rgb(47_158_99/0.55)] ctc-check--on"
+                      ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white shadow-[0_6px_14px_-6px_rgb(31_157_108/0.55)] ctc-check--on"
                       : "border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] text-[var(--ctc-muted)] hover:border-[var(--ctc-accent)] hover:bg-[var(--ctc-accent-soft)] hover:text-[var(--ctc-accent)]";
                     return (
                       <button

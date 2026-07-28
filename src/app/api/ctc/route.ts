@@ -1,12 +1,15 @@
 /**
  * THROWAWAY — /ctc checklist API. See src/lib/ctc-data.ts for context.
  *
- * GET  -> current full state.
- * POST -> toggle one checkbox { itemIndex, copyIndex }, returns updated state.
+ * GET    -> current full state.
+ * POST   -> toggle one checkbox { itemIndex, copyIndex }, returns updated state.
+ * DELETE -> reset every checkbox back to unchecked, returns updated state.
+ *           Client-side confirm happens before this is ever called (see
+ *           the Reset button on /ctc/edit).
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getCtcState, toggleCtcCheckbox } from "@/lib/ctc-db";
+import { getCtcState, resetCtcState, toggleCtcCheckbox } from "@/lib/ctc-db";
 import { CTC_NOTES } from "@/lib/ctc-data";
 
 // Always read fresh from SQLite — this is live mutable state, never cache.
@@ -35,4 +38,9 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid item/copy index" }, { status: 400 });
   }
+}
+
+export async function DELETE() {
+  const state = resetCtcState();
+  return NextResponse.json({ ...state, notes: CTC_NOTES });
 }

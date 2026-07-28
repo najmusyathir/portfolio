@@ -132,12 +132,19 @@ function ResetConfirmModal({
         className="w-full max-w-sm rounded-2xl border border-[var(--ctc-line)] bg-[var(--ctc-surface)] p-5 shadow-[0_24px_48px_-16px_rgb(var(--ctc-shadow)/0.35)]"
         onClick={(event) => event.stopPropagation()}
       >
-        <h2 id="ctc-reset-title" className="text-lg font-bold text-[var(--ctc-ink)]">
-          Reset semua progress?
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--ctc-body)]">
-          Semua checkbox akan kembali kosong. Tindakan ini tak boleh undo.
-        </p>
+        <div className="flex items-start gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--ctc-bg-soft)] text-[var(--ctc-ink)]">
+            <ResetIcon />
+          </span>
+          <div>
+            <h2 id="ctc-reset-title" className="text-lg font-bold text-[var(--ctc-ink)]">
+              Reset semua progress?
+            </h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-[var(--ctc-body)]">
+              Semua checkbox akan kembali kosong. Tindakan ini tak boleh undo.
+            </p>
+          </div>
+        </div>
         <div className="mt-5 flex justify-end gap-2.5">
           <button
             type="button"
@@ -150,7 +157,7 @@ function ResetConfirmModal({
             type="button"
             disabled={resetting}
             onClick={onConfirm}
-            className="rounded-full bg-[var(--ctc-warn)] px-4 py-2 text-sm font-bold text-white transition-opacity disabled:opacity-50"
+            className="rounded-full bg-[var(--ctc-ink)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {resetting ? "Resetting…" : "Ya, reset"}
           </button>
@@ -179,7 +186,7 @@ function ResetAction({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--ctc-warn-border)] bg-[var(--ctc-warn-soft)] px-3.5 py-1.5 text-xs font-bold text-[var(--ctc-warn)] transition-colors hover:bg-[var(--ctc-warn-border)]"
+        className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--ctc-line)] bg-[var(--ctc-surface)] px-3.5 py-1.5 text-xs font-bold text-[var(--ctc-muted)] transition-colors hover:border-[var(--ctc-accent)] hover:text-[var(--ctc-accent)]"
       >
         <ResetIcon />
         Reset checklist

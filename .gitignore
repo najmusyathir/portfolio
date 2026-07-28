@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# throwaway /ctc checklist — runtime state, not source
+ctc-checklist.db
+ctc-checklist.db-journal

@@ -42,6 +42,7 @@ export const CTC_NOTES: string[] = [
 ];
 
 export const CTC_API_PATH = "/api/ctc";
+export const CTC_STREAM_PATH = `${CTC_API_PATH}/stream`;
 
 export interface CtcItemState {
   index: number;

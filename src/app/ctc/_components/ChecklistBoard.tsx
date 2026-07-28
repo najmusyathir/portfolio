@@ -2,15 +2,22 @@
 
 /**
  * THROWAWAY — /ctc checklist board. Shared by /ctc (read-only) and
- * /ctc/edit (interactive). Both fetch from the same /api/ctc route so they
- * always reflect the same underlying SQLite state.
+ * /ctc/edit (interactive). Both subscribe to the same /api/ctc/stream SSE
+ * endpoint so they always reflect the same underlying SQLite state live —
+ * no manual reload, and both stay in sync with each other (e.g. abah has
+ * /ctc/edit open on two devices at once).
+ *
+ * /ctc/edit additionally applies an optimistic local flip on toggle so taps
+ * feel instant rather than waiting on a round-trip; the POST response (and
+ * shortly after, the SSE broadcast of the same change) reconciles it with
+ * the authoritative server state.
  *
  * Styling note: colors below are pulled from the scoped custom properties
  * defined in ../ctc.css (--ctc-*), never from the portfolio's own tokens.
  */
 
 import { useEffect, useState } from "react";
-import { CTC_API_PATH, type CtcState } from "@/lib/ctc-data";
+import { CTC_API_PATH, CTC_STREAM_PATH, type CtcState } from "@/lib/ctc-data";
 
 function CheckIcon() {
   return (
@@ -234,32 +241,60 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
   const [error, setError] = useState<string | null>(null);
   const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [resetting, setResetting] = useState(false);
+  // Live-connection status only, purely cosmetic — the checklist itself
+  // keeps rendering the last-known state while a brief reconnect happens,
+  // so a dropped connection never blanks or resets the UI.
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
+    const source = new EventSource(CTC_STREAM_PATH);
 
-    async function loadState() {
+    source.onopen = () => {
+      setLive(true);
+      setError(null);
+    };
+
+    source.onmessage = (event) => {
       try {
-        const res = await fetch(CTC_API_PATH);
-        if (!res.ok) throw new Error("Failed to load checklist");
-        const data: CtcState = await res.json();
-        if (!cancelled) setState(data);
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load checklist");
-        }
+        const data: CtcState = JSON.parse(event.data);
+        setState(data);
+      } catch {
+        // Malformed payload — ignore and keep showing the last-known state.
       }
-    }
+    };
 
-    loadState();
+    // EventSource auto-reconnects on its own; just reflect the transient
+    // drop in the UI rather than treating it as a hard failure.
+    source.onerror = () => {
+      setLive(false);
+    };
+
     return () => {
-      cancelled = true;
+      source.close();
     };
   }, []);
 
   async function handleToggle(itemIndex: number, copyIndex: number) {
-    if (!editable) return;
+    if (!editable || !state) return;
     const key = `${itemIndex}-${copyIndex}`;
+    const previous = state;
+
+    // Optimistic flip — instant visual feedback instead of waiting on the
+    // POST round-trip. Reconciled below with the authoritative response
+    // (and, moments later, the SSE broadcast of this same change).
+    setState({
+      ...state,
+      items: state.items.map((item) =>
+        item.index === itemIndex
+          ? {
+              ...item,
+              checked: item.checked.map((checked, idx) =>
+                idx === copyIndex ? !checked : checked
+              ),
+            }
+          : item
+      ),
+    });
     setPendingKey(key);
     setError(null);
     try {
@@ -272,6 +307,7 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
       const data: CtcState = await res.json();
       setState(data);
     } catch (err) {
+      setState(previous);
       setError(err instanceof Error ? err.message : "Failed to save — try again");
     } finally {
       setPendingKey(null);
@@ -321,6 +357,16 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
 
   return (
     <div>
+      <p className="mb-3 flex items-center gap-1.5 text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-[var(--ctc-muted)]">
+        <span
+          className={`inline-block h-1.5 w-1.5 rounded-full ${
+            live ? "bg-[var(--ctc-success)]" : "bg-[var(--ctc-muted)]"
+          }`}
+          aria-hidden="true"
+        />
+        {live ? "Live" : "Menyambung semula…"}
+      </p>
+
       {editable ? <OverallBar {...progress} /> : <OverallRing {...progress} />}
 
       {editable && <ResetAction onReset={handleReset} resetting={resetting} />}

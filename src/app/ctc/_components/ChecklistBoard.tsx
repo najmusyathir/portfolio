@@ -405,7 +405,9 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
           (sum, prevSection) => sum + prevSection.count,
           0
         );
-        const sectionItems = state.items.slice(offset, offset + section.count);
+        const sectionItems = [...state.items.slice(offset, offset + section.count)].sort(
+          (a, b) => (a.displayNumber ?? a.index + 1) - (b.displayNumber ?? b.index + 1)
+        );
 
         const sectionDone = sectionItems.reduce(
             (sum, item) => sum + item.checked.filter(Boolean).length,

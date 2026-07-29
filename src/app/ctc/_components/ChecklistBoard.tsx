@@ -17,7 +17,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { CTC_API_PATH, CTC_STREAM_PATH, type CtcState } from "@/lib/ctc-data";
+import { CTC_API_PATH, CTC_SECTIONS, CTC_STREAM_PATH, type CtcState } from "@/lib/ctc-data";
 
 function CheckIcon() {
   return (
@@ -32,6 +32,23 @@ function CheckIcon() {
       aria-hidden="true"
     >
       <path d="M4 10.5l4 4 8-9" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${open ? "rotate-0" : "-rotate-90"}`}
+      aria-hidden="true"
+    >
+      <path d="M5 7.5l5 5 5-5" />
     </svg>
   );
 }
@@ -241,6 +258,8 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
   const [error, setError] = useState<string | null>(null);
   const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [resetting, setResetting] = useState(false);
+  // Which sections are collapsed, keyed by section index. Absent/false = open.
+  const [collapsedSections, setCollapsedSections] = useState<Record<number, boolean>>({});
   // Live-connection status only, purely cosmetic — the checklist itself
   // keeps rendering the last-known state while a brief reconnect happens,
   // so a dropped connection never blanks or resets the UI.
@@ -314,6 +333,10 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
     }
   }
 
+  function toggleSection(sectionIndex: number) {
+    setCollapsedSections((prev) => ({ ...prev, [sectionIndex]: !prev[sectionIndex] }));
+  }
+
   async function handleReset() {
     setResetting(true);
     setError(null);
@@ -377,79 +400,115 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
         </p>
       )}
 
-      <ul className="space-y-3.5">
-        {state.items.map((item) => {
-          const doneCount = item.checked.filter(Boolean).length;
-          const complete = doneCount === item.copies;
+      {CTC_SECTIONS.map((section, sectionIndex) => {
+        const offset = CTC_SECTIONS.slice(0, sectionIndex).reduce(
+          (sum, prevSection) => sum + prevSection.count,
+          0
+        );
+        const sectionItems = state.items.slice(offset, offset + section.count);
+
+        const sectionDone = sectionItems.reduce(
+            (sum, item) => sum + item.checked.filter(Boolean).length,
+            0
+          );
+          const sectionTotal = sectionItems.reduce((sum, item) => sum + item.copies, 0);
+          const isOpen = !collapsedSections[sectionIndex];
+
           return (
-            <li
-              key={item.index}
-              className="ctc-item rounded-2xl border border-[var(--ctc-line)] bg-[var(--ctc-surface)] p-4 sm:p-5"
-              style={{ animationDelay: `${Math.min(item.index * 30, 300)}ms` }}
-            >
-              <div className="mb-4 flex items-baseline justify-between gap-3">
-                <span className="text-[15px] font-extrabold leading-snug text-[var(--ctc-ink)] sm:text-base">
-                  {item.index + 1}. {item.name}
+            <div key={section.title} className="mb-5 last:mb-0">
+              <button
+                type="button"
+                onClick={() => toggleSection(sectionIndex)}
+                aria-expanded={isOpen}
+                className="mb-3 flex w-full items-center justify-between gap-3 rounded-xl border border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] px-4 py-3 text-left transition-colors hover:border-[var(--ctc-accent)]"
+              >
+                <span className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-[0.06em] text-[var(--ctc-ink)]">
+                  <ChevronIcon open={isOpen} />
+                  {section.title}
                 </span>
-                <span
-                  className={
-                    complete
-                      ? "shrink-0 rounded-full bg-[var(--ctc-success-soft)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--ctc-success)]"
-                      : "shrink-0 rounded-full bg-[var(--ctc-bg-soft)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--ctc-muted)]"
-                  }
-                >
-                  {doneCount}/{item.copies}
+                <span className="shrink-0 rounded-full bg-[var(--ctc-surface)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--ctc-muted)]">
+                  {sectionDone}/{sectionTotal}
                 </span>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {item.checked.map((checked, copyIndex) => {
-                  const key = `${item.index}-${copyIndex}`;
-                  const isPending = pendingKey === key;
-                  const label = `${item.name} — copy ${copyIndex + 1}`;
-                  const baseClasses =
-                    "flex h-14 w-14 items-center justify-center rounded-2xl border-2 text-base font-bold select-none";
+              </button>
 
-                  if (editable) {
-                    const stateClasses = checked
-                      ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white shadow-[0_6px_14px_-6px_rgb(31_157_108/0.55)] ctc-check--on"
-                      : "border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] text-[var(--ctc-muted)] hover:border-[var(--ctc-accent)] hover:bg-[var(--ctc-accent-soft)] hover:text-[var(--ctc-accent)]";
+              {isOpen && (
+                <ul className="space-y-3.5">
+                  {sectionItems.map((item, localIndex) => {
+                    const doneCount = item.checked.filter(Boolean).length;
+                    const complete = doneCount === item.copies;
                     return (
-                      <button
-                        key={copyIndex}
-                        type="button"
-                        onClick={() => handleToggle(item.index, copyIndex)}
-                        disabled={isPending}
-                        aria-pressed={checked}
-                        aria-label={label}
-                        className={`${baseClasses} ${stateClasses} transition-all duration-200 ${
-                          isPending ? "opacity-50" : "active:scale-90"
-                        }`}
+                      <li
+                        key={item.index}
+                        className="ctc-item rounded-2xl border border-[var(--ctc-line)] bg-[var(--ctc-surface)] p-4 sm:p-5"
+                        style={{ animationDelay: `${Math.min(localIndex * 30, 300)}ms` }}
                       >
-                        {checked ? <CheckIcon /> : copyIndex + 1}
-                      </button>
+                        <div className="mb-4 flex items-baseline justify-between gap-3">
+                          <span className="text-[15px] font-extrabold leading-snug text-[var(--ctc-ink)] sm:text-base">
+                            {localIndex + 1}. {item.name}
+                          </span>
+                          <span
+                            className={
+                              complete
+                                ? "shrink-0 rounded-full bg-[var(--ctc-success-soft)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--ctc-success)]"
+                                : "shrink-0 rounded-full bg-[var(--ctc-bg-soft)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--ctc-muted)]"
+                            }
+                          >
+                            {doneCount}/{item.copies}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                          {item.checked.map((checked, copyIndex) => {
+                            const key = `${item.index}-${copyIndex}`;
+                            const isPending = pendingKey === key;
+                            const label = `${item.name} — copy ${copyIndex + 1}`;
+                            const baseClasses =
+                              "flex h-14 w-14 items-center justify-center rounded-2xl border-2 text-base font-bold select-none";
+
+                            if (editable) {
+                              const stateClasses = checked
+                                ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white shadow-[0_6px_14px_-6px_rgb(31_157_108/0.55)] ctc-check--on"
+                                : "border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] text-[var(--ctc-muted)] hover:border-[var(--ctc-accent)] hover:bg-[var(--ctc-accent-soft)] hover:text-[var(--ctc-accent)]";
+                              return (
+                                <button
+                                  key={copyIndex}
+                                  type="button"
+                                  onClick={() => handleToggle(item.index, copyIndex)}
+                                  disabled={isPending}
+                                  aria-pressed={checked}
+                                  aria-label={label}
+                                  className={`${baseClasses} ${stateClasses} transition-all duration-200 ${
+                                    isPending ? "opacity-50" : "active:scale-90"
+                                  }`}
+                                >
+                                  {checked ? <CheckIcon /> : copyIndex + 1}
+                                </button>
+                              );
+                            }
+
+                            const stateClasses = checked
+                              ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white"
+                              : "border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] text-[var(--ctc-muted)]";
+
+                            return (
+                              <div
+                                key={copyIndex}
+                                role="img"
+                                aria-label={`${label} — ${checked ? "checked" : "unchecked"}`}
+                                className={`${baseClasses} ${stateClasses}`}
+                              >
+                                {checked ? <CheckIcon /> : copyIndex + 1}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </li>
                     );
-                  }
-
-                  const stateClasses = checked
-                    ? "border-[var(--ctc-success)] bg-[var(--ctc-success)] text-white"
-                    : "border-[var(--ctc-line)] bg-[var(--ctc-bg-soft)] text-[var(--ctc-muted)]";
-
-                  return (
-                    <div
-                      key={copyIndex}
-                      role="img"
-                      aria-label={`${label} — ${checked ? "checked" : "unchecked"}`}
-                      className={`${baseClasses} ${stateClasses}`}
-                    >
-                      {checked ? <CheckIcon /> : copyIndex + 1}
-                    </div>
-                  );
-                })}
-              </div>
-            </li>
+                  })}
+                </ul>
+              )}
+            </div>
           );
         })}
-      </ul>
     </div>
   );
 }

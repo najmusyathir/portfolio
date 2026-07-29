@@ -17,7 +17,9 @@ export interface CtcItemDef {
 }
 
 // Keep this list + copy counts exactly as given — order matters, it defines
-// the item_index used as the DB primary key.
+// the item_index used as the DB primary key. New items only ever get
+// appended to the end (never inserted/reordered) so existing checked state
+// stays pinned to the right row.
 export const CTC_ITEMS: CtcItemDef[] = [
   { name: "Surat Tawaran", copies: 4 },
   { name: "Borang akaun berkanun", copies: 4 },
@@ -31,6 +33,27 @@ export const CTC_ITEMS: CtcItemDef[] = [
   { name: "PRC cert", copies: 6 },
   { name: "PRC letter", copies: 6 },
   { name: "Surat PTM", copies: 2 },
+  { name: "Bank statement", copies: 3 },
+  { name: "Penyata KWSP", copies: 3 },
+  { name: "Mytax Statement", copies: 3 },
+  // Extra CTC — separate top-up batch, tracked on its own so it doesn't
+  // get confused with the main list's already-ticked copies above.
+  { name: "IC", copies: 3 },
+  { name: "Bank statement", copies: 1 },
+  { name: "Penyata KWSP", copies: 1 },
+  { name: "Surat Tawaran", copies: 2 },
+];
+
+export interface CtcSectionDef {
+  title: string;
+  // How many consecutive CTC_ITEMS (starting right after the previous
+  // section's items) belong to this section. Must sum to CTC_ITEMS.length.
+  count: number;
+}
+
+export const CTC_SECTIONS: CtcSectionDef[] = [
+  { title: "Senarai Utama", count: 15 },
+  { title: "Extra CTC", count: 4 },
 ];
 
 // Plain banner text — not interactive, keep exactly as given.

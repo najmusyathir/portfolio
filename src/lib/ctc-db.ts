@@ -69,6 +69,7 @@ export function getCtcState(): CtcState {
     name: item.name,
     copies: item.copies,
     checked: new Array<boolean>(item.copies).fill(false),
+    displayNumber: item.displayNumber,
   }));
 
   for (const row of rows) {

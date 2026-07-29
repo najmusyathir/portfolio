@@ -444,7 +444,7 @@ export default function ChecklistBoard({ editable }: { editable: boolean }) {
                       >
                         <div className="mb-4 flex items-baseline justify-between gap-3">
                           <span className="text-[15px] font-extrabold leading-snug text-[var(--ctc-ink)] sm:text-base">
-                            {localIndex + 1}. {item.name}
+                            {item.displayNumber ?? localIndex + 1}. {item.name}
                           </span>
                           <span
                             className={

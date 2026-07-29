@@ -14,6 +14,10 @@
 export interface CtcItemDef {
   name: string;
   copies: number;
+  // Only set when this item is an extra top-up batch for a document that
+  // already has its own numbered slot in the main list — displays that
+  // original number instead of its own section-local position.
+  displayNumber?: number;
 }
 
 // Keep this list + copy counts exactly as given — order matters, it defines
@@ -37,11 +41,14 @@ export const CTC_ITEMS: CtcItemDef[] = [
   { name: "Penyata KWSP", copies: 3 },
   { name: "Mytax Statement", copies: 3 },
   // Extra CTC — separate top-up batch, tracked on its own so it doesn't
-  // get confused with the main list's already-ticked copies above.
-  { name: "IC", copies: 3 },
-  { name: "Bank statement", copies: 1 },
-  { name: "Penyata KWSP", copies: 1 },
-  { name: "Surat Tawaran", copies: 2 },
+  // get confused with the main list's already-ticked copies above. Each
+  // displayNumber points back at that same document's number in the main
+  // list (no. 7 IC pelajar, no. 13 Bank statement, no. 14 Penyata KWSP,
+  // no. 1 Surat Tawaran).
+  { name: "IC pelajar", copies: 3, displayNumber: 7 },
+  { name: "Bank statement", copies: 1, displayNumber: 13 },
+  { name: "Penyata KWSP", copies: 1, displayNumber: 14 },
+  { name: "Surat Tawaran", copies: 2, displayNumber: 1 },
 ];
 
 export interface CtcSectionDef {
@@ -72,6 +79,7 @@ export interface CtcItemState {
   name: string;
   copies: number;
   checked: boolean[];
+  displayNumber?: number;
 }
 
 export interface CtcState {

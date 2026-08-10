@@ -111,11 +111,9 @@ export default function ResumePage() {
                             <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
                           ))}
                         </div>
-                        {p.url && (
-                          <a href={p.url} target="_blank" rel="noopener noreferrer" className="link-underline" style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>
-                            {p.url.replace("https://", "")}
-                          </a>
-                        )}
+                        {/* Hosted project links intentionally not rendered on the résumé —
+                            internal-use only, matching the site-wide precedent (see content.ts
+                            ECOSYSTEM). `url` is kept on the data model for other consumers. */}
                       </div>
                     ))}
                   </div>

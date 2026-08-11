@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PROFILE } from "@/lib/content";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { LogoWordmark } from "@/components/ui/Logo";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -54,15 +55,16 @@ export function Navbar() {
         }}
       >
         <Link
-          href="/"
+          // TEMPORARY: pointed at /logo-preview so Abang can review the
+          // monogram dot-spacing fix; revert to "/" once confirmed.
+          href="/logo-preview"
           style={{
-            fontWeight: 700,
-            fontSize: "var(--text-lg)",
-            letterSpacing: "-0.02em",
+            display: "inline-flex",
+            alignItems: "center",
             color: "var(--c-ink)",
           }}
         >
-          Najmu<span style={{ color: "var(--c-accent)" }}>.</span>
+          <LogoWordmark height={20} title="Najmu Syathir" />
         </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>

@@ -9,7 +9,7 @@ export const PROFILE = {
   role: "Full-Stack Engineer",
   company: "myFirst Tech Sdn Bhd",
   companySince: "Mar 2025",
-  location: "Kuala Lumpur, Malaysia",
+  location: "Johor Bahru, Malaysia",
   quote: "Code, Coffee & Chill",
   valueProp:
     "I build full-stack products end to end — and run the self-hosted infrastructure they live on.",

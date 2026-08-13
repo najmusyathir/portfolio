@@ -55,9 +55,7 @@ export function Navbar() {
         }}
       >
         <Link
-          // TEMPORARY: pointed at /logo-preview so Abang can review the
-          // monogram dot-spacing fix; revert to "/" once confirmed.
-          href="/logo-preview"
+          href="/"
           style={{
             display: "inline-flex",
             alignItems: "center",

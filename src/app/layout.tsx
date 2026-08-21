@@ -9,14 +9,14 @@ import { PROFILE } from "@/lib/content";
 export const metadata: Metadata = {
   metadataBase: new URL(PROFILE.siteUrl),
   title: {
-    default: "Najmu Syathir — Full-Stack Engineer",
+    default: "Najmu Syathir — Full-Stack Developer",
     template: "%s — Najmu Syathir",
   },
   description:
-    "Najmu Syathir — Full-Stack Engineer. I build full-stack products end to end and run the self-hosted infrastructure they live on. Code, Coffee & Chill.",
+    "Najmu Syathir — Full-Stack Developer. I build full-stack products end to end and run the self-hosted infrastructure they live on. Code, Coffee & Chill.",
   keywords: [
     "Najmu Syathir",
-    "Full-Stack Engineer",
+    "Full-Stack Developer",
     "Next.js",
     "TypeScript",
     "self-hosted",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Najmu Syathir" }],
   openGraph: {
-    title: "Najmu Syathir — Full-Stack Engineer",
+    title: "Najmu Syathir — Full-Stack Developer",
     description:
       "Full-stack products, self-hosted infrastructure, and AI orchestration. Code, Coffee & Chill.",
     url: PROFILE.siteUrl,

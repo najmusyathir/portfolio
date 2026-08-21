@@ -70,7 +70,7 @@ export default function AboutPage() {
                     which I started in 2021.
                   </p>
                   <p style={{ margin: 0 }}>
-                    Today I work as a <strong style={{ color: "var(--c-ink)" }}>full-stack engineer</strong> at{" "}
+                    Today I work as a <strong style={{ color: "var(--c-ink)" }}>full-stack developer</strong> at{" "}
                     {PROFILE.company} (since {PROFILE.companySince}). The job has grown well past
                     execution: designing system architecture, modularising code, defining
                     components properly, and making real calls on structure and UI. That mid-level

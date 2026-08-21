@@ -1,12 +1,12 @@
 # Najmu Syathir
 
-Full-Stack Engineer based in Kuala Lumpur, Malaysia.
+Full-Stack Developer based in Kuala Lumpur, Malaysia.
 
 This repository is the source for my personal site and portfolio. This README isn't about the codebase — it's about me, for anyone who lands here from GitHub and wants the short version.
 
 ## Currently
 
-Full-Stack Engineer at **myFirst Tech Sdn Bhd** (Mar 2025–present). I work across the stack — front end, back end, and the infrastructure in between:
+Full-Stack Developer at **myFirst Tech Sdn Bhd** (Mar 2025–present). I work across the stack — front end, back end, and the infrastructure in between:
 
 - Maintaining and supporting the company's internal web portal
 - Designed and built the base architecture for its next-generation rebuild ("Portal 3.0")
@@ -20,7 +20,7 @@ Day-to-day stack there: Next.js, TypeScript, Go, PostgreSQL, Firestore, Realtime
 I didn't start out in software. My first real interest was PC building — putting together workstations, caring about how a setup felt to work in. That curiosity about "what makes a good working environment" eventually pulled me toward computer science: I picked up Python in 2019, and by 2021 had committed to it fully, switching away from an earlier plan in medicine/health sciences to pursue a Computer Science degree instead.
 
 **Career path:**
-- **Full-Stack Engineer**, myFirst Tech Sdn Bhd — Mar 2025–present
+- **Full-Stack Developer**, myFirst Tech Sdn Bhd — Mar 2025–present
 - **Junior Software Developer & Operations (FE)**, Guard Genius Sdn Bhd — Aug 2024–Mar 2025 (Vue.js, Tailwind CSS, Flask, MySQL, Figma, Sentry)
 - **Software Developer Intern**, AQ Wise Sdn Bhd — Mar–Jun 2024 (Flutter, Laravel)
 

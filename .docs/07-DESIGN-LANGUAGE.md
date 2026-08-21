@@ -381,7 +381,7 @@ Full viewport (`min-h-screen`), content centered vertically and horizontally.
 [Aurora background — full page fixed]
 
          Najmu Syathir           ← gradient-text, 72px, weight 800
-    Full-Stack Engineer          ← muted, 24px
+    Full-Stack Developer          ← muted, 24px
   & Solution Architect
 
   I design the system.           ← primary, 18px
@@ -491,7 +491,7 @@ Photo: circular avatar (`rounded-full`), 160px, subtle gradient ring border usin
 
 Body copy:
 ```
-I'm a solo full-stack engineer based in Malaysia, building production tools
+I'm a solo full-stack developer based in Malaysia, building production tools
 that solve real problems.
 
 I design clean systems — multi-tenant SaaS, async job queues, PTY terminals —

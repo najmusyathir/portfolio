@@ -78,9 +78,34 @@ export default function ResumePage() {
                       <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{job.period}</span>
                     </div>
                     <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
-                    <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {/* Explicit markers: Tailwind's preflight sets `list-style: none`
+                        on every ul, so a plain <li> renders as an unmarked indented
+                        line and the whole block reads as a paragraph. */}
+                    <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
                       {job.bullets.map((b, bi) => (
-                        <li key={bi} style={{ color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{b}</li>
+                        <li
+                          key={bi}
+                          style={{
+                            display: "flex",
+                            gap: "0.65rem",
+                            color: "var(--c-body)",
+                            fontSize: "var(--text-sm)",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          <span
+                            aria-hidden
+                            style={{
+                              flexShrink: 0,
+                              width: "5px",
+                              height: "5px",
+                              borderRadius: "var(--radius-full)",
+                              background: "var(--c-accent)",
+                              marginTop: "0.55em",
+                            }}
+                          />
+                          <span>{b}</span>
+                        </li>
                       ))}
                     </ul>
                     {job.tech && <div style={{ marginTop: "1rem" }}><ChipRow items={job.tech} /></div>}

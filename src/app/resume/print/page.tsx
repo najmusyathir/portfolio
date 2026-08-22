@@ -165,8 +165,8 @@ export default function ResumePrintPage() {
         .card-head h3 { font-size: 14px; }
         .card .period { font-family: var(--mono); font-size: 10.5px; color: var(--muted); white-space: nowrap; }
         .card .company { font-size: 11.5px; font-weight: 600; color: var(--accent); margin-top: 1px; }
-        .card ul { margin: 5px 0 0; padding-left: 16px; }
-        .card li { margin-bottom: 3px; line-height: 1.5; }
+        .card ul { margin: 5px 0 0; padding-left: 16px; list-style: disc; }
+        .card li { margin-bottom: 3px; line-height: 1.5; list-style: disc; }
         .tech { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 5px; }
 
         /* Education card headings a touch smaller */

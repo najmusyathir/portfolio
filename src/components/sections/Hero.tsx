@@ -20,7 +20,7 @@ export function Hero() {
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <Reveal>
             <span className="eyebrow" style={{ marginBottom: "1.25rem" }}>
-              <Icon name="coffee" size={14} /> Code, Coffee &amp; Chill
+              <Icon name="map-pin" size={14} /> {PROFILE.location}
             </span>
           </Reveal>
 

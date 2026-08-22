@@ -10,7 +10,7 @@ import { AI_INFRA } from "@/lib/content";
 export const metadata: Metadata = {
   title: "AI Infrastructure",
   description:
-    "The self-hosted AI infrastructure Najmu engineered: reliable, persistent context, structured for real human use. An engineering story, not a gimmick.",
+    "The self-hosted AI infrastructure Najmu engineered: dependable, persistent context, directed from written specs, and in the loop on real day-to-day work.",
 };
 
 export default function AiPage() {
@@ -24,7 +24,7 @@ export default function AiPage() {
             <Reveal>
               <SectionHeading
                 eyebrow="AI infrastructure"
-                title="I don't just use AI — I engineered the system that runs it."
+                title="I don't just use AI — I engineered the system that runs it, and I work with it every day."
               />
             </Reveal>
             <Reveal delay={90}>
@@ -75,8 +75,9 @@ export default function AiPage() {
                 </p>
                 <p style={{ color: "var(--c-body)", fontSize: "var(--text-lg)", maxWidth: "58ch", margin: "0 auto 1.75rem" }}>
                   This is infrastructure I designed and maintain, not a product built for me.
-                  It&apos;s the same discipline as any system I ship: clear architecture, versioned
-                  specs, and human sign-off on what matters.
+                  It&apos;s the same discipline as any system I ship: clear architecture, written
+                  specs, and human sign-off on what matters. The measure of it isn&apos;t how clever
+                  it looks in a demo — it&apos;s that I still rely on it on an ordinary Tuesday.
                 </p>
                 <Link href="/projects" className="btn btn-ghost">
                   See the projects it supports <Icon name="arrow-right" size={16} />

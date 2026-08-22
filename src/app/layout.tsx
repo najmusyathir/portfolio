@@ -13,20 +13,20 @@ export const metadata: Metadata = {
     template: "%s — Najmu Syathir",
   },
   description:
-    "Najmu Syathir — Full-Stack Developer. I build full-stack products end to end and run the self-hosted infrastructure they live on. Code, Coffee & Chill.",
+    "Najmu Syathir — Full-Stack Developer. I build full-stack products end to end, run the self-hosted infrastructure they live on, and work from anywhere it can be reached.",
   keywords: [
     "Najmu Syathir",
     "Full-Stack Developer",
     "Next.js",
     "TypeScript",
     "self-hosted",
+    "AI-assisted development",
     "Malaysia developer",
   ],
   authors: [{ name: "Najmu Syathir" }],
   openGraph: {
     title: "Najmu Syathir — Full-Stack Developer",
-    description:
-      "Full-stack products, self-hosted infrastructure, and AI orchestration. Code, Coffee & Chill.",
+    description: PROFILE.tagline,
     url: PROFILE.siteUrl,
     siteName: "Najmu Syathir",
     type: "website",

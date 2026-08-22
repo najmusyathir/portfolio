@@ -47,6 +47,8 @@ Outside of client and employer work, I run a small ecosystem of self-hosted proj
 
 ## Earlier / client work
 
+The junior era — front-end builds from when I was starting out. Mostly hand-written HTML/CSS/JS, desktop-first and not responsive. Kept here as the starting line, not as current work.
+
 - **CPU–Motherboard Compatibility Checker** — a browser extension verifying part compatibility on e-commerce cart pages. Awarded *Best Industrial Panel Final Year Project* (2024).
 - **PetCare Clinic System** — grooming and vet-booking platform (Laravel)
 - **MNS Tech Store** — e-commerce platform for PC parts and accessories (Laravel)
@@ -61,7 +63,7 @@ Code, Coffee & Chill — I do my best work away from a desk: café-hunting for a
 
 - GitHub: [@najmusyathir](https://github.com/najmusyathir)
 - LinkedIn: [najmusyathir](https://www.linkedin.com/in/najmusyathir/)
-- Portfolio: [portfolio-dev.najmusyathir.dev](https://portfolio-dev.najmusyathir.dev)
+- Portfolio: [najmusyathir.dev](https://najmusyathir.dev)
 
 ---
 

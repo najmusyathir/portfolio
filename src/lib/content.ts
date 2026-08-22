@@ -193,6 +193,61 @@ export const EARLIER_WORK: EarlierProject[] = [
 ];
 
 /**
+ * Awards and invited roles. Newest first — the arc matters here: the same award
+ * won as a student in 2024, then judged as an invited panel member in 2026.
+ *
+ * NOTE: the 2026 jury entry is dated to the month only. Abang recalled it as
+ * around 8 Aug 2026 but was not certain, and no record of it exists in the
+ * memory system — so the month is stated and the exact day deliberately is not.
+ */
+export interface Achievement {
+  title: string;
+  org: string;
+  date: string;
+  kind: "award" | "role";
+  summary: string;
+}
+
+export const ACHIEVEMENTS: Achievement[] = [
+  {
+    title: "Invited jury — Final Year Project industrial panel",
+    org: "Universiti Teknologi MARA, Melaka (Kampus Jasin)",
+    date: "Aug 2026",
+    kind: "role",
+    summary:
+      "Invited back to my own faculty to sit on the evaluation panel for final-year projects — assessing the same award category I was given as a student two years earlier. Two years after being judged, judging.",
+  },
+  {
+    title: "Best Industrial Panel Final Year Project",
+    org: "Universiti Teknologi MARA, Melaka (Kampus Jasin)",
+    date: "2024",
+    kind: "award",
+    summary:
+      "Awarded by the industrial panel — the external assessors from industry, not the academic supervisors — for the CPU\u2013Motherboard Compatibility Checker.",
+  },
+];
+
+/**
+ * The final-year project, in full. It is the subject of the 2024 award above,
+ * so it gets a proper record rather than the one-line summary the r\u00e9sum\u00e9 carries.
+ */
+export const FYP = {
+  name: "CPU\u2013Motherboard Compatibility Checker",
+  context: "Final Year Project \u2014 UiTM Melaka (Kampus Jasin)",
+  year: "2024",
+  award: "Best Industrial Panel Final Year Project (2024)",
+  summary:
+    "A browser extension that reads a Lazada cart page and tells you whether the CPU and motherboard sitting in it are actually compatible \u2014 before the money leaves. The subject came straight out of the PC-building habit that got me into computing in the first place: it is a mistake that is easy to make and expensive to undo.",
+  bullets: [
+    "Browser extension that parses a live Lazada cart page, identifies the CPU and motherboard in it, and returns a compatibility verdict in place.",
+    "Python and FastAPI service behind it holding the compatibility rules, containerised with Docker and deployed on Render.com.",
+    "Compatibility dataset built by scraping and normalising manufacturer specifications \u2014 with regex parsing to survive how inconsistently sockets and chipsets are actually written in real listings.",
+    "Published to the Microsoft Edge add-ons store, so it installed like any other extension rather than needing developer mode.",
+  ],
+  tags: ["JavaScript", "Python", "FastAPI", "Docker", "Data scraping", "Regex", "HTML5", "CSS3"],
+} as const;
+
+/**
  * The "what I'm building now" story — the thesis that ties every project on the
  * server together. Deliberately surface-level: what it does for me and why,
  * never how it is wired internally.

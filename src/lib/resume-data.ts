@@ -20,10 +20,11 @@ export const JOBS: Job[] = [
     bullets: [
       "Maintain and support the company's internal web portal, keeping production systems reliable.",
       "Designed and built the base architecture for Portal 3.0, the next-generation portal rebuild.",
-      "Designed the customer journey for the subscription platform, with Stripe and Airwallex payments over webhook-driven event flows.",
+      "Designed the customer journey for the company's subscription platform \u2014 mapping the end-to-end flow, not just implementing it.",
+      "Designed and delivered the integration workflows for third-party systems \u2014 Singpass for national digital identity, and Airwallex and Stripe for payments, over webhook-driven event flows.",
       "Built a real-time, AI-integrated customer-support chat.",
     ],
-    tech: ["Next.js", "TypeScript", "Go", "Stripe", "Airwallex", "Webhooks", "Firestore", "RTDB", "PostgreSQL"],
+    tech: ["Next.js", "TypeScript", "Go", "Singpass", "Stripe", "Airwallex", "Webhooks", "Firestore", "RTDB", "PostgreSQL"],
   },
   {
     title: "Junior Software Developer & Operations (FE)",
@@ -68,7 +69,7 @@ export const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
       { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"] },
       { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"] },
       { name: "ai_hub_bridge", desc: "Async AI job queue bridging the Claude CLI to web and Telegram.", tags: ["Next.js", "TypeScript", "Supabase Realtime"] },
-      { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project — browser extension on Lazada's cart to verify CPU/motherboard compatibility. Awarded Best Industrial Panel FYP (2024).", tags: ["Python", "FastAPI", "Docker", "Data scraping"] },
+      { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project (UiTM Melaka) — browser extension that reads a live Lazada cart page and verifies CPU/motherboard compatibility before purchase. FastAPI rules service in Docker on Render.com; compatibility data scraped and normalised from manufacturer specs. Published to the Microsoft Edge add-ons store.", tags: ["JavaScript", "Python", "FastAPI", "Docker", "Data scraping", "Regex"], note: "Awarded Best Industrial Panel Final Year Project (2024)" },
     ],
   },
   {
@@ -86,7 +87,7 @@ export const SKILL_GROUPS: { label: string; items: string[] }[] = [
   { label: "Languages", items: ["TypeScript", "JavaScript", "Go", "Python", "PHP", "HTML5", "CSS3"] },
   { label: "Frontend", items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "SCSS/SASS"] },
   { label: "Backend", items: ["Node.js", "Go", "FastAPI", "Flask", "Laravel", "REST API design", "Webhooks"] },
-  { label: "Payments", items: ["Stripe", "Airwallex"] },
+  { label: "Integrations", items: ["Stripe", "Airwallex", "Singpass", "Webhooks", "REST APIs"] },
   { label: "Database & ORM", items: ["PostgreSQL", "Firestore", "Firebase Realtime Database", "MySQL", "Prisma"] },
   { label: "Infra & DevOps", items: ["Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "tmux"] },
   { label: "AI Tools", items: ["Claude Code", "Cursor", "Antigravity"] },

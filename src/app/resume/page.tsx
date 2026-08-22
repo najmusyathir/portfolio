@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
 import { DownloadResume } from "@/components/ui/DownloadResume";
-import { PROFILE, SOCIALS } from "@/lib/content";
+import { PROFILE, SOCIALS, ACHIEVEMENTS } from "@/lib/content";
 import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
 
 const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
@@ -116,6 +116,34 @@ export default function ResumePage() {
           </div>
         </section>
 
+        {/* Awards & invited roles */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Recognition" title="Awards & invited roles" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {ACHIEVEMENTS.map((a, i) => (
+                <Reveal key={a.title} delay={i * 70}>
+                  <div className="surface" style={cardStyle}>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <h3 style={{ fontSize: "var(--text-lg)" }}>{a.title}</h3>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{a.date}</span>
+                    </div>
+                    <p style={{ margin: "0 0 0.6rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{a.org}</p>
+                    <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{a.summary}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={140}>
+              <div style={{ marginTop: "1.25rem" }}>
+                <Link href="/achievements" className="link-underline" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
+                  The awarded project, in detail <Icon name="arrow-right" size={16} />
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* Projects */}
         <section className="section-tight">
           <div className="container" style={{ maxWidth: "900px" }}>
@@ -136,6 +164,21 @@ export default function ResumePage() {
                             <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
                           ))}
                         </div>
+                        {p.note && (
+                          <p
+                            style={{
+                              margin: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.4rem",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "var(--text-xs)",
+                              color: "var(--c-accent)",
+                            }}
+                          >
+                            <Icon name="spark" size={13} style={{ flexShrink: 0 }} /> {p.note}
+                          </p>
+                        )}
                         {/* Hosted project links intentionally not rendered on the résumé —
                             internal-use only, matching the site-wide precedent (see content.ts
                             ECOSYSTEM). `url` is kept on the data model for other consumers. */}

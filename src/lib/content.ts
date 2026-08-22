@@ -6,7 +6,7 @@
 export const PROFILE = {
   name: "Najmu Syathir",
   fullName: "Muhammad Najmu Al Syathir Bin Azemi",
-  role: "Full-Stack Engineer",
+  role: "Full-Stack Developer",
   company: "myFirst Tech Sdn Bhd",
   companySince: "Mar 2025",
   location: "Johor Bahru, Malaysia",

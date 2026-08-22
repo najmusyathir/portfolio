@@ -8,10 +8,10 @@ No API routes in v1. All content is static.
 
 ```ts
 export const metadata: Metadata = {
-  title: 'Najmu Syathir — Full-Stack Engineer',
+  title: 'Najmu Syathir — Full-Stack Developer',
   description: 'Solution architect building production SaaS tools on self-hosted infra. Next.js, TypeScript, AI-orchestrated development.',
   openGraph: {
-    title: 'Najmu Syathir — Full-Stack Engineer',
+    title: 'Najmu Syathir — Full-Stack Developer',
     description: 'Solution architect building production SaaS tools on self-hosted infra.',
     url: 'https://najmusyathir.dev',
     siteName: 'Najmu Syathir',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Najmu Syathir — Full-Stack Engineer',
+    title: 'Najmu Syathir — Full-Stack Developer',
     description: 'Solution architect building production SaaS tools on self-hosted infra.',
     images: ['/og-image.png'],
   },

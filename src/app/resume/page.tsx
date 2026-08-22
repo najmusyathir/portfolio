@@ -15,7 +15,7 @@ const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
 export const metadata: Metadata = {
   title: "Résumé",
   description:
-    "Résumé of Najmu Syathir — Full-Stack Engineer. Experience, projects, education and skills.",
+    "Résumé of Najmu Syathir — Full-Stack Developer. Experience, projects, education and skills.",
 };
 
 const cardStyle: React.CSSProperties = { padding: "1.5rem" };

@@ -14,7 +14,7 @@ export interface Job {
 
 export const JOBS: Job[] = [
   {
-    title: "Full-Stack Engineer",
+    title: "Full-Stack Developer",
     company: "myFirst Tech Sdn Bhd",
     period: "Mar 2025 – Present",
     bullets: [
@@ -99,4 +99,4 @@ export const EDUCATION = [
 ];
 
 export const SUMMARY =
-  "Full-stack engineer with 2+ years of professional experience across front-end and back-end development, plus a growing personal infrastructure of self-hosted projects — browser-based terminals, uptime monitoring, multi-tenant SaaS, and async AI orchestration, all running on infrastructure I manage myself. Comfortable owning the full stack: front-end (React, Vue.js, Next.js), back-end (Node.js, Python, PHP), and infrastructure (Linux, Docker, Cloudflare). Currently a Full-Stack Engineer at myFirst Tech Sdn Bhd.";
+  "Full-stack developer with 2+ years of professional experience across front-end and back-end development, plus a growing personal infrastructure of self-hosted projects — browser-based terminals, uptime monitoring, multi-tenant SaaS, and async AI orchestration, all running on infrastructure I manage myself. Comfortable owning the full stack: front-end (React, Vue.js, Next.js), back-end (Node.js, Python, PHP), and infrastructure (Linux, Docker, Cloudflare). Currently a Full-Stack Developer at myFirst Tech Sdn Bhd.";

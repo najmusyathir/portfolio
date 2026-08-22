@@ -47,7 +47,7 @@ Outside of client and employer work, I run a small ecosystem of self-hosted proj
 
 ## Achievements
 
-- **Invited jury — Final Year Project industrial panel**, UiTM Melaka (Kampus Jasin), Aug 2026. Invited back to my own faculty to help evaluate final-year projects — the same award category I was given as a student two years earlier.
+- **Invited jury — Final Year Project industrial panel**, UiTM Melaka (Kampus Jasin), 7 August 2026. Invited back to my own faculty to help evaluate final-year projects — the same award category I was given as a student two years earlier.
 - **Best Industrial Panel Final Year Project (2024)**, UiTM Melaka (Kampus Jasin). Awarded by the external industry panel for the **CPU–Motherboard Compatibility Checker** — a browser extension that reads a live Lazada cart page and verifies whether the CPU and motherboard in it are compatible before purchase. FastAPI rules service in Docker on Render.com, compatibility data scraped and normalised from manufacturer specs, published to the Microsoft Edge add-ons store.
 
 ## Earlier / client work

@@ -195,10 +195,6 @@ export const EARLIER_WORK: EarlierProject[] = [
 /**
  * Awards and invited roles. Newest first — the arc matters here: the same award
  * won as a student in 2024, then judged as an invited panel member in 2026.
- *
- * NOTE: the 2026 jury entry is dated to the month only. Abang recalled it as
- * around 8 Aug 2026 but was not certain, and no record of it exists in the
- * memory system — so the month is stated and the exact day deliberately is not.
  */
 export interface Achievement {
   title: string;
@@ -212,7 +208,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     title: "Invited jury — Final Year Project industrial panel",
     org: "Universiti Teknologi MARA, Melaka (Kampus Jasin)",
-    date: "Aug 2026",
+    date: "7 Aug 2026",
     kind: "role",
     summary:
       "Invited back to my own faculty to sit on the evaluation panel for final-year projects — assessing the same award category I was given as a student two years earlier. Two years after being judged, judging.",

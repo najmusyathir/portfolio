@@ -1,6 +1,6 @@
 # Najmu Syathir
 
-Full-Stack Developer based in Kuala Lumpur, Malaysia.
+Full-Stack Developer based in Johor Bahru, Johor, Malaysia.
 
 This repository is the source for my personal site and portfolio. This README isn't about the codebase — it's about me, for anyone who lands here from GitHub and wants the short version.
 

@@ -233,6 +233,9 @@ export const NOW = {
       icon: "check",
     },
   ],
+  /** Short version, for section intros where the full lead is too long. */
+  short:
+    "Every tool here exists so the work stays reachable — from any device, in any place, at any time.",
   closing:
     "None of this is a demo built for a portfolio. It is the environment I actually work in, every day — and the reason a holiday does not have to mean going quiet.",
 } as const;

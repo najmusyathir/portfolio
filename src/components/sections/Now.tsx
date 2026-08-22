@@ -15,7 +15,7 @@ export function Now() {
     <section className="section" id="now">
       <div className="container">
         <Reveal>
-          <SectionHeading eyebrow={NOW.eyebrow} title={NOW.title} intro={NOW.lead} />
+          <SectionHeading eyebrow={NOW.eyebrow} title={NOW.title} />
         </Reveal>
 
         <div className="now-grid">
@@ -31,6 +31,7 @@ export function Now() {
                 maxWidth: "62ch",
               }}
             >
+              <p style={{ margin: 0, color: "var(--c-ink)", fontWeight: 600 }}>{NOW.lead}</p>
               {NOW.paragraphs.map((para) => (
                 <p key={para.slice(0, 24)} style={{ margin: 0 }}>
                   {para}

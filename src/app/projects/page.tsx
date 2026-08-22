@@ -96,7 +96,7 @@ export default function ProjectsPage() {
               <SectionHeading
                 eyebrow="Self-hosted ecosystem"
                 title="Tools I run on my own infrastructure."
-                intro={NOW.lead}
+                intro={NOW.short}
               />
             </Reveal>
             <div className="proj-eco-grid" style={{ marginTop: "2.25rem" }}>

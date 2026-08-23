@@ -25,7 +25,7 @@ export default function CafesPage() {
               <SectionHeading
                 eyebrow="Code, Coffee & Chill"
                 title="The café trail."
-                intro="I do my best work away from a desk — café-hunting for a good spot and a quiet corner is genuinely part of how I stay focused. These are the stops so far."
+                intro="I do my best work away from a desk — café-hunting for a good spot and a quiet corner is genuinely part of how I stay focused. Four stops so far, four states, all pinned where they really are."
               />
             </Reveal>
           </div>

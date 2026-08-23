@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,6 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
 import { ACHIEVEMENTS, FYP } from "@/lib/content";
+import { PhotoGrid } from "@/components/ui/PhotoGrid";
 
 export const metadata: Metadata = {
   title: "Achievements",
@@ -80,42 +80,7 @@ export default function AchievementsPage() {
                       <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-base)" }}>
                         {a.summary}
                       </p>
-                      {a.images && (
-                        <div className="ach-photos">
-                          {a.images.map((img) => (
-                            <figure key={img.src} style={{ margin: 0 }}>
-                              <div
-                                style={{
-                                  position: "relative",
-                                  aspectRatio: "4 / 3",
-                                  borderRadius: "10px",
-                                  overflow: "hidden",
-                                  border: "1px solid var(--c-line)",
-                                  background: "var(--c-surface-2)",
-                                }}
-                              >
-                                <Image
-                                  src={img.src}
-                                  alt={img.alt}
-                                  fill
-                                  sizes="(max-width: 720px) 90vw, 240px"
-                                  style={{ objectFit: "cover" }}
-                                />
-                              </div>
-                              <figcaption
-                                style={{
-                                  marginTop: "0.45rem",
-                                  fontFamily: "var(--font-mono)",
-                                  fontSize: "var(--text-xs)",
-                                  color: "var(--c-muted)",
-                                }}
-                              >
-                                {img.caption}
-                              </figcaption>
-                            </figure>
-                          ))}
-                        </div>
-                      )}
+                      {a.images && <PhotoGrid photos={a.images.map((img) => ({ ...img }))} />}
                     </div>
                   </div>
                 </Reveal>
@@ -218,15 +183,6 @@ export default function AchievementsPage() {
           align-items: center;
           justify-content: center;
           border-radius: 13px;
-        }
-        .ach-photos {
-          margin-top: 1.25rem;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 0.9rem;
-        }
-        @media (min-width: 560px) {
-          .ach-photos { grid-template-columns: repeat(3, 1fr); }
         }
         .ach-head {
           display: flex;

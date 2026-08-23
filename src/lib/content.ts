@@ -280,43 +280,57 @@ export interface Cafe {
   city: string;
   state: string;
   mapsUrl: string;
-  /** Position on the stylized SVG peninsula (viewBox 0 0 500 600). */
+  /** Real coordinates (from the Google Maps place link). */
+  lat: number;
+  lng: number;
+  /** Position on the stylized SVG peninsula, projected from lat/lng. */
   x: number;
   y: number;
+  /** Optional card photo (Abang's own shot of the place), under /public. */
+  image?: string;
 }
 
+// Projection: x = (lng - 99.5) * 100, y = (6.9 - lat) * 100 — viewBox 0 0 500 600.
 export const CAFES: Cafe[] = [
   {
     name: "Ikhwan Coffee",
     city: "Johor Bahru",
     state: "Johor",
     mapsUrl: "https://maps.app.goo.gl/ZaZ8SizQML6W352WA",
-    x: 424,
-    y: 538,
+    lat: 1.4662,
+    lng: 103.7501,
+    x: 425,
+    y: 543,
   },
   {
     name: "RUMI's Kafien",
     city: "Melaka",
     state: "Melaka",
     mapsUrl: "https://maps.app.goo.gl/WfPHjWFny1WNz4t9A",
-    x: 272,
-    y: 466,
+    lat: 2.1584,
+    lng: 102.338,
+    x: 284,
+    y: 474,
   },
   {
     name: "Muka Coffee",
     city: "Kuantan",
     state: "Pahang",
     mapsUrl: "https://maps.app.goo.gl/AasDdTKdJWZ7MezK6",
-    x: 378,
-    y: 306,
+    lat: 3.8063,
+    lng: 103.329,
+    x: 383,
+    y: 309,
   },
   {
     name: "Cafe Moara",
-    city: "Kedah",
+    city: "Alor Setar",
     state: "Kedah",
     mapsUrl: "https://maps.app.goo.gl/dC2BfAZXb6nW5oya9",
-    x: 88,
-    y: 80,
+    lat: 6.0639,
+    lng: 100.2631,
+    x: 76,
+    y: 84,
   },
 ];
 

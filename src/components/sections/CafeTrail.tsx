@@ -1,255 +1,331 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { CAFES } from "@/lib/content";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Scroll-driven café map. A stylized SVG of Peninsular Malaysia stays pinned
- * while café cards scroll past; the card in view drives the map — it pans,
- * zooms and "pings" that café's pin, with a slight 3D tilt for depth.
- *
- * The peninsula outline is deliberately stylized (hand-traced, not GIS data);
- * precise locations live behind each card's Google Maps link.
+ * The café trail — calm edition. No scroll-jacking, no zooming: a static
+ * dot-matrix peninsula with the route drawn between stops, and a card list
+ * beside it. Hovering (or focusing) a card lights its pin; when nothing is
+ * hovered, a slow idle cycle breathes through the stops so the map never
+ * feels dead. Pins sit at real coordinates projected from each place's
+ * Google Maps location.
  */
-
-/** Simplified Peninsular Malaysia outline, viewBox 0 0 500 600. */
-const PENINSULA =
-  "M65 20 L120 35 L180 55 L235 60 L262 72 L340 140 L364 157 L395 240 " +
-  "L385 310 L395 390 L412 425 L434 447 L452 535 L460 552 L426 544 " +
-  "L410 550 L389 540 L343 505 L307 485 L265 470 L230 438 L220 430 " +
-  "L185 390 L148 313 L128 292 L113 267 L113 205 L88 150 L85 115 " +
-  "L80 80 L68 35 Z";
 
 const VIEW_W = 500;
 const VIEW_H = 600;
-const ZOOM = 2.6;
+
+/** Simplified coastline polygon — shapes the dot grid only, never drawn. */
+const COAST: [number, number][] = [
+  [65, 20], [120, 35], [180, 55], [235, 60], [262, 72], [340, 140],
+  [364, 157], [395, 240], [385, 310], [395, 390], [412, 425], [434, 447],
+  [452, 535], [460, 552], [426, 544], [410, 550], [389, 540], [343, 505],
+  [307, 485], [265, 470], [230, 438], [220, 430], [185, 390], [148, 313],
+  [128, 292], [113, 267], [113, 205], [88, 150], [85, 115], [80, 80], [68, 35],
+];
+
+function inside(x: number, y: number): boolean {
+  let ok = false;
+  for (let i = 0, j = COAST.length - 1; i < COAST.length; j = i++) {
+    const [xi, yi] = COAST[i];
+    const [xj, yj] = COAST[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) ok = !ok;
+  }
+  return ok;
+}
+
+/** Deterministic hex-grid dots (module scope: computed once, SSR-safe). */
+const DOTS: [number, number][] = (() => {
+  const pts: [number, number][] = [];
+  for (let row = 0; row * 9.5 < VIEW_H; row++) {
+    const y = 12 + row * 9.5;
+    for (let col = 0; col * 11 < VIEW_W; col++) {
+      const x = 8 + col * 11 + (row % 2 ? 5.5 : 0);
+      if (inside(x, y)) pts.push([x, y]);
+    }
+  }
+  return pts;
+})();
+
+/** One smooth route through the stops, south → north. */
+const ROUTE =
+  `M ${CAFES[0].x} ${CAFES[0].y}` +
+  ` C 380 525, 330 505, ${CAFES[1].x} ${CAFES[1].y}` +
+  ` C 310 430, 365 372, ${CAFES[2].x} ${CAFES[2].y}` +
+  ` C 385 225, 245 145, ${CAFES[3].x} ${CAFES[3].y}`;
 
 export function CafeTrail() {
-  // -1 = intro (whole map), 0..n-1 = that café focused
-  const [active, setActive] = useState(-1);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [hovered, setHovered] = useState(-1);
+  const [idle, setIdle] = useState(0);
 
+  // Slow breathing cycle while nothing is hovered.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const idx = Number((entry.target as HTMLElement).dataset.idx);
-          setActive(idx);
-        }
-      },
-      // A narrow band around the viewport's vertical center decides focus.
-      { rootMargin: "-42% 0px -42% 0px", threshold: 0 }
-    );
-    cardRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    if (hovered >= 0) return;
+    const t = setInterval(() => setIdle((v) => (v + 1) % CAFES.length), 3000);
+    return () => clearInterval(t);
+  }, [hovered]);
 
-  const focused = active >= 0 ? CAFES[active] : null;
-  const k = focused ? ZOOM : 1;
-  const tx = focused ? VIEW_W / 2 - k * focused.x : 0;
-  const ty = focused ? VIEW_H / 2 - k * focused.y : 0;
+  const lit = hovered >= 0 ? hovered : idle;
 
   return (
-    <div className="cafe-layout">
-      {/* Sticky map pane */}
-      <div className="cafe-map-pane">
-        <div
-          className="cafe-map-tilt"
-          style={{
-            transform: focused
-              ? "rotateX(6deg) rotateZ(-1.5deg) scale(1.02)"
-              : "rotateX(0deg) rotateZ(0deg) scale(1)",
-          }}
-        >
+    <div className="container cafe-layout">
+      {/* ——— Map panel ——— */}
+      <div className="cafe-map-side">
+        <div className="cafe-map-panel">
+          <div className="cafe-map-meta">
+            <span>PENINSULAR · MY</span>
+            <span>{String(lit + 1).padStart(2, "0")} / {String(CAFES.length).padStart(2, "0")}</span>
+          </div>
+
           <svg
             viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
             role="img"
-            aria-label="Stylized map of Peninsular Malaysia with café locations"
-            style={{ width: "100%", height: "100%", display: "block" }}
+            aria-label="Stylized dot map of Peninsular Malaysia with café stops"
+            style={{ width: "100%", flex: 1, display: "block" }}
           >
-            <g
-              style={{
-                transform: `translate(${tx}px, ${ty}px) scale(${k})`,
-                transformOrigin: "0 0",
-                transition: "transform 950ms cubic-bezier(0.22, 1, 0.24, 1)",
-              }}
-            >
-              <path
-                d={PENINSULA}
-                fill="color-mix(in srgb, var(--c-accent) 7%, var(--c-surface-2))"
-                stroke="var(--c-line)"
-                strokeWidth={1.6}
-                strokeLinejoin="round"
-              />
-              {CAFES.map((cafe, i) => {
-                const isOn = i === active;
-                return (
-                  <g key={cafe.name} style={{ opacity: focused && !isOn ? 0.35 : 1, transition: "opacity 500ms ease" }}>
-                    {isOn && (
-                      <>
-                        <circle className="cafe-ping" cx={cafe.x} cy={cafe.y} r={10} fill="none" stroke="var(--c-accent)" strokeWidth={1.4} />
-                        <circle className="cafe-ping cafe-ping-late" cx={cafe.x} cy={cafe.y} r={10} fill="none" stroke="var(--c-accent)" strokeWidth={1.4} />
-                      </>
-                    )}
-                    <circle cx={cafe.x} cy={cafe.y} r={isOn ? 5.5 : 4} fill="var(--c-accent)" stroke="var(--c-bg)" strokeWidth={1.4} style={{ transition: "r 400ms ease" }} />
-                    <text
-                      x={cafe.x + 10}
-                      y={cafe.y + 1}
-                      fontSize={isOn ? 10.5 : 9}
-                      fontWeight={isOn ? 700 : 500}
-                      fill={isOn ? "var(--c-ink)" : "var(--c-muted)"}
-                      style={{ fontFamily: "var(--font-mono)", transition: "fill 400ms ease" }}
-                    >
-                      {cafe.city}
-                    </text>
-                  </g>
-                );
-              })}
-            </g>
+            <defs>
+              <filter id="cafe-glow" x="-120%" y="-120%" width="340%" height="340%">
+                <feGaussianBlur stdDeviation="7" />
+              </filter>
+            </defs>
+
+            {DOTS.map(([x, y], i) => (
+              <circle key={i} cx={x} cy={y} r={1.7} fill="var(--c-line)" />
+            ))}
+
+            {/* Route: quietly drifting dashes */}
+            <path
+              className="cafe-route"
+              d={ROUTE}
+              fill="none"
+              stroke="var(--c-accent)"
+              strokeWidth={1.2}
+              strokeLinecap="round"
+              strokeDasharray="4 7"
+              opacity={0.55}
+            />
+
+            {CAFES.map((cafe, i) => {
+              const isLit = i === lit;
+              return (
+                <g key={cafe.name} style={{ opacity: isLit ? 1 : 0.55, transition: "opacity 600ms ease" }}>
+                  {isLit && (
+                    <>
+                      <circle cx={cafe.x} cy={cafe.y} r={15} fill="var(--c-accent)" opacity={0.2} filter="url(#cafe-glow)" />
+                      <circle className="cafe-ping" cx={cafe.x} cy={cafe.y} r={8} fill="none" stroke="var(--c-accent)" strokeWidth={1.1} />
+                    </>
+                  )}
+                  <circle
+                    cx={cafe.x}
+                    cy={cafe.y}
+                    r={isLit ? 5 : 3.5}
+                    fill="var(--c-accent)"
+                    stroke="var(--c-bg)"
+                    strokeWidth={1.5}
+                    style={{ transition: "r 400ms ease" }}
+                  />
+                  <text
+                    x={cafe.x + (cafe.x > VIEW_W - 90 ? -13 : 13)}
+                    y={cafe.y + 4}
+                    textAnchor={cafe.x > VIEW_W - 90 ? "end" : "start"}
+                    fontSize={11}
+                    fontWeight={isLit ? 700 : 500}
+                    fill={isLit ? "var(--c-ink)" : "var(--c-muted)"}
+                    style={{ fontFamily: "var(--font-mono)", transition: "fill 400ms ease" }}
+                  >
+                    {cafe.city}
+                  </text>
+                </g>
+              );
+            })}
           </svg>
-          <p className="cafe-map-note">Stylized map — pins are approximate; tap a card for the exact spot.</p>
+
+          <p className="cafe-map-note">Stylized — exact pins live in each card</p>
         </div>
       </div>
 
-      {/* Scrolling cards */}
-      <div className="cafe-cards">
-        <div className="cafe-intro">
-          <p style={{ margin: 0, fontSize: "var(--text-lg)", color: "var(--c-body)", maxWidth: "40ch" }}>
-            Scroll — each stop zooms the map to where it lives. {CAFES.length} cafés, {new Set(CAFES.map((c) => c.state)).size} states, more to find.
-          </p>
-        </div>
+      {/* ——— Stops ——— */}
+      <div className="cafe-list" onMouseLeave={() => setHovered(-1)}>
         {CAFES.map((cafe, i) => (
-          <section
+          <a
             key={cafe.name}
-            data-idx={i}
-            ref={(el) => {
-              cardRefs.current[i] = el;
-            }}
-            className="cafe-card-slot"
+            href={cafe.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`cafe-card ${lit === i ? "cafe-card-on" : ""}`}
+            onMouseEnter={() => setHovered(i)}
+            onFocus={() => setHovered(i)}
+            onBlur={() => setHovered(-1)}
           >
-            <article className={`surface cafe-card ${active === i ? "cafe-card-on" : ""}`}>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "var(--text-xs)",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--c-accent)",
-                }}
-              >
-                Stop {String(i + 1).padStart(2, "0")}
+            {cafe.image && (
+              <span className="cafe-card-img">
+                <Image src={cafe.image} alt={cafe.name} fill sizes="(max-width: 900px) 90vw, 420px" style={{ objectFit: "cover" }} />
               </span>
-              <h2 style={{ fontSize: "var(--text-2xl)", margin: "0.6rem 0 0.25rem" }}>{cafe.name}</h2>
-              <p style={{ margin: "0 0 1.25rem", color: "var(--c-muted)", fontSize: "var(--text-sm)", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-                <Icon name="map-pin" size={14} /> {cafe.city}, {cafe.state}
-              </p>
-              <div>
-                <a href={cafe.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
-                  Open in Google Maps <Icon name="arrow-up-right" size={15} />
-                </a>
-              </div>
-            </article>
-          </section>
+            )}
+            <span className="cafe-card-body">
+              <span className="cafe-card-top">
+                <span className="cafe-card-eyebrow">Stop {String(i + 1).padStart(2, "0")}</span>
+                <span className="cafe-card-coords">
+                  {cafe.lat.toFixed(4)}°N {cafe.lng.toFixed(4)}°E
+                </span>
+              </span>
+              <span className="cafe-card-name">{cafe.name}</span>
+              <span className="cafe-card-loc">
+                <Icon name="map-pin" size={13} /> {cafe.city}, {cafe.state}
+              </span>
+              <span className="cafe-card-cta">
+                Open in Google Maps <Icon name="arrow-up-right" size={13} />
+              </span>
+            </span>
+          </a>
         ))}
-        <div className="cafe-outro">
-          <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", color: "var(--c-muted)" }}>
-            The list grows whenever the coffee is good.
-          </p>
-        </div>
+        <p style={{ margin: "0.75rem 0 0", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)", textAlign: "center" }}>
+          The list grows whenever the coffee is good.
+        </p>
       </div>
 
       <style>{`
         .cafe-layout {
           display: grid;
           grid-template-columns: 1fr;
+          gap: 2rem;
+          padding-block: clamp(2rem, 5vw, 3.5rem);
         }
-        .cafe-map-pane {
-          position: sticky;
-          top: 68px;
-          z-index: 1;
-          height: min(48vh, 420px);
-          background: var(--c-bg);
-          border-bottom: 1px solid var(--c-line-soft);
-          display: flex;
-          justify-content: center;
-          perspective: 900px;
-        }
-        .cafe-map-tilt {
-          height: 100%;
+        .cafe-map-side { display: flex; justify-content: center; }
+        .cafe-map-panel {
+          width: min(400px, 100%);
           aspect-ratio: 5 / 6;
-          transition: transform 950ms cubic-bezier(0.22, 1, 0.24, 1);
-          transform-style: preserve-3d;
-          position: relative;
+          display: flex;
+          flex-direction: column;
+          padding: 1rem 1.1rem 0.7rem;
+          border: 1px solid var(--c-line-soft);
+          border-radius: var(--radius-lg);
+          background:
+            radial-gradient(ellipse 70% 60% at 50% 42%, color-mix(in srgb, var(--c-accent) 6%, transparent), transparent 72%),
+            color-mix(in srgb, var(--c-surface-2) 45%, transparent);
+          box-shadow: 0 30px 70px -42px rgb(var(--c-shadow) / 0.5);
+        }
+        .cafe-map-meta {
+          display: flex;
+          justify-content: space-between;
+          font-family: var(--font-mono);
+          font-size: 0.6rem;
+          letter-spacing: 0.14em;
+          color: var(--c-muted);
+          margin-bottom: 0.5rem;
         }
         .cafe-map-note {
-          position: absolute;
-          bottom: 0.4rem;
-          left: 50%;
-          transform: translateX(-50%);
-          width: max-content;
-          max-width: 90%;
-          margin: 0;
-          font-family: var(--font-mono);
-          font-size: 0.62rem;
-          color: var(--c-muted);
-          opacity: 0.75;
-        }
-        .cafe-cards { padding-bottom: 4rem; }
-        .cafe-intro, .cafe-outro {
-          min-height: 30vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          margin: 0.5rem 0 0;
           text-align: center;
-          padding: 2rem 1.25rem;
+          font-family: var(--font-mono);
+          font-size: 0.6rem;
+          letter-spacing: 0.06em;
+          color: var(--c-muted);
+          opacity: 0.7;
         }
-        .cafe-card-slot {
-          min-height: 62vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 1rem 1.25rem;
-        }
-        .cafe-card {
-          padding: clamp(1.5rem, 4vw, 2.25rem);
-          width: min(440px, 100%);
-          opacity: 0.55;
-          transform: translateY(10px) scale(0.985);
-          transition: opacity 500ms ease, transform 500ms ease, box-shadow 500ms ease;
-        }
-        .cafe-card-on {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-          box-shadow: 0 24px 50px -28px rgb(var(--c-shadow) / 0.45);
-        }
+        .cafe-route { animation: cafe-route-drift 26s linear infinite; }
+        @keyframes cafe-route-drift { to { stroke-dashoffset: -220; } }
         .cafe-ping {
           transform-box: fill-box;
           transform-origin: center;
-          animation: cafe-ping 2.2s cubic-bezier(0, 0.4, 0.4, 1) infinite;
+          animation: cafe-ping 2.4s cubic-bezier(0, 0.4, 0.4, 1) infinite;
         }
-        .cafe-ping-late { animation-delay: 1.1s; }
         @keyframes cafe-ping {
-          0% { transform: scale(0.5); opacity: 0.9; }
-          80% { transform: scale(3.2); opacity: 0; }
-          100% { transform: scale(3.2); opacity: 0; }
+          0% { transform: scale(0.5); opacity: 0.85; }
+          80%, 100% { transform: scale(3.2); opacity: 0; }
         }
+        .cafe-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          justify-content: center;
+        }
+        .cafe-card {
+          position: relative;
+          display: block;
+          overflow: hidden;
+          border: 1px solid var(--c-line);
+          border-radius: var(--radius-lg);
+          background: var(--c-surface);
+          transition: border-color 350ms ease, transform 350ms ease, box-shadow 350ms ease;
+        }
+        .cafe-card-on {
+          border-color: color-mix(in srgb, var(--c-accent) 40%, var(--c-line));
+          transform: translateY(-2px);
+          box-shadow: 0 22px 45px -28px rgb(var(--c-shadow) / 0.45);
+        }
+        .cafe-card-img {
+          position: relative;
+          display: block;
+          aspect-ratio: 16 / 7;
+          background: var(--c-surface-2);
+          border-bottom: 1px solid var(--c-line-soft);
+        }
+        .cafe-card-body {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          padding: 1.15rem 1.35rem 1.25rem;
+        }
+        .cafe-card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 0.75rem;
+          margin-bottom: 0.35rem;
+        }
+        .cafe-card-eyebrow {
+          font-family: var(--font-mono);
+          font-size: var(--text-xs);
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--c-accent);
+        }
+        .cafe-card-coords {
+          font-family: var(--font-mono);
+          font-size: 0.62rem;
+          letter-spacing: 0.04em;
+          color: var(--c-muted);
+          white-space: nowrap;
+        }
+        .cafe-card-name {
+          font-size: var(--text-xl);
+          font-weight: 700;
+          color: var(--c-ink);
+          line-height: 1.15;
+        }
+        .cafe-card-loc {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: var(--text-sm);
+          color: var(--c-muted);
+        }
+        .cafe-card-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          margin-top: 0.75rem;
+          font-family: var(--font-mono);
+          font-size: var(--text-xs);
+          font-weight: 600;
+          color: var(--c-accent);
+          opacity: 0;
+          transform: translateY(3px);
+          transition: opacity 300ms ease, transform 300ms ease;
+        }
+        .cafe-card-on .cafe-card-cta { opacity: 1; transform: translateY(0); }
         @media (min-width: 900px) {
-          .cafe-layout { grid-template-columns: 1fr 1fr; }
-          .cafe-map-pane {
-            height: calc(100vh - 68px);
-            border-bottom: none;
-            border-right: 1px solid var(--c-line-soft);
-            align-items: center;
-          }
-          .cafe-map-tilt { height: min(80vh, 640px); }
-          .cafe-card-slot { min-height: 78vh; }
-          .cafe-intro, .cafe-outro { min-height: 45vh; }
+          .cafe-layout { grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+          .cafe-map-side { position: sticky; top: 92px; }
+          .cafe-map-panel { width: min(440px, 100%); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .cafe-map-tilt, .cafe-card, .cafe-ping { transition: none !important; animation: none !important; }
+          .cafe-route, .cafe-ping { animation: none !important; }
+          .cafe-card, .cafe-card-cta { transition: none !important; }
         }
       `}</style>
     </div>

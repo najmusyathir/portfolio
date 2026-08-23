@@ -125,23 +125,15 @@ export default function AboutPage() {
                     focus actually shows up.
                   </p>
                   <p style={{ margin: 0 }}>
-                    So far around Johor Bahru, Melaka, and Kuantan — with more to find.
+                    So far from Johor Bahru up to Kedah — with more to find.
                   </p>
                 </div>
 
-                {/* Future feature: a "cafés visited" map/list once the list is
-                    confirmed. Kept general for now — no hardcoded café names yet. */}
-                <p
-                  style={{
-                    margin: "1.5rem 0 0",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "var(--text-xs)",
-                    color: "var(--c-muted)",
-                  }}
-                >
-                  {/* TODO: cafés-visited map coming soon */}
-                  A map of every café I&apos;ve worked from is on the way.
-                </p>
+                <div style={{ marginTop: "1.5rem" }}>
+                  <Link href="/cafes" className="btn btn-ghost">
+                    See the café trail <Icon name="map-pin" size={15} />
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>

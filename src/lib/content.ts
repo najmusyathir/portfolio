@@ -270,6 +270,57 @@ export const FYP = {
 } as const;
 
 /**
+ * Caf\u00e9-hunting trail — the "Code, Coffee & Chill" habit made concrete.
+ * Rendered on /cafes as a scroll-driven map. Coordinates are approximate
+ * city positions on the stylized peninsula map, not exact geolocation —
+ * the Google Maps link is the precise source.
+ */
+export interface Cafe {
+  name: string;
+  city: string;
+  state: string;
+  mapsUrl: string;
+  /** Position on the stylized SVG peninsula (viewBox 0 0 500 600). */
+  x: number;
+  y: number;
+}
+
+export const CAFES: Cafe[] = [
+  {
+    name: "Ikhwan Coffee",
+    city: "Johor Bahru",
+    state: "Johor",
+    mapsUrl: "https://maps.app.goo.gl/ZaZ8SizQML6W352WA",
+    x: 424,
+    y: 538,
+  },
+  {
+    name: "RUMI's Kafien",
+    city: "Melaka",
+    state: "Melaka",
+    mapsUrl: "https://maps.app.goo.gl/WfPHjWFny1WNz4t9A",
+    x: 272,
+    y: 466,
+  },
+  {
+    name: "Muka Coffee",
+    city: "Kuantan",
+    state: "Pahang",
+    mapsUrl: "https://maps.app.goo.gl/AasDdTKdJWZ7MezK6",
+    x: 378,
+    y: 306,
+  },
+  {
+    name: "Cafe Moara",
+    city: "Kedah",
+    state: "Kedah",
+    mapsUrl: "https://maps.app.goo.gl/dC2BfAZXb6nW5oya9",
+    x: 88,
+    y: 80,
+  },
+];
+
+/**
  * The "what I'm building now" story — the thesis that ties every project on the
  * server together. Deliberately surface-level: what it does for me and why,
  * never how it is wired internally.

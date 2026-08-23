@@ -202,24 +202,50 @@ export interface Achievement {
   date: string;
   kind: "award" | "role";
   summary: string;
+  /** Photos from the day, shown on /achievements. */
+  images?: { src: string; alt: string; caption: string }[];
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "Invited jury — Final Year Project industrial panel",
-    org: "Universiti Teknologi MARA, Melaka (Kampus Jasin)",
-    date: "7 Aug 2026",
+    title: "Industry Jury (Juri Industri) \u2014 FYP Exhibition C\u00b2PI 2026",
+    org: "Faculty of Computer and Mathematical Sciences, UiTM Melaka (Kampus Jasin)",
+    date: "6\u20137 Aug 2026",
     kind: "role",
     summary:
-      "Invited back to my own faculty to sit on the evaluation panel for final-year projects — assessing the same award category I was given as a student two years earlier. Two years after being judged, judging.",
+      "Invited back to my own faculty as an industry jury member for the final-year project exhibition \u2014 evaluating student projects in the same category I was given the industrial panel award for as a student two years earlier. Two years after being judged, judging.",
+    images: [
+      {
+        src: "/achievements/jury-badge.jpg",
+        alt: "Industry Jury badge for FYP Exhibition C\u00b2PI 2026, UiTM Melaka Kampus Jasin",
+        caption: "The badge \u2014 Juri Industri, C\u00b2PI 2026",
+      },
+      {
+        src: "/achievements/jury-hall.jpg",
+        alt: "Holding the jury badge inside the FYP exhibition hall",
+        caption: "Exhibition hall, day of judging",
+      },
+      {
+        src: "/achievements/jury-booth.jpg",
+        alt: "At a student project booth during the FYP exhibition",
+        caption: "At the project booths",
+      },
+    ],
   },
   {
-    title: "Best Industrial Panel Final Year Project",
-    org: "Universiti Teknologi MARA, Melaka (Kampus Jasin)",
-    date: "2024",
+    title: "Anugerah Panel Industri \u2014 Best Industrial Panel Final Year Project",
+    org: "Kolej Pengkomputeran, Informatik dan Matematik, UiTM Melaka (Kampus Jasin)",
+    date: "Feb 2024",
     kind: "award",
     summary:
-      "Awarded by the industrial panel — the external assessors from industry, not the academic supervisors — for the CPU\u2013Motherboard Compatibility Checker.",
+      "Awarded by the industrial panel \u2014 the external assessors from industry, not the academic supervisors \u2014 for the CPU\u2013Motherboard Compatibility Checker, at the Majlis Anugerah Projek Tahun Akhir (CS230, Bachelor of Computer Science Hons).",
+    images: [
+      {
+        src: "/achievements/award-2024.jpg",
+        alt: "Receiving the Anugerah Panel Industri at the Majlis Anugerah Projek Tahun Akhir, 2024",
+        caption: "Majlis Anugerah Projek Tahun Akhir, 2024",
+      },
+    ],
   },
 ];
 

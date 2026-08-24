@@ -30,7 +30,7 @@ export default function AchievementsPage() {
               <SectionHeading
                 eyebrow="Achievements"
                 title="Judged, then judging."
-                intro="Two entries, and the line between them is the point: the industrial panel award I received as a student in 2024 is the same category I was invited back to judge at the FYP Exhibition C\u00b2PI in 2026."
+                intro="Two entries, and the line between them is the point: the industrial panel award I received as a student in 2024 is the same category I was invited back to judge at the FYP Exhibition C²PI in 2026."
               />
             </Reveal>
           </div>

@@ -208,17 +208,17 @@ export interface Achievement {
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "Industry Jury (Juri Industri) \u2014 FYP Exhibition C\u00b2PI 2026",
+    title: "Industry Jury (Juri Industri) — FYP Exhibition C²PI 2026",
     org: "Faculty of Computer and Mathematical Sciences, UiTM Melaka (Kampus Jasin)",
-    date: "6\u20137 Aug 2026",
+    date: "6–7 Aug 2026",
     kind: "role",
     summary:
-      "Invited back to my own faculty as an industry jury member for the final-year project exhibition \u2014 evaluating student projects in the same category I was given the industrial panel award for as a student two years earlier. Two years after being judged, judging.",
+      "Invited back to my own faculty as an industry jury member for the final-year project exhibition — evaluating student projects in the same category I was given the industrial panel award for as a student two years earlier. Two years after being judged, judging.",
     images: [
       {
         src: "/achievements/jury-badge.jpg",
-        alt: "Industry Jury badge for FYP Exhibition C\u00b2PI 2026, UiTM Melaka Kampus Jasin",
-        caption: "The badge \u2014 Juri Industri, C\u00b2PI 2026",
+        alt: "Industry Jury badge for FYP Exhibition C²PI 2026, UiTM Melaka Kampus Jasin",
+        caption: "The badge — Juri Industri, C²PI 2026",
       },
       {
         src: "/achievements/jury-hall.jpg",
@@ -233,12 +233,12 @@ export const ACHIEVEMENTS: Achievement[] = [
     ],
   },
   {
-    title: "Anugerah Panel Industri \u2014 Best Industrial Panel Final Year Project",
+    title: "Anugerah Panel Industri — Best Industrial Panel Final Year Project",
     org: "Kolej Pengkomputeran, Informatik dan Matematik, UiTM Melaka (Kampus Jasin)",
     date: "Feb 2024",
     kind: "award",
     summary:
-      "Awarded by the industrial panel \u2014 the external assessors from industry, not the academic supervisors \u2014 for the CPU\u2013Motherboard Compatibility Checker, at the Majlis Anugerah Projek Tahun Akhir (CS230, Bachelor of Computer Science Hons).",
+      "Awarded by the industrial panel — the external assessors from industry, not the academic supervisors — for the CPU–Motherboard Compatibility Checker, at the Majlis Anugerah Projek Tahun Akhir (CS230, Bachelor of Computer Science Hons).",
     images: [
       {
         src: "/achievements/award-2024.jpg",
@@ -251,26 +251,26 @@ export const ACHIEVEMENTS: Achievement[] = [
 
 /**
  * The final-year project, in full. It is the subject of the 2024 award above,
- * so it gets a proper record rather than the one-line summary the r\u00e9sum\u00e9 carries.
+ * so it gets a proper record rather than the one-line summary the résumé carries.
  */
 export const FYP = {
-  name: "CPU\u2013Motherboard Compatibility Checker",
-  context: "Final Year Project \u2014 UiTM Melaka (Kampus Jasin)",
+  name: "CPU–Motherboard Compatibility Checker",
+  context: "Final Year Project — UiTM Melaka (Kampus Jasin)",
   year: "2024",
   award: "Best Industrial Panel Final Year Project (2024)",
   summary:
-    "A browser extension that reads a Lazada cart page and tells you whether the CPU and motherboard sitting in it are actually compatible \u2014 before the money leaves. The subject came straight out of the PC-building habit that got me into computing in the first place: it is a mistake that is easy to make and expensive to undo.",
+    "A browser extension that reads a Lazada cart page and tells you whether the CPU and motherboard sitting in it are actually compatible — before the money leaves. The subject came straight out of the PC-building habit that got me into computing in the first place: it is a mistake that is easy to make and expensive to undo.",
   bullets: [
     "Browser extension that parses a live Lazada cart page, identifies the CPU and motherboard in it, and returns a compatibility verdict in place.",
     "Python and FastAPI service behind it holding the compatibility rules, containerised with Docker and deployed on Render.com.",
-    "Compatibility dataset built by scraping and normalising manufacturer specifications \u2014 with regex parsing to survive how inconsistently sockets and chipsets are actually written in real listings.",
+    "Compatibility dataset built by scraping and normalising manufacturer specifications — with regex parsing to survive how inconsistently sockets and chipsets are actually written in real listings.",
     "Published to the Microsoft Edge add-ons store, so it installed like any other extension rather than needing developer mode.",
   ],
   tags: ["JavaScript", "Python", "FastAPI", "Docker", "Data scraping", "Regex", "HTML5", "CSS3"],
 } as const;
 
 /**
- * Caf\u00e9-hunting trail — the "Code, Coffee & Chill" habit made concrete.
+ * Café-hunting trail — the "Code, Coffee & Chill" habit made concrete.
  * Rendered on /cafes as a scroll-driven map. Coordinates are approximate
  * city positions on the stylized peninsula map, not exact geolocation —
  * the Google Maps link is the precise source.
@@ -343,7 +343,7 @@ export const NOW = {
   eyebrow: "What I'm building now",
   title: "A workspace that follows me, instead of me having to be at it.",
   lead:
-    "Everything I run on my own server points at one goal: being able to do real work from any device, in any place, at any time. A browser and a connection is the whole requirement — no laptop in the bag, no VPN client, no \u201cI'll look at it when I'm back at my desk.\u201d",
+    "Everything I run on my own server points at one goal: being able to do real work from any device, in any place, at any time. A browser and a connection is the whole requirement — no laptop in the bag, no VPN client, no “I'll look at it when I'm back at my desk.”",
   paragraphs: [
     "Each project lives as its own supervised service on hardware I administer myself, with its own environment, its own subdomain and its own deploy path. Reaching any of them takes a browser: a full terminal session and a real shell on the machine, both behind authentication and access control. From a phone on the road, that is genuinely enough to ship a fix.",
     "The reason is simple and personal. Travelling, out for the evening, on leave — none of that should mean the work becomes unreachable. If something breaks or someone needs an answer, I want to be a couple of minutes away rather than a couple of days.",

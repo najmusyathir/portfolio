@@ -110,14 +110,6 @@ export const ECOSYSTEM: EcosystemProject[] = [
     live: true,
   },
   {
-    name: "ssh-web-server",
-    description:
-      "Browser-based SSH client. Full machine access with nothing to install, so being away from my desk never means being locked out.",
-    tags: ["Next.js", "TypeScript", "WebSocket"],
-    url: null,
-    live: true,
-  },
-  {
     name: "acadeon-pulse",
     description:
       "Uptime monitor PWA with escalating push alerts — I hear about an outage before anyone has to tell me.",

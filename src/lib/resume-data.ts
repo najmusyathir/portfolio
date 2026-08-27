@@ -67,7 +67,6 @@ export const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
       { name: "personal-dashboard", desc: "AI-connected personal life assistant — finance, scheduling, meetings, career, tasks.", tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"] },
       { name: "acadeon-cli", desc: "Browser-based PTY terminal with TOTP auth.", tags: ["Next.js", "TypeScript", "node-pty"] },
       { name: "acadeon-pulse", desc: "Uptime monitor PWA with escalating push alerts.", tags: ["Next.js", "TypeScript", "PWA"] },
-      { name: "ssh-web-server", desc: "Browser-based SSH client, zero install.", tags: ["Next.js", "TypeScript", "WebSocket"] },
       { name: "ai_hub_bridge", desc: "Async AI job queue bridging the Claude CLI to web and Telegram.", tags: ["Next.js", "TypeScript", "Supabase Realtime"] },
       { name: "CPU–Motherboard Compatibility Checker", desc: "Final Year Project (UiTM Melaka) — browser extension that reads a live Lazada cart page and verifies CPU/motherboard compatibility before purchase. FastAPI rules service in Docker on Render.com; compatibility data scraped and normalised from manufacturer specs. Published to the Microsoft Edge add-ons store.", tags: ["JavaScript", "Python", "FastAPI", "Docker", "Data scraping", "Regex"], note: "Awarded Best Industrial Panel Final Year Project (2024)" },
     ],

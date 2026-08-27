@@ -224,7 +224,7 @@ export function FeaturedWork() {
           .eco-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (min-width: 1000px) {
-          .eco-grid { grid-template-columns: repeat(4, 1fr); }
+          .eco-grid { grid-template-columns: repeat(3, 1fr); }
         }
       `}</style>
     </section>

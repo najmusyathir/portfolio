@@ -42,7 +42,6 @@ Outside of client and employer work, I run a small ecosystem of self-hosted proj
 - **personal-dashboard** — an AI-connected personal life assistant: finances, event scheduling, meetings, career, and day-to-day tasks in one place
 - **acadeon-cli** — a browser-based terminal with TOTP authentication
 - **acadeon-pulse** — an uptime monitor with escalating push alerts
-- **ssh-web-server** — a browser-based SSH client
 - **ai_hub_bridge** — an async job queue bridging AI tooling to web and messaging clients in real time
 
 ## Achievements

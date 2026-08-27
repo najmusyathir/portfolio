@@ -19,7 +19,8 @@ export const PROFILE = {
   valueProp:
     "I build full-stack products end to end — and run the self-hosted infrastructure they live on.",
   siteUrl: "https://najmusyathir.dev",
-  whatsapp: "https://wa.link/k7r72h",
+  // Direct wa.me link so the prefilled message stays ours to edit.
+  whatsapp: "https://wa.me/60137353215?text=Hi%20Najmu%2C%20saw%20your%20portfolio%20%E2%80%94%20would%20love%20to%20connect.",
   email: "alsyathir@gmail.com",
   phone: "+60 13-735 3215",
   profileImg: "/profile_pic.jpg",

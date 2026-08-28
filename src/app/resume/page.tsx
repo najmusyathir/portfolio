@@ -212,7 +212,40 @@ export default function ResumePage() {
                   <Reveal key={g.label} delay={i * 50}>
                     <div className="surface" style={{ padding: "1.25rem" }}>
                       <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
-                      <ChipRow items={g.items} />
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                        {g.items.map((item) => (
+                          <span
+                            key={item.name}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.45rem",
+                              padding: "0.3rem 0.7rem",
+                              borderRadius: "var(--radius-full)",
+                              border: `1px solid ${item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 55%, var(--c-line))" : "var(--c-line)"}`,
+                              background: item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 8%, transparent)" : "var(--c-surface-2)",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "var(--text-xs)",
+                              color: "var(--c-body)",
+                            }}
+                          >
+                            {item.name}
+                            {item.level && (
+                              <span
+                                style={{
+                                  fontSize: "0.58rem",
+                                  fontWeight: 700,
+                                  letterSpacing: "0.08em",
+                                  textTransform: "uppercase",
+                                  color: item.level === "expert" ? "var(--c-accent)" : "var(--c-muted)",
+                                }}
+                              >
+                                {item.level}
+                              </span>
+                            )}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </Reveal>
                 ))}

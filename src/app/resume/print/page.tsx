@@ -104,7 +104,9 @@ export default function ResumePrintPage() {
           {SKILL_GROUPS.map((g) => (
             <div key={g.label} className="skill-row">
               <span className="skill-label">{g.label}</span>
-              <span className="skill-items">{g.items.join("  ·  ")}</span>
+              <span className="skill-items">
+                {g.items.map((it) => (it.level ? `${it.name} (${it.level})` : it.name)).join("  ·  ")}
+              </span>
             </div>
           ))}
         </div>

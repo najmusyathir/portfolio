@@ -82,15 +82,87 @@ export const PROJECT_GROUPS: { label: string; items: ResumeProject[] }[] = [
   },
 ];
 
-export const SKILL_GROUPS: { label: string; items: string[] }[] = [
-  { label: "Languages", items: ["TypeScript", "JavaScript", "Go", "Python", "PHP", "HTML5", "CSS3"] },
-  { label: "Frontend", items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "SCSS/SASS"] },
-  { label: "Backend", items: ["Node.js", "Go", "FastAPI", "Flask", "Laravel", "REST API design", "Webhooks"] },
-  { label: "Integrations", items: ["Stripe", "Airwallex", "Singpass", "Webhooks", "REST APIs"] },
-  { label: "Database & ORM", items: ["PostgreSQL", "Firestore", "Firebase Realtime Database", "MySQL", "Prisma"] },
-  { label: "Infra & DevOps", items: ["Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "tmux"] },
-  { label: "AI Tools", items: ["Claude Code", "Cursor", "Antigravity"] },
-  { label: "Tools", items: ["Figma", "Sentry", "Android Studio", "Flutter"] },
+export type SkillLevel = "expert" | "intermediate";
+export interface SkillItem {
+  name: string;
+  /** Only stated where it means something — unmarked skills carry no claim. */
+  level?: SkillLevel;
+}
+
+export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
+  {
+    label: "Languages",
+    items: [
+      { name: "TypeScript", level: "expert" },
+      { name: "JavaScript", level: "expert" },
+      { name: "Go" },
+      { name: "Python" },
+      { name: "PHP" },
+      { name: "HTML5" },
+      { name: "CSS3" },
+    ],
+  },
+  {
+    label: "Frontend",
+    items: [
+      { name: "Next.js", level: "expert" },
+      { name: "React", level: "expert" },
+      { name: "Vue.js" },
+      { name: "Tailwind CSS" },
+      { name: "SCSS/SASS" },
+    ],
+  },
+  {
+    label: "Backend",
+    items: [
+      { name: "Node.js", level: "expert" },
+      { name: "Go" },
+      { name: "FastAPI" },
+      { name: "Flask" },
+      { name: "Laravel" },
+      { name: "REST API design" },
+      { name: "Webhooks" },
+    ],
+  },
+  {
+    label: "Integrations",
+    items: [
+      { name: "Stripe", level: "intermediate" },
+      { name: "Airwallex", level: "intermediate" },
+      { name: "Singpass" },
+      { name: "Webhooks" },
+      { name: "REST APIs" },
+    ],
+  },
+  {
+    label: "Database & ORM",
+    items: [
+      { name: "PostgreSQL" },
+      { name: "Firestore", level: "intermediate" },
+      { name: "Firebase Realtime Database", level: "intermediate" },
+      { name: "MySQL" },
+      { name: "Prisma" },
+    ],
+  },
+  {
+    label: "Infra & DevOps",
+    items: [
+      { name: "Docker" },
+      { name: "Git" },
+      { name: "Linux server admin" },
+      { name: "Cloudflare (Tunnels, Zero Trust)" },
+      { name: "Supabase" },
+      { name: "tmux" },
+    ],
+  },
+  {
+    label: "AI Tools",
+    items: [{ name: "Claude Code" }, { name: "Cursor" }, { name: "Antigravity" }],
+  },
+  {
+    label: "Tools",
+    items: [{ name: "Figma" }, { name: "Sentry" }, { name: "Android Studio" }, { name: "Flutter" }],
+  },
 ];
 
 export const EDUCATION = [

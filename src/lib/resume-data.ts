@@ -23,6 +23,7 @@ export const JOBS: Job[] = [
       "Designed the customer journey for the company's subscription platform \u2014 mapping the end-to-end flow, not just implementing it.",
       "Designed and delivered the integration workflows for third-party systems \u2014 Singpass for national digital identity, and Airwallex and Stripe for payments, over webhook-driven event flows.",
       "Built a real-time, AI-integrated customer-support chat.",
+      "Work AI-assisted day to day \u2014 Cursor and Anthropic's Claude in the editor, plus CLI-driven agents to automate routine tasks where the task suits it.",
     ],
     tech: ["Next.js", "TypeScript", "Go", "Singpass", "Stripe", "Airwallex", "Webhooks", "Firestore", "RTDB", "PostgreSQL"],
   },

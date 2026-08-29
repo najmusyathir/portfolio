@@ -108,7 +108,7 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
     items: [
       { name: "Next.js", level: "expert" },
       { name: "React", level: "expert" },
-      { name: "Vue.js" },
+      { name: "Vue.js", level: "expert" },
       { name: "Tailwind CSS" },
       { name: "SCSS/SASS" },
     ],
@@ -118,11 +118,10 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
     items: [
       { name: "Node.js", level: "expert" },
       { name: "Go" },
-      { name: "FastAPI" },
+      { name: "FastAPI", level: "expert" },
       { name: "Flask" },
       { name: "Laravel" },
       { name: "REST API design" },
-      { name: "Webhooks" },
     ],
   },
   {
@@ -131,8 +130,6 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
       { name: "Stripe", level: "intermediate" },
       { name: "Airwallex", level: "intermediate" },
       { name: "Singpass" },
-      { name: "Webhooks" },
-      { name: "REST APIs" },
     ],
   },
   {

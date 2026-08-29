@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PROFILE, SOCIALS } from "@/lib/content";
+import { PROFILE, SOCIALS, ACHIEVEMENTS } from "@/lib/content";
 import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
 
 const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
@@ -63,7 +63,25 @@ export default function ResumePrintPage() {
         ))}
       </section>
 
-      {/* Projects */}
+      {/* Recognition */}
+      <section className="block">
+        <h2>Recognition</h2>
+        {ACHIEVEMENTS.map((a) => (
+          <div key={a.title} className="card ach">
+            <div className="card-head">
+              <h3>{a.title}</h3>
+              <span className="period">{a.date}</span>
+            </div>
+            <p className="company">{a.org}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* Page 1 is full after Experience + Recognition. The break lives on an
+          empty spacer: Chromium ghost-paints a sliver of a content-bearing
+          break-before element into the previous page, an empty div has
+          nothing to paint. */}
+      <div className="pagebreak" aria-hidden />
       <section className="block">
         <h2>Projects</h2>
         {PROJECT_GROUPS.map((group) => (
@@ -75,6 +93,7 @@ export default function ResumePrintPage() {
                   <h4>{p.name}</h4>
                   <p className="proj-desc">{p.desc}</p>
                   <p className="tech">{p.tags.join("  ·  ")}</p>
+                  {p.note && <p className="proj-note">{p.note}</p>}
                   {p.url && <p className="proj-url">{p.url.replace("https://", "")}</p>}
                 </div>
               ))}
@@ -137,7 +156,10 @@ export default function ResumePrintPage() {
           print-color-adjust: exact;
         }
 
-        .sheet h1, .sheet h2, .sheet h3, .sheet h4 { color: var(--ink); margin: 0; }
+        /* line-height also overrides globals.css's heading 1.12 — under that
+           value Chromium ghost-paints a heading fragment onto the previous
+           page at a forced break (found by delta-debugging the compiled CSS). */
+        .sheet h1, .sheet h2, .sheet h3, .sheet h4 { color: var(--ink); margin: 0; line-height: 1.35; }
         .sheet p { margin: 0; }
 
         /* Header */
@@ -182,6 +204,10 @@ export default function ResumePrintPage() {
           letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
         }
         .proj-grid, .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px; }
+        .pagebreak { break-before: page; page-break-before: always; height: 0; }
+        .block { break-inside: auto; }
+        .ach { break-inside: avoid; }
+        .proj-note { font-size: 10px; margin-top: 3px; color: var(--accent); font-weight: 600; }
         .proj {
           margin-bottom: 0; padding: 7px 9px;
           border: 1px solid var(--line); border-radius: 7px; break-inside: avoid;

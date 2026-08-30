@@ -26,7 +26,7 @@ export function Footer() {
             {PROFILE.name}
           </p>
           <p style={{ margin: "0.25rem 0 0", color: "var(--c-footer-muted)", fontSize: "var(--text-sm)" }}>
-            {PROFILE.role} · {PROFILE.quote}
+            {PROFILE.role} · {PROFILE.location}
           </p>
         </div>
 

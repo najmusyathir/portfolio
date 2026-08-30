@@ -42,12 +42,17 @@ Outside of client and employer work, I run a small ecosystem of self-hosted proj
 - **personal-dashboard** — an AI-connected personal life assistant: finances, event scheduling, meetings, career, and day-to-day tasks in one place
 - **acadeon-cli** — a browser-based terminal with TOTP authentication
 - **acadeon-pulse** — an uptime monitor with escalating push alerts
-- **ssh-web-server** — a browser-based SSH client
 - **ai_hub_bridge** — an async job queue bridging AI tooling to web and messaging clients in real time
+
+## Achievements
+
+- **Industry Jury (Juri Industri), FYP Exhibition C²PI 2026** — Faculty of Computer and Mathematical Sciences, UiTM Melaka (Kampus Jasin), 6–7 August 2026. Invited back to my own faculty to evaluate final-year projects — the same category I was given the industrial panel award for as a student two years earlier.
+- **Anugerah Panel Industri — Best Industrial Panel Final Year Project (2024)**, Kolej Pengkomputeran, Informatik dan Matematik, UiTM Melaka (Kampus Jasin). Awarded by the external industry panel for the **CPU–Motherboard Compatibility Checker** — a browser extension that reads a live Lazada cart page and verifies whether the CPU and motherboard in it are compatible before purchase. FastAPI rules service in Docker on Render.com, compatibility data scraped and normalised from manufacturer specs, published to the Microsoft Edge add-ons store.
 
 ## Earlier / client work
 
-- **CPU–Motherboard Compatibility Checker** — a browser extension verifying part compatibility on e-commerce cart pages. Awarded *Best Industrial Panel Final Year Project* (2024).
+The junior era — front-end builds from when I was starting out. Mostly hand-written HTML/CSS/JS, desktop-first and not responsive. Kept here as the starting line, not as current work.
+
 - **PetCare Clinic System** — grooming and vet-booking platform (Laravel)
 - **MNS Tech Store** — e-commerce platform for PC parts and accessories (Laravel)
 - **Astral Apparel** — online store for modest fashion
@@ -61,7 +66,7 @@ Code, Coffee & Chill — I do my best work away from a desk: café-hunting for a
 
 - GitHub: [@najmusyathir](https://github.com/najmusyathir)
 - LinkedIn: [najmusyathir](https://www.linkedin.com/in/najmusyathir/)
-- Portfolio: [portfolio-dev.najmusyathir.dev](https://portfolio-dev.najmusyathir.dev)
+- Portfolio: [najmusyathir.dev](https://najmusyathir.dev)
 
 ---
 

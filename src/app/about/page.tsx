@@ -13,7 +13,7 @@ const LEETCODE = SOCIALS.find((s) => s.icon === "leetcode")!;
 export const metadata: Metadata = {
   title: "About",
   description:
-    "From building PCs to shipping full-stack products — Najmu Syathir's path into engineering, and the café habit behind Code, Coffee & Chill.",
+    "From building PCs to shipping full-stack products — Najmu Syathir's path into engineering, the server he runs, and the café habit behind Code, Coffee & Chill.",
 };
 
 interface Activity {
@@ -76,6 +76,16 @@ export default function AboutPage() {
                     components properly, and making real calls on structure and UI. That mid-level
                     judgment — knowing <em>why</em>, not just <em>how</em> — is the part I enjoy most.
                   </p>
+                  <p style={{ margin: 0 }}>
+                    Outside of it I run my own server, and everything on it is built around one
+                    idea: work should not depend on where I am sitting. Full terminal access from a
+                    browser, services that supervise themselves, and an AI assistant that carries
+                    real context on my projects — so being away doesn&apos;t mean being unreachable.{" "}
+                    <Link href="/projects" className="link-underline">
+                      That&apos;s the ecosystem
+                    </Link>
+                    , and it is genuinely what I use day to day.
+                  </p>
                 </div>
               </Reveal>
             </div>
@@ -115,23 +125,15 @@ export default function AboutPage() {
                     focus actually shows up.
                   </p>
                   <p style={{ margin: 0 }}>
-                    So far around Johor Bahru, Melaka, and Kuantan — with more to find.
+                    So far from Johor Bahru up to Kedah — with more to find.
                   </p>
                 </div>
 
-                {/* Future feature: a "cafés visited" map/list once the list is
-                    confirmed. Kept general for now — no hardcoded café names yet. */}
-                <p
-                  style={{
-                    margin: "1.5rem 0 0",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "var(--text-xs)",
-                    color: "var(--c-muted)",
-                  }}
-                >
-                  {/* TODO: cafés-visited map coming soon */}
-                  A map of every café I&apos;ve worked from is on the way.
-                </p>
+                <div style={{ marginTop: "1.5rem" }}>
+                  <Link href="/cafes" className="btn btn-ghost">
+                    See the café trail <Icon name="map-pin" size={15} />
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>

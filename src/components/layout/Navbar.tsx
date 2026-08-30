@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
+  { href: "/achievements", label: "Achievements" },
   { href: "/ai", label: "AI" },
   { href: "/resume", label: "Résumé" },
 ];
@@ -167,11 +168,11 @@ export function Navbar() {
 
       <style>{`
         .nav-desktop { display: none; }
-        @media (min-width: 860px) {
+        @media (min-width: 940px) {
           .nav-desktop { display: flex; }
           .nav-toggle { display: none !important; }
         }
-        @media (max-width: 859px) {
+        @media (max-width: 939px) {
           .nav-toggle { display: flex !important; }
         }
       `}</style>

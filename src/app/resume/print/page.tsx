@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { PROFILE, SOCIALS } from "@/lib/content";
-import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
-
-const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
+import { JOBS } from "@/lib/resume-data";
 
 /**
- * Print-only résumé route. Renders ONLY the résumé content — no navbar,
- * footer, download buttons, or site chrome — with A4-optimized, black-on-white
- * CSS and page-break-avoidance on cards. This is the exact page Playwright
- * renders to produce public/resume.pdf. It shares its data with the styled
- * /resume page (src/lib/resume-data.ts) so the PDF never drifts from the site.
+ * Print-only résumé route — faithful rebuild of Abang's HAND-MADE resume
+ * design (the 3-page Calibri layout that lived in public/resume.pdf on main):
+ * centered name header, centered double-rule section titles, the level-table
+ * skills matrix, and the referees block. Rendered in Carlito, Calibri's
+ * metric-compatible clone, so proportions match the original.
+ *
+ * Content policy: 2026-08-29 scoped updates to Skills + myFirst only. On
+ * 2026-08-30 Abang's checklist added: section reorder (Experience -> Projects
+ * -> Skills -> Education -> Referees), a fresh Professional Summary,
+ * HTML5/CSS3 dropped from Skills, third-party items broken into their own
+ * category, and the referees swapped (Stefan first, Fadilah removed).
+ *
+ * Playwright renders this page (JS disabled) to produce public/resume.pdf.
  */
 
 export const metadata: Metadata = {
@@ -17,188 +22,300 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+const MYFIRST = JOBS[0];
+
+/** Skills matrix — presentation mapping of resume-data levels (Abang's calls). */
+const SKILL_MATRIX: { label: string; items: string[] }[] = [
+  { label: "Expert", items: ["TypeScript", "JavaScript", "Node.js", "Next.js", "React", "Vue.js", "FastAPI"] },
+  { label: "Proficient", items: ["Tailwind CSS", "Go", "Python (Flask)", "PHP (Laravel)", "PostgreSQL", "MySQL", "Prisma", "Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "REST API design", "Figma", "Sentry"] },
+  { label: "Familiar", items: ["Flutter", "Android Studio (Java)", "SCSS/SASS"] },
+  { label: "3rd-Party Integrations", items: ["Stripe", "Airwallex", "Singpass", "Firestore / RTDB"] },
+  { label: "AI Tooling", items: ["Claude Code", "Cursor", "Antigravity"] },
+];
+
+/** Legacy sections, transcribed verbatim from the hand-made PDF. */
+const PROJECTS = [
+  {
+    name: "CPU MOTHERBOARD COMPATIBILITY CHECKER",
+    sub: "Final Year Project (UiTM Melaka, Jasin Campus)",
+    bullets: [
+      "Develop a web extension that integrated with Lazada Cart page to verify component (CPU/Motherboard) compatibility.",
+      "Implemented FastAPI for the system's backend.",
+      "Front End - Web extension hosted on the Microsoft Extension Store.",
+      "Back End - System API hosted on Render.com using Dockerized environment",
+    ],
+    tech: "HTML, CSS, JavaScript, Python, Docker, FastAPI, Data Scraping, Regex",
+    achievements: "Best Industrial Panel Final Year Project (2024)",
+  },
+  {
+    name: "MNS TECH STORE",
+    sub: "Internship Side-Project",
+    bullets: [
+      "Developed an e-commerce platform specializing in PC parts and accessories for PC builders.",
+      "Developed the application using Laravel's MVC framework with Blade templates for the frontend.",
+      "Utilized a MySQL database for data management.",
+      "Leveraged Tailwind CSS for rapid styling",
+      "Deployed the project on InfinityFree for hosting.",
+    ],
+    tech: "HTML, CSS, PHP, Laravel, MySQL, Tailwind",
+  },
+  {
+    name: "BAKERS HEIST",
+    sub: "University Group Project",
+    bullets: [
+      "Reimplemented a bakery shop app designed from Wix to HTML and CSS.",
+      "Focused on implementing a design, emphasizing visual appeal and layout",
+    ],
+    tech: "HTML, CSS, JavaScript",
+    link: "https://bakers-heist.vercel.app",
+  },
+];
+
+const LEGACY_JOBS = [
+  {
+    head: "Junior Software Developer and Operations (FE) - Guardgenius Sdn Bhd",
+    period: "Aug 2024 - Mar 2025",
+    bullets: [
+      "Developed and optimized responsive web applications using Vue.js and TailwindCSS, ensuring cross-device compatibility and a seamless user experience on all devices.",
+      "Collaborated with cross-functional teams to integrate RESTful APIs, enhancing data flow and optimizing application performance.",
+      "Maintained code quality through Git version control, utilizing branching strategies (e.g., staging and development) for efficient development and integration.",
+      "Redesigned and restructured the company's website using Figma, improving user experience and aligning the design with current business objectives.",
+      "Utilized Sentry for bug tracking and resolution, significantly improving application performance and reducing load times.",
+      "Implemented email automation via a mail server API, enhancing customer communication by automating email notifications.",
+      "Refactored and cleaned up legacy code, improving maintainability and readability of previously developed features.",
+    ],
+    tech: "VueJS, Flask, MySQL, Git, Figma",
+  },
+  {
+    head: "Software Developer Intern - AQ Wise Sdn Bhd",
+    period: "March 2024 - June 2024",
+    bullets: [
+      "Completed a short course led by internship supervisor, gaining hands-on experience in Flutter development.",
+      "Contributed to a Flutter project by adding a responsive sidebar, improving navigation.",
+      "Developed an e-commerce platform using Laravel, including product management and shopping cart features.",
+      "Designed and managed MySQL databases for handling product catalogs, user profiles, and order histories.",
+      "Built dynamic interfaces with Blade templates and managed MySQL databases for product catalogs and user data.",
+    ],
+    tech: "Flutter, Laravel, HTML, CSS, PHP, Tailwind CSS.",
+  },
+];
+
+const REFEREES = [
+  {
+    name: "Stefan (Senior Full-Stack Developer)",
+    lines: ["myFirst Tech Sdn Bhd", "011-1856 4918", "stefan@myfirst.tech"],
+  },
+  {
+    name: "Mohd Taufik Bin Mishan (FYP Supervisor)",
+    lines: ["Pensyarah Kanan", "Fakuti Sains Komputer dan Matematik", "UiTM Cawangan Melaka Kampus Jasin 77300 Merlimau, Melaka", "mtaufik@uitm.edu.my"],
+  },
+];
+
+function SectionTitle({ children }: { children: string }) {
+  return (
+    <div className="sec">
+      <h2>{children}</h2>
+    </div>
+  );
+}
+
 export default function ResumePrintPage() {
   return (
     <div className="sheet">
       {/* Header */}
       <header className="head">
-        <h1>{PROFILE.fullName}</h1>
-        <p className="role">{PROFILE.role}</p>
+        <h1>Muhammad Najmu Al Syathir Bin Azemi</h1>
         <p className="contact">
-          <span>{PROFILE.location}</span>
-          <span className="dot">·</span>
-          <span>{PROFILE.phone}</span>
-          <span className="dot">·</span>
-          <span>{PROFILE.email}</span>
-          <span className="dot">·</span>
-          <span>{PROFILE.siteUrl.replace("https://", "")}</span>
-          <span className="dot">·</span>
-          <span>{GITHUB.href.replace("https://", "")}</span>
+          Johor Bahru | +60 13-735 3215 | alsyathir@gmail.com |{" "}
+          <a href="https://najmusyathir.dev">najmusyathir.dev</a> | Linkedin:{" "}
+          <a href="https://www.linkedin.com/in/najmusyathir/">najmusyathir</a>
         </p>
       </header>
 
-      {/* Summary */}
-      <section className="block">
-        <h2>Summary</h2>
-        <p className="summary">{SUMMARY}</p>
-      </section>
+      <SectionTitle>Professional Summary</SectionTitle>
+      <p className="para">
+        Full-stack Developer with strong expertise in TypeScript, specializing in Next.js and
+        modern front-end development while delivering scalable back-end solutions with Node.js.
+      </p>
+      <p className="para" style={{ marginTop: "8px" }}>
+        Experienced in integrating third-party services from technical documentation, including
+        Stripe and Airwallex payment systems, as well as Singpass digital identity integration.
+      </p>
+      <p className="para" style={{ marginTop: "8px" }}>
+        Led a development team of three, fostering collaborative decision-making and delivering
+        production-ready solutions in agile environments.
+      </p>
 
-      {/* Experience */}
-      <section className="block">
-        <h2>Experience</h2>
-        {JOBS.map((job) => (
-          <div key={job.company} className="card">
-            <div className="card-head">
-              <h3>{job.title}</h3>
-              <span className="period">{job.period}</span>
-            </div>
-            <p className="company">{job.company}</p>
-            <ul>
-              {job.bullets.map((b, i) => (
-                <li key={i}>{b}</li>
-              ))}
-            </ul>
-            {job.tech && <p className="tech">{job.tech.join("  ·  ")}</p>}
+      <SectionTitle>Education</SectionTitle>
+      <div className="edu">
+        <div className="row-head">
+          <h3>Bachelor of Computer Science (HONS.)</h3>
+          <span className="period">June 2023</span>
+        </div>
+        <p>CGPA: 3.18</p>
+        <p>Universiti Teknologi Mara Melaka, Kampus Jasin</p>
+      </div>
+      <div className="edu">
+        <div className="row-head">
+          <h3>Diploma in Applied Science</h3>
+          <span className="period">Feb 2021</span>
+        </div>
+        <p>CGPA: 3.21</p>
+        <p>Universiti Teknologi Mara Perlis, Kampus Arau</p>
+      </div>
+
+      <SectionTitle>Skills</SectionTitle>
+      <table className="skills">
+        <tbody>
+          {SKILL_MATRIX.map((row) => (
+            <tr key={row.label}>
+              <th>{row.label}:</th>
+              <td>
+                <ul className="skill-cols">
+                  {row.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <SectionTitle>Working Experiences</SectionTitle>
+      {/* myFirst — the one experience entry that carries UPDATED content */}
+      <div className="entry">
+        <div className="row-head">
+          <h3>{MYFIRST.title} - {MYFIRST.company}</h3>
+          <span className="period">Mar 2025 - Current</span>
+        </div>
+        <ul>
+          {MYFIRST.bullets.map((b, i) => (
+            <li key={i}>{b}</li>
+          ))}
+        </ul>
+        {MYFIRST.tech && (
+          <p className="meta-line"><strong>Tech Stacks:</strong> {MYFIRST.tech.join(", ")}</p>
+        )}
+      </div>
+      {LEGACY_JOBS.map((j) => (
+        <div key={j.head} className="entry">
+          <div className="row-head">
+            <h3>{j.head}</h3>
+            <span className="period">{j.period}</span>
+          </div>
+          <ul>
+            {j.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+          <p className="meta-line"><strong>Tech Stacks:</strong> {j.tech}</p>
+        </div>
+      ))}
+
+      <SectionTitle>Relevant Projects</SectionTitle>
+      {PROJECTS.map((p) => (
+        <div key={p.name} className="entry">
+          <h3 className="proj-name">{p.name}</h3>
+          <p className="proj-sub">{p.sub}</p>
+          <ul>
+            {p.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+          {p.link && (
+            <p className="meta-line">
+              <strong>Hosted Link:</strong> <a href={p.link}>Visit</a>
+            </p>
+          )}
+          <p className="meta-line"><strong>Tech Stacks:</strong> {p.tech}</p>
+          {p.achievements && (
+            <p className="meta-line"><strong>Achievements:</strong> {p.achievements}</p>
+          )}
+        </div>
+      ))}
+
+      <SectionTitle>Referees</SectionTitle>
+      <div className="ref-grid">
+        {REFEREES.map((r) => (
+          <div key={r.name}>
+            <h3>{r.name}</h3>
+            {r.lines.map((l) => (
+              <p key={l}>{l}</p>
+            ))}
           </div>
         ))}
-      </section>
-
-      {/* Projects */}
-      <section className="block">
-        <h2>Projects</h2>
-        {PROJECT_GROUPS.map((group) => (
-          <div key={group.label} className="group">
-            <p className="group-label">{group.label}</p>
-            <div className="proj-grid">
-              {group.items.map((p) => (
-                <div key={p.name} className="proj card">
-                  <h4>{p.name}</h4>
-                  <p className="proj-desc">{p.desc}</p>
-                  <p className="tech">{p.tags.join("  ·  ")}</p>
-                  {p.url && <p className="proj-url">{p.url.replace("https://", "")}</p>}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* Education */}
-      <section className="block">
-        <h2>Education</h2>
-        <div className="edu-grid">
-          {EDUCATION.map((e) => (
-            <div key={e.title} className="card">
-              <h3>{e.title}</h3>
-              <p className="company">{e.school}</p>
-              <p className="meta">{e.meta}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section className="block">
-        <h2>Skills</h2>
-        <div className="skills">
-          {SKILL_GROUPS.map((g) => (
-            <div key={g.label} className="skill-row">
-              <span className="skill-label">{g.label}</span>
-              <span className="skill-items">{g.items.join("  ·  ")}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      </div>
 
       <style>{`
-        @page { size: A4; margin: 14mm 14mm; }
-
+        @page { size: A4; margin: 15mm 16mm; }
         :root { color-scheme: light; }
         html, body { background: #ffffff; }
 
         .sheet {
-          --ink: #1f2733;
-          --body: #3f4855;
-          --muted: #6b7480;
-          --accent: #8a6350;
-          --line: #e2ded7;
-          --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
           background: #ffffff;
-          color: var(--body);
-          font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-          font-size: 12px;
-          line-height: 1.55;
-          max-width: 190mm;
+          color: #000000;
+          /* Carlito is metric-compatible with Calibri (the original's face) */
+          font-family: Calibri, Carlito, "Segoe UI", sans-serif;
+          font-size: 14px;
+          /* Explicit line-heights throughout: globals.css's heading 1.12 makes
+             Chromium ghost-paint heading fragments at page breaks. */
+          line-height: 1.5;
+          max-width: 178mm;
           margin: 0 auto;
-          padding: 4mm 0 2mm;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-
-        .sheet h1, .sheet h2, .sheet h3, .sheet h4 { color: var(--ink); margin: 0; }
+        .sheet h1, .sheet h2, .sheet h3 { margin: 0; color: #000; line-height: 1.4; }
         .sheet p { margin: 0; }
+        .sheet a { color: #0563c1; text-decoration: underline; }
 
-        /* Header */
-        .head { border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 14px; }
-        .head h1 { font-size: 25px; letter-spacing: -0.01em; }
-        .head .role { font-size: 14px; font-weight: 600; color: var(--accent); margin-top: 2px; }
-        .head .contact {
-          display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
-          font-size: 11px; color: var(--muted); margin-top: 6px;
-          font-family: var(--mono);
-        }
-        .head .contact .dot { color: var(--line); }
+        .head { text-align: center; margin-bottom: 10px; }
+        .head h1 { font-size: 21px; font-weight: 700; margin-bottom: 4px; }
+        .head .contact { font-size: 13px; }
 
-        /* Section */
-        .block { margin-bottom: 13px; break-inside: avoid; }
-        .block > h2 {
-          font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-          color: var(--accent); margin-bottom: 7px;
-          padding-bottom: 3px; border-bottom: 1px solid var(--line);
+        .sec {
+          border-top: 1.6px solid #000;
+          border-bottom: 1px solid #000;
+          text-align: center;
+          margin: 11px 0 8px;
+          padding: 2px 0;
+          break-inside: avoid;
+          break-after: avoid-page;
         }
-        .summary { font-size: 12px; line-height: 1.6; }
+        .sec h2 { font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 
-        /* Cards */
-        .card { break-inside: avoid; margin-bottom: 9px; }
-        .card:last-child { margin-bottom: 0; }
-        .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-        .card-head h3 { font-size: 14px; }
-        .card .period { font-family: var(--mono); font-size: 10.5px; color: var(--muted); white-space: nowrap; }
-        .card .company { font-size: 11.5px; font-weight: 600; color: var(--accent); margin-top: 1px; }
-        .card ul { margin: 5px 0 0; padding-left: 16px; }
-        .card li { margin-bottom: 3px; line-height: 1.5; }
-        .tech { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 5px; }
+        .para { text-align: justify; }
 
-        /* Education card headings a touch smaller */
-        .edu-grid .card h3 { font-size: 12.5px; }
-        .card .meta { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; }
+        .edu { margin-bottom: 10px; break-inside: avoid; }
+        .row-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+        .row-head h3 { font-size: 14px; font-weight: 700; }
+        .period { white-space: nowrap; font-size: 13.5px; }
 
-        /* Projects */
-        .group { margin-bottom: 10px; break-inside: avoid; }
-        .group-label {
-          font-family: var(--mono); font-size: 10px; font-weight: 700;
-          letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+        .skills { width: 100%; border-collapse: collapse; }
+        .skills tr { border-top: 1px solid #000; border-bottom: 1px solid #000; break-inside: avoid; }
+        .skills th {
+          width: 105px; text-align: left; vertical-align: top;
+          font-weight: 700; padding: 6px 8px 6px 4px; font-size: 14px;
         }
-        .proj-grid, .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px; }
-        .proj {
-          margin-bottom: 0; padding: 7px 9px;
-          border: 1px solid var(--line); border-radius: 7px; break-inside: avoid;
+        .skills td { padding: 6px 0; }
+        .skill-cols {
+          margin: 0; padding: 0; list-style: none;
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 10px;
         }
-        .proj h4 { font-family: var(--mono); font-size: 11.5px; }
-        .proj-desc { font-size: 10.5px; line-height: 1.45; margin-top: 2px; }
-        .proj-url { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-top: 3px; }
-        .edu-grid .card {
-          padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px;
-        }
+        .skill-cols li { padding-left: 14px; position: relative; }
+        .skill-cols li::before { content: "•"; position: absolute; left: 2px; }
 
-        /* Skills */
-        .skills { display: flex; flex-direction: column; gap: 4px; }
-        .skill-row { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; break-inside: avoid; }
-        .skill-label {
-          font-family: var(--mono); font-size: 10px; font-weight: 700;
-          letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
-        }
-        .skill-items { font-size: 11px; color: var(--body); }
+        .entry { margin-bottom: 9px; break-inside: avoid; }
+        .proj-name { font-size: 14px; font-weight: 700; text-transform: uppercase; }
+        .proj-sub { text-decoration: underline; margin-bottom: 2px; }
+        .entry ul { margin: 2px 0 3px; padding-left: 18px; list-style: disc; }
+        .entry li { margin-bottom: 1px; text-align: justify; list-style: disc; }
+        .meta-line { margin-top: 2px; }
+        .meta-line strong { font-weight: 700; }
+
+        .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; break-inside: avoid; }
+        .ref-grid h3 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
       `}</style>
     </div>
   );

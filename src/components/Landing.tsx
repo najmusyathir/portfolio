@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { WhatIDo } from "@/components/sections/WhatIDo";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
-import { AITeaser } from "@/components/sections/AITeaser";
+import { Now } from "@/components/sections/Now";
 import { Contact } from "@/components/sections/Contact";
 
 /** The full landing, composed once. Rendered at `/`. */
@@ -15,7 +15,7 @@ export function Landing() {
         <Hero />
         <WhatIDo />
         <FeaturedWork />
-        <AITeaser />
+        <Now />
         <Contact />
       </main>
       <Footer />

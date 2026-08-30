@@ -420,7 +420,6 @@ Heading: `Things I've built`
 | 2 | **acadeon-pulse** | Uptime monitor PWA with escalating push alerts | Next.js · TypeScript · Supabase · PWA | pulse.najmusyathir.dev |
 | 3 | **personal-dashboard** | Multi-tenant SaaS — finance, vault, kanban, AI chat | Next.js · TypeScript · Prisma · PostgreSQL | — (Internal) |
 | 4 | **ai_hub_bridge** | Async AI job queue — Claude CLI to web & Telegram | Next.js · TypeScript · Supabase Realtime | — (Internal) |
-| 5 | **ssh-web-server** | Browser SSH client, zero install | Next.js · TypeScript · WebSocket | ssh.najmusyathir.dev |
 
 ---
 

@@ -6,12 +6,12 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
-import { FLAGSHIP, ECOSYSTEM, EARLIER_WORK } from "@/lib/content";
+import { FLAGSHIP, ECOSYSTEM, EARLIER_WORK, EARLIER_WORK_ERA, NOW } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "The flagship personal-dashboard, a self-hosted ecosystem of live tools, and earlier delivered client work.",
+    "The flagship personal-dashboard, a self-hosted ecosystem I can reach from any device, and the junior-era front-end work that came before it.",
 };
 
 export default function ProjectsPage() {
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
               <SectionHeading
                 eyebrow="Projects"
                 title="What I've built, and what I keep running."
-                intro="A flagship product, a set of self-hosted tools live in production, and the client work that came before."
+                intro="A flagship product, a set of self-hosted tools running in production that I can reach from any device, and — labelled honestly — the junior-era work that came before them."
               />
             </Reveal>
           </div>
@@ -93,7 +93,11 @@ export default function ProjectsPage() {
         <section className="section-tight" style={{ background: "var(--c-bg-soft)" }}>
           <div className="container">
             <Reveal>
-              <SectionHeading eyebrow="Self-hosted ecosystem" title="Tools I run on my own infrastructure." />
+              <SectionHeading
+                eyebrow="Self-hosted ecosystem"
+                title="Tools I run on my own infrastructure."
+                intro={NOW.short}
+              />
             </Reveal>
             <div className="proj-eco-grid" style={{ marginTop: "2.25rem" }}>
               {ECOSYSTEM.map((p, i) => {
@@ -137,9 +141,9 @@ export default function ProjectsPage() {
           <div className="container">
             <Reveal>
               <SectionHeading
-                eyebrow="Earlier work"
-                title="Client projects that built the range."
-                intro="Delivered work from before the current stack — the foundation the rest is built on."
+                eyebrow={EARLIER_WORK_ERA.eyebrow}
+                title={EARLIER_WORK_ERA.title}
+                intro={EARLIER_WORK_ERA.intro}
               />
             </Reveal>
             <div className="earlier-grid" style={{ marginTop: "2.25rem" }}>
@@ -166,6 +170,21 @@ export default function ProjectsPage() {
                           <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
                         ))}
                       </div>
+                      <p
+                        style={{
+                          margin: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.35rem",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "var(--text-xs)",
+                          color: "var(--c-muted)",
+                          borderTop: "1px solid var(--c-line-soft)",
+                          paddingTop: "0.6rem",
+                        }}
+                      >
+                        <Icon name="history" size={13} style={{ flexShrink: 0 }} /> {p.note}
+                      </p>
                     </div>
                   </div>
                 );
@@ -203,7 +222,7 @@ export default function ProjectsPage() {
           gap: 1.25rem;
         }
         @media (min-width: 640px) { .proj-eco-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1000px) { .proj-eco-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1000px) { .proj-eco-grid { grid-template-columns: repeat(3, 1fr); } }
         .earlier-grid {
           display: grid;
           grid-template-columns: 1fr;

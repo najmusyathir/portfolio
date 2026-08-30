@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ChipRow } from "@/components/ui/Chip";
 import { DownloadResume } from "@/components/ui/DownloadResume";
-import { PROFILE, SOCIALS } from "@/lib/content";
+import { PROFILE, SOCIALS, ACHIEVEMENTS } from "@/lib/content";
 import { JOBS, PROJECT_GROUPS, SKILL_GROUPS, EDUCATION, SUMMARY } from "@/lib/resume-data";
 
 const GITHUB = SOCIALS.find((s) => s.icon === "github")!;
@@ -56,70 +56,14 @@ export default function ResumePage() {
         <section className="section-tight">
           <div className="container" style={{ maxWidth: "900px" }}>
             <Reveal>
-              <div className="surface" style={{ padding: "1.75rem" }}>
-                <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
-                  {SUMMARY}
-                </p>
+              <div className="surface" style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {SUMMARY.map((para) => (
+                  <p key={para.slice(0, 24)} style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
+                    {para}
+                  </p>
+                ))}
               </div>
             </Reveal>
-          </div>
-        </section>
-
-        {/* Experience */}
-        <section className="section-tight">
-          <div className="container" style={{ maxWidth: "900px" }}>
-            <Reveal><SectionHeading eyebrow="Experience" title="Work experience" /></Reveal>
-            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              {JOBS.map((job, i) => (
-                <Reveal key={job.company} delay={i * 70}>
-                  <div className="surface" style={cardStyle}>
-                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.25rem" }}>
-                      <h3 style={{ fontSize: "var(--text-lg)" }}>{job.title}</h3>
-                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{job.period}</span>
-                    </div>
-                    <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
-                    <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                      {job.bullets.map((b, bi) => (
-                        <li key={bi} style={{ color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{b}</li>
-                      ))}
-                    </ul>
-                    {job.tech && <div style={{ marginTop: "1rem" }}><ChipRow items={job.tech} /></div>}
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section className="section-tight">
-          <div className="container" style={{ maxWidth: "900px" }}>
-            <Reveal><SectionHeading eyebrow="Work" title="Projects" /></Reveal>
-            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
-              {PROJECT_GROUPS.map((group, gi) => (
-                <Reveal key={group.label} delay={gi * 60}>
-                  <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--c-muted)", margin: "0 0 1rem" }}>
-                    {group.label}
-                  </p>
-                  <div className="resume-proj-grid">
-                    {group.items.map((p) => (
-                      <div key={p.name} className="surface" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <h4 style={{ fontSize: "var(--text-base)", fontFamily: "var(--font-mono)", color: "var(--c-ink)" }}>{p.name}</h4>
-                        <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", flex: 1 }}>{p.desc}</p>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
-                          {p.tags.map((t) => (
-                            <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
-                          ))}
-                        </div>
-                        {/* Hosted project links intentionally not rendered on the résumé —
-                            internal-use only, matching the site-wide precedent (see content.ts
-                            ECOSYSTEM). `url` is kept on the data model for other consumers. */}
-                      </div>
-                    ))}
-                  </div>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -144,7 +88,40 @@ export default function ResumePage() {
                   <Reveal key={g.label} delay={i * 50}>
                     <div className="surface" style={{ padding: "1.25rem" }}>
                       <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
-                      <ChipRow items={g.items} />
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                        {g.items.map((item) => (
+                          <span
+                            key={item.name}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.45rem",
+                              padding: "0.3rem 0.7rem",
+                              borderRadius: "var(--radius-full)",
+                              border: `1px solid ${item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 55%, var(--c-line))" : "var(--c-line)"}`,
+                              background: item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 8%, transparent)" : "var(--c-surface-2)",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "var(--text-xs)",
+                              color: "var(--c-body)",
+                            }}
+                          >
+                            {item.name}
+                            {item.level && (
+                              <span
+                                style={{
+                                  fontSize: "0.58rem",
+                                  fontWeight: 700,
+                                  letterSpacing: "0.08em",
+                                  textTransform: "uppercase",
+                                  color: item.level === "expert" ? "var(--c-accent)" : "var(--c-muted)",
+                                }}
+                              >
+                                {item.level}
+                              </span>
+                            )}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </Reveal>
                 ))}
@@ -152,6 +129,132 @@ export default function ResumePage() {
             </div>
           </div>
         </section>
+        {/* Experience */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Experience" title="Work experience" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              {JOBS.map((job, i) => (
+                <Reveal key={job.company} delay={i * 70}>
+                  <div className="surface" style={cardStyle}>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <h3 style={{ fontSize: "var(--text-lg)" }}>{job.title}</h3>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{job.period}</span>
+                    </div>
+                    <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
+                    {/* Explicit markers: Tailwind's preflight sets `list-style: none`
+                        on every ul, so a plain <li> renders as an unmarked indented
+                        line and the whole block reads as a paragraph. */}
+                    <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                      {job.bullets.map((b, bi) => (
+                        <li
+                          key={bi}
+                          style={{
+                            display: "flex",
+                            gap: "0.65rem",
+                            color: "var(--c-body)",
+                            fontSize: "var(--text-sm)",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          <span
+                            aria-hidden
+                            style={{
+                              flexShrink: 0,
+                              width: "5px",
+                              height: "5px",
+                              borderRadius: "var(--radius-full)",
+                              background: "var(--c-accent)",
+                              marginTop: "0.55em",
+                            }}
+                          />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {job.tech && <div style={{ marginTop: "1rem" }}><ChipRow items={job.tech} /></div>}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Awards & invited roles */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Recognition" title="Awards & invited roles" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {ACHIEVEMENTS.map((a, i) => (
+                <Reveal key={a.title} delay={i * 70}>
+                  <div className="surface" style={cardStyle}>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                      <h3 style={{ fontSize: "var(--text-lg)" }}>{a.title}</h3>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{a.date}</span>
+                    </div>
+                    <p style={{ margin: "0 0 0.6rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{a.org}</p>
+                    <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{a.summary}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={140}>
+              <div style={{ marginTop: "1.25rem" }}>
+                <Link href="/achievements" className="link-underline" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
+                  The awarded project, in detail <Icon name="arrow-right" size={16} />
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section className="section-tight">
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Work" title="Projects" /></Reveal>
+            <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+              {PROJECT_GROUPS.map((group, gi) => (
+                <Reveal key={group.label} delay={gi * 60}>
+                  <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--c-muted)", margin: "0 0 1rem" }}>
+                    {group.label}
+                  </p>
+                  <div className="resume-proj-grid">
+                    {group.items.map((p) => (
+                      <div key={p.name} className="surface" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        <h4 style={{ fontSize: "var(--text-base)", fontFamily: "var(--font-mono)", color: "var(--c-ink)" }}>{p.name}</h4>
+                        <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", flex: 1 }}>{p.desc}</p>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                          {p.tags.map((t) => (
+                            <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", color: "var(--c-muted)" }}>{t}</span>
+                          ))}
+                        </div>
+                        {p.note && (
+                          <p
+                            style={{
+                              margin: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.4rem",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "var(--text-xs)",
+                              color: "var(--c-accent)",
+                            }}
+                          >
+                            <Icon name="spark" size={13} style={{ flexShrink: 0 }} /> {p.note}
+                          </p>
+                        )}
+                        {/* Hosted project links intentionally not rendered on the résumé —
+                            internal-use only, matching the site-wide precedent (see content.ts
+                            ECOSYSTEM). `url` is kept on the data model for other consumers. */}
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
 

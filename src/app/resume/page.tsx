@@ -56,15 +56,79 @@ export default function ResumePage() {
         <section className="section-tight">
           <div className="container" style={{ maxWidth: "900px" }}>
             <Reveal>
-              <div className="surface" style={{ padding: "1.75rem" }}>
-                <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
-                  {SUMMARY}
-                </p>
+              <div className="surface" style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {SUMMARY.map((para) => (
+                  <p key={para.slice(0, 24)} style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
+                    {para}
+                  </p>
+                ))}
               </div>
             </Reveal>
           </div>
         </section>
 
+        {/* Education + Skills */}
+        <section className="section" style={{ background: "var(--c-bg-soft)" }}>
+          <div className="container" style={{ maxWidth: "900px" }}>
+            <Reveal><SectionHeading eyebrow="Education" title="Education" /></Reveal>
+            <div className="resume-edu-grid" style={{ marginTop: "1.75rem" }}>
+              {EDUCATION.map((e) => (
+                <div key={e.title} className="surface" style={cardStyle}>
+                  <h3 style={{ fontSize: "var(--text-base)", marginBottom: "0.3rem" }}>{e.title}</h3>
+                  <p style={{ margin: "0 0 0.5rem", color: "var(--c-body)", fontSize: "var(--text-sm)" }}>{e.school}</p>
+                  <p style={{ margin: 0, color: "var(--c-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>{e.meta}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: "3rem" }}>
+              <Reveal><SectionHeading eyebrow="Tools" title="Skills" /></Reveal>
+              <div style={{ marginTop: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {SKILL_GROUPS.map((g, i) => (
+                  <Reveal key={g.label} delay={i * 50}>
+                    <div className="surface" style={{ padding: "1.25rem" }}>
+                      <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                        {g.items.map((item) => (
+                          <span
+                            key={item.name}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.45rem",
+                              padding: "0.3rem 0.7rem",
+                              borderRadius: "var(--radius-full)",
+                              border: `1px solid ${item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 55%, var(--c-line))" : "var(--c-line)"}`,
+                              background: item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 8%, transparent)" : "var(--c-surface-2)",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "var(--text-xs)",
+                              color: "var(--c-body)",
+                            }}
+                          >
+                            {item.name}
+                            {item.level && (
+                              <span
+                                style={{
+                                  fontSize: "0.58rem",
+                                  fontWeight: 700,
+                                  letterSpacing: "0.08em",
+                                  textTransform: "uppercase",
+                                  color: item.level === "expert" ? "var(--c-accent)" : "var(--c-muted)",
+                                }}
+                              >
+                                {item.level}
+                              </span>
+                            )}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
         {/* Experience */}
         <section className="section-tight">
           <div className="container" style={{ maxWidth: "900px" }}>
@@ -191,68 +255,6 @@ export default function ResumePage() {
           </div>
         </section>
 
-        {/* Education + Skills */}
-        <section className="section" style={{ background: "var(--c-bg-soft)" }}>
-          <div className="container" style={{ maxWidth: "900px" }}>
-            <Reveal><SectionHeading eyebrow="Education" title="Education" /></Reveal>
-            <div className="resume-edu-grid" style={{ marginTop: "1.75rem" }}>
-              {EDUCATION.map((e) => (
-                <div key={e.title} className="surface" style={cardStyle}>
-                  <h3 style={{ fontSize: "var(--text-base)", marginBottom: "0.3rem" }}>{e.title}</h3>
-                  <p style={{ margin: "0 0 0.5rem", color: "var(--c-body)", fontSize: "var(--text-sm)" }}>{e.school}</p>
-                  <p style={{ margin: 0, color: "var(--c-muted)", fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)" }}>{e.meta}</p>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ marginTop: "3rem" }}>
-              <Reveal><SectionHeading eyebrow="Tools" title="Skills" /></Reveal>
-              <div style={{ marginTop: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {SKILL_GROUPS.map((g, i) => (
-                  <Reveal key={g.label} delay={i * 50}>
-                    <div className="surface" style={{ padding: "1.25rem" }}>
-                      <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                        {g.items.map((item) => (
-                          <span
-                            key={item.name}
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "0.45rem",
-                              padding: "0.3rem 0.7rem",
-                              borderRadius: "var(--radius-full)",
-                              border: `1px solid ${item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 55%, var(--c-line))" : "var(--c-line)"}`,
-                              background: item.level === "expert" ? "color-mix(in srgb, var(--c-accent) 8%, transparent)" : "var(--c-surface-2)",
-                              fontFamily: "var(--font-mono)",
-                              fontSize: "var(--text-xs)",
-                              color: "var(--c-body)",
-                            }}
-                          >
-                            {item.name}
-                            {item.level && (
-                              <span
-                                style={{
-                                  fontSize: "0.58rem",
-                                  fontWeight: 700,
-                                  letterSpacing: "0.08em",
-                                  textTransform: "uppercase",
-                                  color: item.level === "expert" ? "var(--c-accent)" : "var(--c-muted)",
-                                }}
-                              >
-                                {item.level}
-                              </span>
-                            )}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
 

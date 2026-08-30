@@ -8,10 +8,11 @@ import { JOBS } from "@/lib/resume-data";
  * skills matrix, and the referees block. Rendered in Carlito, Calibri's
  * metric-compatible clone, so proportions match the original.
  *
- * Content policy (Abang, 2026-08-29): ONLY the Skills table and the myFirst
- * experience entry carry updated content — myFirst pulls live from
- * resume-data JOBS[0]; everything else is transcribed verbatim from the
- * hand-made original (two typos fixed: "Mmotherboard", "Peronal").
+ * Content policy: 2026-08-29 scoped updates to Skills + myFirst only. On
+ * 2026-08-30 Abang's checklist added: section reorder (Experience -> Projects
+ * -> Skills -> Education -> Referees), a fresh Professional Summary,
+ * HTML5/CSS3 dropped from Skills, third-party items broken into their own
+ * category, and the referees swapped (Stefan first, Fadilah removed).
  *
  * Playwright renders this page (JS disabled) to produce public/resume.pdf.
  */
@@ -26,9 +27,9 @@ const MYFIRST = JOBS[0];
 /** Skills matrix — presentation mapping of resume-data levels (Abang's calls). */
 const SKILL_MATRIX: { label: string; items: string[] }[] = [
   { label: "Expert", items: ["TypeScript", "JavaScript", "Node.js", "Next.js", "React", "Vue.js", "FastAPI"] },
-  { label: "Proficient", items: ["HTML5", "CSS3", "Tailwind CSS", "Go", "Python (Flask)", "PHP (Laravel)", "PostgreSQL", "MySQL", "Prisma", "Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "REST API design", "Figma", "Sentry"] },
-  { label: "Intermediate", items: ["Stripe", "Airwallex", "Singpass", "Firestore / RTDB"] },
+  { label: "Proficient", items: ["Tailwind CSS", "Go", "Python (Flask)", "PHP (Laravel)", "PostgreSQL", "MySQL", "Prisma", "Docker", "Git", "Linux server admin", "Cloudflare (Tunnels, Zero Trust)", "Supabase", "REST API design", "Figma", "Sentry"] },
   { label: "Familiar", items: ["Flutter", "Android Studio (Java)", "SCSS/SASS"] },
+  { label: "3rd-Party Integrations", items: ["Stripe", "Airwallex", "Singpass", "Firestore / RTDB"] },
   { label: "AI Tooling", items: ["Claude Code", "Cursor", "Antigravity"] },
 ];
 
@@ -59,17 +60,6 @@ const PROJECTS = [
     tech: "HTML, CSS, PHP, Laravel, MySQL, Tailwind",
   },
   {
-    name: "PERSONAL PORTFOLIO",
-    sub: "Post University Side-Project",
-    bullets: [
-      "Developed a simple online portfolio to showcase my skills and projects, using React.js to dive deeper into front-end engineering.",
-      "Gained hands-on experience with React Router for navigation and created reusable components.",
-      "Learned to build responsive designs with TailwindCSS, enhancing my understanding of modern styling techniques.",
-    ],
-    tech: "ReactJS, TailwindCSS, JavaScript",
-    link: "https://najmusyathir.dev",
-  },
-  {
     name: "BAKERS HEIST",
     sub: "University Group Project",
     bullets: [
@@ -78,16 +68,6 @@ const PROJECTS = [
     ],
     tech: "HTML, CSS, JavaScript",
     link: "https://bakers-heist.vercel.app",
-  },
-  {
-    name: "PROJECT MANAGEMENT SYSTEM (MOBILE APPLICATION)",
-    sub: "University Group Project",
-    bullets: [
-      "Mobile app development debut mastering concepts like RecyclerView",
-      "Focused on implementing a design, emphasizing visual appeal and layout",
-      "Successfully integrate Firebase for push notifications, enhancing app functionality.",
-    ],
-    tech: "Android Studio, CSS, JavaScript",
   },
 ];
 
@@ -122,12 +102,12 @@ const LEGACY_JOBS = [
 
 const REFEREES = [
   {
-    name: "Mohd Taufik Bin Mishan (FYP Supervisor)",
-    lines: ["Pensyarah Kanan", "Fakuti Sains Komputer dan Matematik", "UiTM Cawangan Melaka Kampus Jasin 77300 Merlimau, Melaka", "mtaufik@uitm.edu.my"],
+    name: "Stefan (Senior Full-Stack Developer)",
+    lines: ["myFirst Tech Sdn Bhd", "011-1856 4918", "stefan@myfirst.tech"],
   },
   {
-    name: "Fadilah Ezlina Binti Shahbudin (Academic Advisor)",
-    lines: ["Pensyarah Kanan", "Fakuti Sains Komputer dan Matematik", "UiTM Cawangan Melaka Kampus Jasin 77300 Merlimau, Melaka", "fadilahezlina@uitm.edu.my"],
+    name: "Mohd Taufik Bin Mishan (FYP Supervisor)",
+    lines: ["Pensyarah Kanan", "Fakuti Sains Komputer dan Matematik", "UiTM Cawangan Melaka Kampus Jasin 77300 Merlimau, Melaka", "mtaufik@uitm.edu.my"],
   },
 ];
 
@@ -154,11 +134,16 @@ export default function ResumePrintPage() {
 
       <SectionTitle>Professional Summary</SectionTitle>
       <p className="para">
-        Full-stack software developer with a strong focus on front-end technologies like HTML5,
-        CSS3, Vue.js, and Tailwind CSS. Proficient in backend development with Flask. Currently
-        contributing as a full-stack developer at myFirst Tech Sdn Bhd and as a freelancer.
-        Passionate about writing reliable, readable, and maintainable code, and committed to
-        continuous learning and collaboration in team environments.
+        Full-stack Developer with strong expertise in TypeScript, specializing in Next.js and
+        modern front-end development while delivering scalable back-end solutions with Node.js.
+      </p>
+      <p className="para" style={{ marginTop: "8px" }}>
+        Experienced in integrating third-party services from technical documentation, including
+        Stripe and Airwallex payment systems, as well as Singpass digital identity integration.
+      </p>
+      <p className="para" style={{ marginTop: "8px" }}>
+        Led a development team of three, fostering collaborative decision-making and delivering
+        production-ready solutions in agile environments.
       </p>
 
       <SectionTitle>Education</SectionTitle>
@@ -197,28 +182,6 @@ export default function ResumePrintPage() {
         </tbody>
       </table>
 
-      <SectionTitle>Relevant Projects</SectionTitle>
-      {PROJECTS.map((p) => (
-        <div key={p.name} className="entry">
-          <h3 className="proj-name">{p.name}</h3>
-          <p className="proj-sub">{p.sub}</p>
-          <ul>
-            {p.bullets.map((b, i) => (
-              <li key={i}>{b}</li>
-            ))}
-          </ul>
-          {p.link && (
-            <p className="meta-line">
-              <strong>Hosted Link:</strong> <a href={p.link}>Visit</a>
-            </p>
-          )}
-          <p className="meta-line"><strong>Tech Stacks:</strong> {p.tech}</p>
-          {p.achievements && (
-            <p className="meta-line"><strong>Achievements:</strong> {p.achievements}</p>
-          )}
-        </div>
-      ))}
-
       <SectionTitle>Working Experiences</SectionTitle>
       {/* myFirst — the one experience entry that carries UPDATED content */}
       <div className="entry">
@@ -247,6 +210,28 @@ export default function ResumePrintPage() {
             ))}
           </ul>
           <p className="meta-line"><strong>Tech Stacks:</strong> {j.tech}</p>
+        </div>
+      ))}
+
+      <SectionTitle>Relevant Projects</SectionTitle>
+      {PROJECTS.map((p) => (
+        <div key={p.name} className="entry">
+          <h3 className="proj-name">{p.name}</h3>
+          <p className="proj-sub">{p.sub}</p>
+          <ul>
+            {p.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+          {p.link && (
+            <p className="meta-line">
+              <strong>Hosted Link:</strong> <a href={p.link}>Visit</a>
+            </p>
+          )}
+          <p className="meta-line"><strong>Tech Stacks:</strong> {p.tech}</p>
+          {p.achievements && (
+            <p className="meta-line"><strong>Achievements:</strong> {p.achievements}</p>
+          )}
         </div>
       ))}
 
@@ -293,7 +278,7 @@ export default function ResumePrintPage() {
           border-top: 1.6px solid #000;
           border-bottom: 1px solid #000;
           text-align: center;
-          margin: 14px 0 10px;
+          margin: 11px 0 8px;
           padding: 2px 0;
           break-inside: avoid;
           break-after: avoid-page;
@@ -321,11 +306,11 @@ export default function ResumePrintPage() {
         .skill-cols li { padding-left: 14px; position: relative; }
         .skill-cols li::before { content: "•"; position: absolute; left: 2px; }
 
-        .entry { margin-bottom: 12px; break-inside: avoid; }
+        .entry { margin-bottom: 9px; break-inside: avoid; }
         .proj-name { font-size: 14px; font-weight: 700; text-transform: uppercase; }
         .proj-sub { text-decoration: underline; margin-bottom: 2px; }
-        .entry ul { margin: 2px 0 4px; padding-left: 18px; list-style: disc; }
-        .entry li { margin-bottom: 2px; text-align: justify; list-style: disc; }
+        .entry ul { margin: 2px 0 3px; padding-left: 18px; list-style: disc; }
+        .entry li { margin-bottom: 1px; text-align: justify; list-style: disc; }
         .meta-line { margin-top: 2px; }
         .meta-line strong { font-weight: 700; }
 

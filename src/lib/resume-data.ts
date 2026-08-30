@@ -99,8 +99,6 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
       { name: "Go" },
       { name: "Python" },
       { name: "PHP" },
-      { name: "HTML5" },
-      { name: "CSS3" },
     ],
   },
   {
@@ -125,19 +123,9 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
     ],
   },
   {
-    label: "Integrations",
-    items: [
-      { name: "Stripe", level: "intermediate" },
-      { name: "Airwallex", level: "intermediate" },
-      { name: "Singpass" },
-    ],
-  },
-  {
     label: "Database & ORM",
     items: [
       { name: "PostgreSQL" },
-      { name: "Firestore", level: "intermediate" },
-      { name: "Firebase Realtime Database", level: "intermediate" },
       { name: "MySQL" },
       { name: "Prisma" },
     ],
@@ -151,6 +139,16 @@ export const SKILL_GROUPS: { label: string; items: SkillItem[] }[] = [
       { name: "Cloudflare (Tunnels, Zero Trust)" },
       { name: "Supabase" },
       { name: "tmux" },
+    ],
+  },
+  {
+    // Flat scope, no level chips — matches how AI Tools is presented.
+    label: "3rd-Party Integrations",
+    items: [
+      { name: "Stripe" },
+      { name: "Airwallex" },
+      { name: "Singpass" },
+      { name: "Firestore / RTDB" },
     ],
   },
   {
@@ -168,5 +166,8 @@ export const EDUCATION = [
   { title: "Diploma in Applied Science", school: "Universiti Teknologi MARA, Perlis (Kampus Arau)", meta: "Feb 2021 · CGPA 3.21" },
 ];
 
-export const SUMMARY =
-  "Full-stack developer with 2+ years of professional experience across front-end and back-end development, plus a growing personal infrastructure of self-hosted projects — browser-based terminals, uptime monitoring, multi-tenant SaaS, and async AI orchestration, all running on infrastructure I manage myself. Comfortable owning the full stack: front-end (React, Vue.js, Next.js), back-end (Node.js, Python, PHP), and infrastructure (Linux, Docker, Cloudflare). Currently a Full-Stack Developer at myFirst Tech Sdn Bhd.";
+export const SUMMARY = [
+  "Full-stack Developer with strong expertise in TypeScript, specializing in Next.js and modern front-end development while delivering scalable back-end solutions with Node.js.",
+  "Experienced in integrating third-party services from technical documentation, including Stripe and Airwallex payment systems, as well as Singpass digital identity integration.",
+  "Led a development team of three, fostering collaborative decision-making and delivering production-ready solutions in agile environments.",
+];

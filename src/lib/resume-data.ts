@@ -167,7 +167,7 @@ export const EDUCATION = [
 ];
 
 export const SUMMARY = [
-  "Full-stack Developer with strong expertise in TypeScript, specializing in Next.js and modern front-end development while delivering scalable back-end solutions with Node.js.",
-  "Experienced in integrating third-party services from technical documentation, including Stripe and Airwallex payment systems, as well as Singpass digital identity integration.",
-  "Led a development team of three, fostering collaborative decision-making and delivering production-ready solutions in agile environments.",
+  "Full-Stack Developer with 2+ years of experience building scalable web applications, specializing in TypeScript, Next.js, and Node.js across the full stack.",
+  "Experienced in integrating third-party platforms end-to-end from vendor documentation, including Stripe, Airwallex, and Singpass.",
+  "Led a development team of three to deliver production-ready products in agile environments, with a strong focus on clean architecture, maintainable code, and practical problem-solving.",
 ];

@@ -56,12 +56,10 @@ export default function ResumePage() {
         <section className="section-tight">
           <div className="container" style={{ maxWidth: "900px" }}>
             <Reveal>
-              <div className="surface" style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {SUMMARY.map((para) => (
-                  <p key={para.slice(0, 24)} style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
-                    {para}
-                  </p>
-                ))}
+              <div className="surface" style={{ padding: "1.75rem" }}>
+                <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-lg)", lineHeight: 1.7 }}>
+                  {SUMMARY.join(" ")}
+                </p>
               </div>
             </Reveal>
           </div>

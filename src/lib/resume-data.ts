@@ -166,6 +166,11 @@ export const EDUCATION = [
   { title: "Diploma in Applied Science", school: "Universiti Teknologi MARA, Perlis (Kampus Arau)", meta: "Feb 2021 · CGPA 3.21" },
 ];
 
+/**
+ * Professional Summary sentences. Both surfaces (/resume and /resume/print,
+ * the PDF source) render these joined with a single space into ONE flowing
+ * paragraph — the array is just an editing convenience, not a line break.
+ */
 export const SUMMARY = [
   "Full-Stack Developer with 2+ years of experience building scalable web applications, specializing in TypeScript, Next.js, and Node.js across the full stack.",
   "Experienced in integrating third-party platforms end-to-end from vendor documentation, including Stripe, Airwallex, and Singpass.",

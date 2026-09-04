@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JOBS } from "@/lib/resume-data";
+import { JOBS, SUMMARY } from "@/lib/resume-data";
 
 /**
  * Print-only résumé route — faithful rebuild of Abang's HAND-MADE resume
@@ -13,6 +13,11 @@ import { JOBS } from "@/lib/resume-data";
  * -> Skills -> Education -> Referees), a fresh Professional Summary,
  * HTML5/CSS3 dropped from Skills, third-party items broken into their own
  * category, and the referees swapped (Stefan first, Fadilah removed).
+ *
+ * The Professional Summary is NOT hard-coded here — it reads resume-data's
+ * SUMMARY and joins it into one flowing paragraph, the same way /resume does.
+ * It used to be duplicated as three literal <p> blocks, which silently drifted
+ * from the site copy once before; keep it sourced from resume-data.
  *
  * Playwright renders this page (JS disabled) to produce public/resume.pdf.
  */
@@ -133,19 +138,7 @@ export default function ResumePrintPage() {
       </header>
 
       <SectionTitle>Professional Summary</SectionTitle>
-      <p className="para">
-        Full-Stack Developer with 2+ years of experience building scalable web applications,
-        specializing in TypeScript, Next.js, and Node.js across the full stack.
-      </p>
-      <p className="para" style={{ marginTop: "8px" }}>
-        Experienced in integrating third-party platforms end-to-end from vendor documentation,
-        including Stripe, Airwallex, and Singpass.
-      </p>
-      <p className="para" style={{ marginTop: "8px" }}>
-        Led a development team of three to deliver production-ready products in agile
-        environments, with a strong focus on clean architecture, maintainable code, and practical
-        problem-solving.
-      </p>
+      <p className="para">{SUMMARY.join(" ")}</p>
 
       <SectionTitle>Education</SectionTitle>
       <div className="edu">

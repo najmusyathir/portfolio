@@ -224,10 +224,6 @@
    Now: wide panel with glass plate, capabilities in one core
    -------------------------------------------------------------------------- */
 .v3-panel-note {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
   padding: 1.25rem 1.5rem;
   border-radius: var(--w-r-in);
   background: var(--w-glass);
@@ -405,10 +401,16 @@
     border-left: 1px solid var(--w-hair);
   }
   .v3-panel-note {
+    position: absolute;
     left: 1.25rem;
     bottom: 1.25rem;
-    right: auto;
     max-width: 30rem;
+  }
+  .v3-deck-a .v3-core-pad {
+    padding-right: 30%;
+  }
+  .v3-stackrow {
+    margin-top: 5.5rem;
   }
 
   .v3-grid {

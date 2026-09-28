@@ -25,10 +25,10 @@ export function NowV3() {
           <Bezel as="figure">
             <div className="v3-media v3-media-wide">
               <Image src={NOW_V2.image.src} alt={NOW_V2.image.alt} fill sizes="(max-width: 900px) 92vw, 1180px" />
-              <figcaption className="v3-panel-note">
-                <p className="v3-italic">{NOW_V2.closing}</p>
-              </figcaption>
             </div>
+            <figcaption className="v3-panel-note">
+              <p className="v3-italic">{NOW_V2.closing}</p>
+            </figcaption>
           </Bezel>
         </Reveal>
 

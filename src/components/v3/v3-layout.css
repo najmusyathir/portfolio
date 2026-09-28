@@ -1,0 +1,475 @@
+/* v3 — nav island, sections, breakpoints, reduced motion. Pairs with v3.css. */
+
+/* --------------------------------------------------------------------------
+   Nav: floating glass island detached from the top edge
+   -------------------------------------------------------------------------- */
+.v3-nav {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 30;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 1.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.4rem 0.4rem 1.1rem;
+  border-radius: 999px;
+  background: var(--w-glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: inset 0 1px 0 var(--w-highlight), inset 0 0 0 1px var(--w-hair), var(--w-shadow-sm);
+}
+.v3 .v3-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  color: var(--w-ink);
+}
+.v3-nav-links {
+  display: none;
+  align-items: center;
+  gap: 0.1rem;
+  margin-right: 0.35rem;
+}
+.v3 .v3-nav-link {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--w-muted);
+  transition: color 500ms var(--w-ease), background-color 500ms var(--w-ease);
+}
+.v3 .v3-nav-link:hover,
+.v3 .v3-nav-link[aria-current="page"] {
+  color: var(--w-ink);
+  background: var(--w-shell);
+}
+.v3 .v3-nav .theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-color: transparent;
+  background: var(--w-shell);
+}
+.v3 .v3-nav-cta {
+  display: none;
+}
+.v3 .v3-burger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--w-shell);
+  color: var(--w-ink);
+  cursor: pointer;
+}
+.v3-burger i {
+  position: absolute;
+  left: 10px;
+  width: 16px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 600ms var(--w-ease), opacity 300ms var(--w-ease);
+}
+.v3-burger i:first-child { transform: translateY(-3.5px); }
+.v3-burger i:last-child { transform: translateY(3.5px); }
+.v3-burger[aria-expanded="true"] i:first-child { transform: rotate(45deg); }
+.v3-burger[aria-expanded="true"] i:last-child { transform: rotate(-45deg); }
+
+.v3-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 1.5rem 2rem;
+  background: color-mix(in srgb, var(--w-bg) 84%, transparent);
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  overscroll-behavior: contain;
+}
+.v3 .v3-menu-link {
+  display: block;
+  padding: 0.6rem 0;
+  font-size: clamp(2rem, 9vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--w-ink);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: v3-rise 700ms var(--w-ease) forwards;
+  animation-delay: calc(var(--i) * 70ms + 80ms);
+}
+.v3 .v3-menu-link[aria-current="page"] {
+  color: var(--w-muted);
+}
+.v3-menu .v3-pill {
+  margin-top: 1.5rem;
+  align-self: flex-start;
+  opacity: 0;
+  animation: v3-rise 700ms var(--w-ease) forwards;
+  animation-delay: 520ms;
+}
+@keyframes v3-rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Hero: editorial split
+   -------------------------------------------------------------------------- */
+.v3-hero {
+  padding-top: 7rem;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+.v3-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+.v3-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+.v3-hero-sub {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  max-width: 40ch;
+}
+.v3-hero-media {
+  display: flex;
+  justify-content: center;
+}
+.v3-portrait {
+  width: min(100%, 22rem);
+}
+
+/* --------------------------------------------------------------------------
+   Work: z-axis cascade
+   -------------------------------------------------------------------------- */
+.v3-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.v3-deck-a,
+.v3-deck-b,
+.v3-deck-c {
+  position: relative;
+  transition: transform 700ms var(--w-ease);
+}
+.v3-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.v3-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-block: 0.8rem;
+  border-top: 1px solid var(--w-hair);
+}
+.v3-list li:last-child {
+  padding-bottom: 0;
+}
+.v3-list-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--v3-mono), ui-monospace, monospace;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--w-ink);
+}
+.v3-list-name small {
+  font-size: 0.75rem;
+  color: var(--w-muted);
+}
+.v3-flag-name {
+  font-family: var(--v3-mono), ui-monospace, monospace;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--w-ink);
+}
+.v3-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.v3-stackrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+}
+.v3-stackrow .v3-mono {
+  margin-right: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   Now: wide panel with glass plate, capabilities in one core
+   -------------------------------------------------------------------------- */
+.v3-panel-note {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--w-r-in);
+  background: var(--w-glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 1px 0 var(--w-highlight), inset 0 0 0 1px var(--w-hair);
+}
+.v3-caps {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.v3-cap {
+  padding: 1.5rem;
+  border-top: 1px solid var(--w-hair);
+}
+.v3-cap:first-child {
+  border-top: 0;
+}
+.v3-cap h3 {
+  font-size: 1.0625rem;
+  margin-bottom: 0.45rem;
+}
+.v3-cap p {
+  font-size: 0.9375rem;
+}
+.v3-caption {
+  padding: 0.9rem 1.25rem;
+  font-family: var(--v3-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  color: var(--w-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Arc + contact + footer
+   -------------------------------------------------------------------------- */
+.v3-diptych {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.v3-contact-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+}
+.v3-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-content: flex-start;
+}
+.v3-footer {
+  padding-block: 2rem 2.5rem;
+}
+.v3-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+}
+.v3-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+.v3 .v3-footer-links a {
+  font-size: 0.9rem;
+  color: var(--w-muted);
+  transition: color 500ms var(--w-ease);
+}
+.v3 .v3-footer-links a:hover {
+  color: var(--w-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Breakpoints
+   -------------------------------------------------------------------------- */
+@media (min-width: 640px) {
+  .v3-container {
+    padding-inline: 1.5rem;
+  }
+  .v3-caps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .v3-cap:nth-child(2) {
+    border-top: 0;
+  }
+  .v3-cap:nth-child(even) {
+    border-left: 1px solid var(--w-hair);
+  }
+  .v3-diptych {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .v3-media-wide {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+@media (min-width: 800px) {
+  .v3-nav-links {
+    display: flex;
+  }
+  .v3 .v3-nav-cta {
+    display: inline-flex;
+  }
+  .v3 .v3-burger,
+  .v3-menu {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .v3-container {
+    padding-inline: 2.5rem;
+  }
+  .v3-hero {
+    padding-top: 8.5rem;
+  }
+  .v3-hero-grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+  }
+  .v3-hero-copy {
+    grid-column: 1 / span 7;
+  }
+  .v3-hero-media {
+    grid-column: 9 / span 4;
+    justify-content: flex-end;
+  }
+  .v3-portrait {
+    width: 100%;
+    transform: rotate(2deg);
+  }
+
+  .v3-deck {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0;
+    padding-right: 1rem;
+  }
+  .v3-deck-a {
+    grid-column: 1 / span 8;
+    grid-row: 1 / span 2;
+    z-index: 1;
+  }
+  .v3-deck-b {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+    z-index: 2;
+    margin-top: 3rem;
+    transform: rotate(2deg);
+  }
+  .v3-deck-c {
+    grid-column: 7 / span 5;
+    grid-row: 2;
+    z-index: 3;
+    align-self: end;
+    margin-bottom: -2.5rem;
+    transform: rotate(-1.5deg);
+  }
+  .v3-deck-b:hover,
+  .v3-deck-c:hover {
+    transform: rotate(0deg) translateY(-4px);
+  }
+
+  .v3-caps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .v3-cap {
+    border-top: 0;
+  }
+  .v3-cap + .v3-cap {
+    border-left: 1px solid var(--w-hair);
+  }
+  .v3-panel-note {
+    left: 1.25rem;
+    bottom: 1.25rem;
+    right: auto;
+    max-width: 30rem;
+  }
+
+  .v3-grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2.5rem;
+  }
+  .v3-col-7 {
+    grid-column: span 7;
+  }
+  .v3-col-5 {
+    grid-column: span 5;
+  }
+  .v3-contact-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-orb-1,
+  .v3-orb-2 {
+    animation: none;
+  }
+  .js .v3 .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .v3 .reveal,
+  .v3 .v3-pill,
+  .v3 .v3-pill-ic,
+  .v3 .v3-textlink svg,
+  .v3 a.v3-chip,
+  .v3 .v3-nav-link,
+  .v3-burger i,
+  .v3-deck-a,
+  .v3-deck-b,
+  .v3-deck-c,
+  .v3 .v3-footer-links a {
+    transition: none !important;
+  }
+  .v3 .v3-menu-link,
+  .v3-menu .v3-pill {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* small helpers kept out of JSX */
+.v3-h2-gap {
+  margin-bottom: 3rem;
+}
+.v3-tight {
+  gap: 0.35rem;
+}
+.v3-semibold {
+  font-weight: 600;
+}
+.v3-list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

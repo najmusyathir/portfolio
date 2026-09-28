@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { V2Shell } from "@/components/v2/V2Shell";
 import { CafeTrailV2 } from "@/components/v2/CafeTrailV2";
 import { Reveal } from "@/components/ui/Reveal";
@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: "Café Trail v2",
   description: `${CAFES_V2.title}: the cafés I have worked from across Malaysia, pinned where they really are.`,
   robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#141413" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfa" },
+  ],
 };
 
 export default function CafesV2Page() {

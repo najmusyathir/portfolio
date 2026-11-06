@@ -8,7 +8,6 @@
 | **Tailwind CSS** | 4.x | Utility-first, fast iteration, design token support via CSS vars |
 | **next/font** | built-in | Zero-CLS font loading |
 | **next/image** | built-in | Optimized images, lazy load, WebP |
-| **lucide-react** | latest | SVG icons (no emoji in UI — rule) |
 
 ## Fonts
 

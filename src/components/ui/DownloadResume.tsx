@@ -159,7 +159,7 @@ export function DownloadResume() {
         .dl-resume-main:active { transform: translateY(1px); }
         .dl-resume-main:focus-visible,
         .dl-resume-toggle:focus-visible {
-          outline: 2px solid var(--c-accent-2);
+          outline: 2px solid var(--c-focus-ring);
           outline-offset: 2px;
         }
 
@@ -207,7 +207,7 @@ export function DownloadResume() {
           flex-shrink: 0;
           border-radius: var(--radius-sm);
           background: color-mix(in srgb, var(--c-accent) 12%, transparent);
-          color: var(--c-accent-text);
+          color: var(--c-accent);
         }
         .dl-resume-item-label {
           font-size: var(--text-sm);

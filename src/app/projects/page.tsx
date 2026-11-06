@@ -48,7 +48,7 @@ export default function ProjectsPage() {
                       fontWeight: 600,
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
-                      color: "var(--c-accent-text)",
+                      color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                       marginBottom: "1rem",
                     }}
                   >
@@ -106,7 +106,7 @@ export default function ProjectsPage() {
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
                       <h3 style={{ fontSize: "var(--text-lg)", fontFamily: "var(--font-mono)", color: "var(--c-ink)" }}>{p.name}</h3>
                       {p.url ? (
-                        <Icon name="arrow-up-right" size={18} style={{ color: "var(--c-accent-text)", flexShrink: 0 }} />
+                        <Icon name="arrow-up-right" size={18} style={{ color: "var(--c-accent)", flexShrink: 0 }} />
                       ) : (
                         <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)" }}>internal</span>
                       )}
@@ -114,7 +114,7 @@ export default function ProjectsPage() {
                     <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", flex: 1 }}>{p.description}</p>
                     <ChipRow items={p.tags} />
                     {p.url && (
-                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-accent-text)" }}>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)" }}>
                         {p.url.replace("https://", "")}
                       </span>
                     )}

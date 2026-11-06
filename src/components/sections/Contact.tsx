@@ -36,7 +36,7 @@ export function Contact() {
                     fontWeight: 600,
                   }}
                 >
-                  <Icon name={s.icon} size={18} style={{ color: "var(--c-accent-text)" }} />
+                  <Icon name={s.icon} size={18} style={{ color: "var(--c-accent)" }} />
                   {s.label}
                 </a>
               ))}

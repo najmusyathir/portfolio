@@ -39,7 +39,7 @@ export function FeaturedWork() {
                   fontWeight: 600,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: "var(--c-accent-text)",
+                  color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                   marginBottom: "1rem",
                 }}
               >
@@ -132,7 +132,7 @@ export function FeaturedWork() {
                     {project.name}
                   </h4>
                   {project.url ? (
-                    <Icon name="arrow-up-right" size={18} style={{ color: "var(--c-accent-text)", flexShrink: 0 }} />
+                    <Icon name="arrow-up-right" size={18} style={{ color: "var(--c-accent)", flexShrink: 0 }} />
                   ) : (
                     <span
                       style={{
@@ -168,7 +168,7 @@ export function FeaturedWork() {
                     style={{
                       fontSize: "var(--text-xs)",
                       fontFamily: "var(--font-mono)",
-                      color: "var(--c-accent-text)",
+                      color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                     }}
                   >
                     {project.url.replace("https://", "")}

@@ -148,6 +148,7 @@ export function Navbar() {
                   fontSize: "var(--text-base)",
                   fontWeight: 600,
                   color: isActive(link.href) ? "var(--c-accent-text)" : "var(--c-ink)",
+                  textShadow: isActive(link.href) ? "var(--accent-text-shadow)" : "none",
                 }}
               >
                 {link.label}

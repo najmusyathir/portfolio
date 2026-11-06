@@ -42,11 +42,11 @@ export function ThemeToggle() {
           transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
         }
         .theme-toggle:hover {
-          border-color: var(--c-accent-text);
-          color: var(--c-accent-text);
+          border-color: var(--c-accent);
+          color: var(--c-accent);
         }
         .theme-toggle:focus-visible {
-          outline: 2px solid var(--c-accent-text);
+          outline: 2px solid var(--c-focus-ring);
           outline-offset: 2px;
         }
       `}</style>

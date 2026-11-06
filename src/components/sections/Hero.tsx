@@ -41,7 +41,7 @@ export function Hero() {
               style={{
                 fontSize: "var(--text-xl)",
                 fontWeight: 600,
-                color: "var(--c-accent-text)",
+                color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                 margin: "0 0 0.9rem",
               }}
             >

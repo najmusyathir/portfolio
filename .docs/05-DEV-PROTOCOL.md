@@ -10,7 +10,7 @@
 
 ## Coding conventions
 
-- **No emoji in UI** — use inline SVG or lucide-react icons only. This is a hard rule across all Acadeon projects.
+- **No emoji in UI** — use inline SVG icons only. This is a hard rule across all Acadeon projects.
 - **CSS custom properties for all design tokens** — never hardcode hex values in components. Use `var(--color-accent)` etc.
 - **Content in `data.ts`** — no copy hardcoded inside JSX. If it's text a human would read, it belongs in `src/lib/data.ts`.
 - **No inline styles** — Tailwind classes or CSS modules only.

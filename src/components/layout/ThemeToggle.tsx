@@ -46,7 +46,7 @@ export function ThemeToggle() {
           color: var(--c-accent);
         }
         .theme-toggle:focus-visible {
-          outline: 2px solid var(--c-accent);
+          outline: 2px solid var(--c-focus-ring);
           outline-offset: 2px;
         }
       `}</style>

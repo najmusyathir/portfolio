@@ -48,7 +48,7 @@ export default function ProjectsPage() {
                       fontWeight: 600,
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
-                      color: "var(--c-accent)",
+                      color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                       marginBottom: "1rem",
                     }}
                   >
@@ -114,7 +114,7 @@ export default function ProjectsPage() {
                     <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", flex: 1 }}>{p.description}</p>
                     <ChipRow items={p.tags} />
                     {p.url && (
-                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-accent)" }}>
+                      <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)" }}>
                         {p.url.replace("https://", "")}
                       </span>
                     )}

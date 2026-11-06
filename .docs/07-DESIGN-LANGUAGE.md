@@ -2,533 +2,174 @@
 
 **This is the primary doc for any UI work. Load this before touching any component.**
 
+Theme: **Charcoal & Oud**. Rewritten 2026-11-06 from the live code (`dev` @ c1f58ca); it replaces the retired "Nebula" theme. Code wins over any older doc. File:line refs point into `src/`.
+
 ---
 
 ## Design philosophy
 
-Modern, distinctive, alive. Not another dark-blue developer portfolio. The goal: a hiring manager or potential client feels the craft immediately — before reading a word.
+Cool charcoal near-black base ("kayu arang"), dark oud wood grounding the footer, one warm brass accent, nothing else. A confident engineer's own site, not an AI demo. Dark-first, calm, dense, engineered. Audience: hiring managers and clients.
 
-**Theme name: Nebula**
-Dual light/dark. Gradient accent (violet → rose). Living background (drifting aurora orbs). Light mode is the primary aesthetic — bright, airy, premium. Dark mode is deep cosmic, not just "dark gray."
+It refuses: purple or cyan gradients, glassmorphism, neon, textures or grain, pine green, a second accent, web fonts. Two redesigns were rejected on 2026-09-29. Work here refines inside this language and never re-skins it; a redesign request is a decline, not a proposal.
 
 ---
 
-## Dual theme system
+## Theme system
 
-Toggle via `data-theme="light"` / `data-theme="dark"` on `<html>`. Persist in `localStorage`. Default: system preference via `prefers-color-scheme`, fallback to light.
+- Dark and light, switched by a `dark` class on `<html>` set by a pre-paint script: dark unless `localStorage.theme` is `light`, else follows the OS (`layout.tsx:57-67`).
+- Dark skin at `globals.css:181-207`, light skin at `129-155`.
+- Light theme is "v2 first pass, not final" (`globals.css:83-85`).
 
-Implementation:
-- `ThemeProvider` client component wraps the layout
-- Toggle button in Navbar (sun/moon icon, lucide-react)
-- CSS custom properties switch on `[data-theme="dark"]`
+### OPEN: light theme brass-as-text contrast fails
+
+In light mode the brass accent used as text measures 1.4 to 2.0 contrast and fails WCAG (`globals.css:108-126`). Abang has not decided the light theme. Until he does:
+
+- Fix brass-as-text before any light-mode work (`globals.css:119-124`).
+- Add no new accent text in light mode, unchecked.
 
 ---
 
 ## Color tokens
 
-Define ALL of these in `globals.css`. Never use raw hex in components.
+Components read semantic `--c-*` tokens only. The only hardcoded hex are the wordmark's brass period (`Logo.tsx:46`) and the QR card's white (`Contact.tsx:64`). Brass is the single accent; bronze (`accent-2`) is non-text only (hover borders, focus rings); oud is the footer. `--hero-wash` is a vertical gradient of background tones only (`globals.css:145`).
 
-```css
-/* ─── Light mode (default) ──────────────────── */
-:root,
-[data-theme="light"] {
-  /* Backgrounds */
-  --color-bg-base:       #faf9ff;   /* near-white, faint violet tint */
-  --color-bg-elevated:   #ffffff;   /* cards, panels */
-  --color-bg-overlay:    #f3f1ff;   /* hover state, subtle elevation */
-  --color-border:        #e8e5f8;   /* card borders, dividers */
-  --color-border-strong: #cdc9ef;   /* focused/active borders */
+| Token | Dark value | Role |
+| :--- | :--- | :--- |
+| bg | `#16181a` | page base |
+| bg-soft | `#1c1f22` | alternate section |
+| surface | `#212528` | cards |
+| surface-2 | `#2c3135` | chips, active nav |
+| ink | `#e8ecee` | headings |
+| body | `#c3c9ce` | prose |
+| muted | `#949ca2` | secondary |
+| accent | `#c6923e` | brass, the single accent |
+| accent-bright | `#d9a85a` | primary hover |
+| accent-2 | `#9c6b34` | bronze, non-text only |
+| accent-ink | `#16181a` | text on brass |
+| line | `#3a4247` | borders |
+| line-soft | `#262b2f` | rules |
+| oud | `#221b17` | footer band |
+| footer-ink | `#ece7e1` | footer text |
+| footer-body | `#c4bbb0` | footer prose |
+| footer-accent | `#d9a85a` | footer accent |
 
-  /* Text */
-  --color-text-primary:  #1a1535;   /* deep violet-charcoal — main text */
-  --color-text-muted:    #6b6490;   /* secondary labels, metadata */
-  --color-text-subtle:   #b0acc8;   /* placeholder, ghost */
+Light skin values: bg `#d9dbdd`, surface `#eef0f1`, ink `#16181a`, muted `#3a4247`, line `#a4a8ab`.
 
-  /* Accent — gradient */
-  --color-accent-from:   #7c3aed;   /* violet */
-  --color-accent-mid:    #a855f7;   /* purple */
-  --color-accent-to:     #ec4899;   /* rose/pink */
-  --color-accent:        #7c3aed;   /* single-value fallback */
-
-  /* Semantic */
-  --color-success:       #16a34a;
-  --color-warning:       #d97706;
-  --color-error:         #dc2626;
-
-  /* Aurora orbs (background animation) */
-  --orb-1: rgba(124, 58, 237, 0.12);   /* violet */
-  --orb-2: rgba(236, 72, 153, 0.10);   /* rose */
-  --orb-3: rgba(168, 85, 247, 0.08);   /* purple */
-}
-
-/* ─── Dark mode ──────────────────────────────── */
-[data-theme="dark"] {
-  /* Backgrounds */
-  --color-bg-base:       #0d0b14;   /* deep cosmic — NOT just dark gray */
-  --color-bg-elevated:   #13101e;   /* cards */
-  --color-bg-overlay:    #1c1729;   /* hover */
-  --color-border:        #251f35;   /* borders */
-  --color-border-strong: #3d3160;   /* focused */
-
-  /* Text */
-  --color-text-primary:  #f0eeff;   /* near-white with violet warmth */
-  --color-text-muted:    #8b82a7;   /* secondary */
-  --color-text-subtle:   #4a4368;   /* ghost */
-
-  /* Accent — same gradient, slightly brighter */
-  --color-accent-from:   #8b5cf6;   /* violet (brighter on dark) */
-  --color-accent-mid:    #c084fc;   /* purple */
-  --color-accent-to:     #f472b6;   /* rose */
-  --color-accent:        #8b5cf6;
-
-  /* Semantic */
-  --color-success:       #4ade80;
-  --color-warning:       #fbbf24;
-  --color-error:         #f87171;
-
-  /* Aurora orbs */
-  --orb-1: rgba(139, 92, 246, 0.18);
-  --orb-2: rgba(244, 114, 182, 0.14);
-  --orb-3: rgba(192, 132, 252, 0.12);
-}
-```
-
-### Gradient utility classes (define in Tailwind config or as CSS classes)
-
-```css
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-mid), var(--color-accent-to));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-}
-
-.gradient-border {
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  /* Use pseudo-element approach for true gradient border */
-}
-```
-
----
-
-## Background — Aurora Orbs
-
-**The signature element.** 2–3 large radial gradient blobs that drift slowly across the page background. Subtle, premium, alive. Not distracting.
-
-Implementation: `<AuroraBackground />` — a full-page fixed `<canvas>` or CSS-only approach using absolutely-positioned divs with `filter: blur(80px)` and CSS keyframe animations.
-
-**CSS approach (preferred — zero JS, zero bundle cost):**
-
-```css
-.aurora-container {
-  position: fixed;
-  inset: 0;
-  z-index: 0;           /* behind all content */
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 1;
-  animation: drift linear infinite;
-}
-
-.orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, var(--orb-1), transparent 70%);
-  top: -200px; left: -100px;
-  animation-duration: 25s;
-  animation-name: drift-1;
-}
-
-.orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, var(--orb-2), transparent 70%);
-  bottom: 10%; right: -150px;
-  animation-duration: 32s;
-  animation-name: drift-2;
-}
-
-.orb-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, var(--orb-3), transparent 70%);
-  top: 40%; left: 30%;
-  animation-duration: 40s;
-  animation-name: drift-3;
-}
-
-@keyframes drift-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, 60px) scale(1.08); }
-  66%  { transform: translate(-40px, 100px) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(-70px, -80px) scale(1.1); }
-  70%  { transform: translate(50px, -40px) scale(0.92); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes drift-3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, -90px) scale(1.12); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-```
-
-**Important:** all section content sits on `z-index: 1` or higher. Aurora is `z-index: 0`. Cards use `backdrop-blur-sm` + semi-transparent `bg-[var(--color-bg-elevated)]/80` to let the aurora bleed through subtly.
+Contrast on bg, dark (`globals.css:166-178`): ink 14.97, body 10.65, muted 5.64, accent as text 6.43 (4.75 on surface-2), accent-ink on brass 6.43, bronze 3.87 (non-text only).
 
 ---
 
 ## Typography
 
-```css
---font-sans: 'Inter', system-ui, sans-serif;
---font-mono: 'JetBrains Mono', monospace;
-```
+System stacks, no web font: a deliberate zero-network choice (`globals.css:34-37`). Sans (`system-ui`) for headings and prose; mono (`ui-monospace`) for anything data-like: eyebrows, project names, dates, tags, coordinates, captions. Do not load Inter, JetBrains Mono or any `next/font`.
 
-Load both via `next/font/google` in `layout.tsx`. Apply as CSS variables on `:root`, then set in Tailwind config.
+Headings weight 700, tracking -0.018em, line-height 1.12 (`globals.css:255-260`); body line-height 1.65. Weights used: 500, 600, 700.
 
-### Type scale
-
-| Role | Size | Weight | Font | Notes |
+| Role | Font | Size | Weight | Notes |
 | :--- | :--- | :--- | :--- | :--- |
-| Hero name | `text-5xl` → `text-7xl` lg | 800 | Inter | `.gradient-text` class |
-| Hero title | `text-xl` → `text-2xl` lg | 400 | Inter | muted color |
-| Hero tagline | `text-base` → `text-lg` lg | 400 | Inter | primary color |
-| Section eyebrow | `text-xs` | 600, uppercase, tracking-[0.2em] | Inter | `--color-accent` |
-| Section heading | `text-2xl` → `text-3xl` lg | 700 | Inter | primary color |
-| Body text | `text-base` | 400 | Inter | muted color |
-| Stat number | `text-4xl` → `text-5xl` lg | 700 | JetBrains Mono | `.gradient-text` |
-| Stat label | `text-xs` | 400 | Inter | muted |
-| Tech badge | `text-xs` | 500 | Inter | |
-| Code / mono | `text-sm` | 400 | JetBrains Mono | |
-| Nav link | `text-sm` | 500 | Inter | |
+| Display | sans | `clamp(2.75rem, 7vw, 5rem)` | 700 | hero h1 only, line-height 1.02 (`Hero.tsx:28-33`) |
+| Headline-lg | sans | 2.25rem | 700 | h2 (`SectionHeading.tsx:28`) |
+| Project name | mono | 1.125rem | 700 | |
+| Body-lg | sans | 1.125rem | 400 | |
+| Eyebrow | mono | 0.75rem | 600 | tracking 0.16em, accent |
+| Label-md | sans | 0.875rem | 600 | buttons |
+| Mono-xs | mono | 0.75rem | 500 | chips, line-height 1.4 |
 
-**Apply `.gradient-text` to:** hero name, stat numbers, section eyebrow labels. Not overused — 3–4 uses max per page.
+Untokenised: card h3 1.375rem 700, hero role 1.375rem 600 in accent (`Hero.tsx:40-49`), body 1rem, a 0.6rem mono map label (`CafeTrail.tsx:210-218`). Intros run 44 to 64ch.
 
 ---
 
-## Spacing
+## Layout and spacing
 
-| Use | Tailwind | px |
-| :--- | :--- | :--- |
-| Section vertical padding | `py-28` / `py-36` lg | 112–144px |
-| Container | `max-w-5xl mx-auto px-6` | 1024px, 24px side padding |
-| Card padding | `p-6` | 24px |
-| Card grid gap | `gap-5` | 20px |
-| Eyebrow → heading | `mt-3` | 12px |
-| Heading → body | `mt-4` | 16px |
-| Section → next section | handled by section `py-28` | |
+One centred container with fluid gutters. Sections alternate `bg` and `bg-soft`; inner pages open on a `hero-wash` header under a `line-soft` rule. Grids are mobile-first and go multi-column at a per-component breakpoint (640 to 1000px). Heroes split 1.1fr 0.9fr at 900px, portrait right (`Hero.tsx:114-122`). The cafe map is sticky at top 92px (`CafeTrail.tsx:323`).
 
----
-
-## Component specs
-
-### Navbar (sticky)
-```
-position: sticky top-0 z-50
-bg-[var(--color-bg-base)]/70 backdrop-blur-md
-border-b border-[var(--color-border)]
-h-14 px-6
-```
-Left: `Najmu Syathir` — Inter medium, primary text
-Right: nav links (`Work · About · Contact`) + theme toggle (sun/moon icon)
-
-Theme toggle: `<button>` with `Sun` / `Moon` from lucide-react, 16px.
-
-### Project card
-```css
-/* Base */
-background: var(--color-bg-elevated);
-border: 1px solid var(--color-border);
-border-radius: 16px;
-padding: 24px;
-backdrop-filter: blur(8px);         /* lets aurora bleed through */
-background: rgba(--color-bg-elevated, 0.8);   /* semi-transparent */
-transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-
-/* Hover */
-transform: translateY(-3px);
-border-color: var(--color-border-strong);
-box-shadow: 0 8px 32px rgba(124, 58, 237, 0.12);
-```
-
-Contents (top → bottom):
-1. Project name — semibold, primary text
-2. One-liner — small, muted
-3. Badge row — `flex flex-wrap gap-1.5 mt-4`
-4. Bottom row: Live link (if public) OR `Internal` badge
-
-### Tech badge
-```
-bg-[var(--color-bg-overlay)]
-border border-[var(--color-border)]
-rounded-md px-2.5 py-1
-text-xs font-medium text-[var(--color-text-muted)]
-```
-
-### CTA button (primary — gradient fill)
-```css
-background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-color: white;
-font-weight: 600;
-font-size: 0.875rem;
-padding: 10px 20px;
-border-radius: 10px;
-border: none;
-transition: opacity 0.2s, transform 0.2s;
-
-&:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-```
-
-### CTA button (ghost)
-```css
-background: transparent;
-border: 1px solid var(--color-border-strong);
-color: var(--color-text-primary);
-font-weight: 600;
-font-size: 0.875rem;
-padding: 10px 20px;
-border-radius: 10px;
-transition: border-color 0.2s, color 0.2s;
-
-&:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-```
-
-### Stat card
-```
-bg-[var(--color-bg-elevated)]/80 backdrop-blur-sm
-border border-[var(--color-border)]
-rounded-2xl p-6
-```
-Number: gradient-text, JetBrains Mono
-Label: muted, Inter
-
-### Section eyebrow
-```
-text-xs font-semibold uppercase tracking-[0.2em]
-gradient-text (or solid --color-accent)
-```
-
----
-
-## Animation
-
-### Scroll reveals
-Every section animates in as it enters viewport. Use `IntersectionObserver`.
-
-```css
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-```
-
-Apply `data-delay="100"` etc. on staggered children. JS reads delay and sets `transition-delay`.
-
-### Stagger (card grids)
-Each card: `transition-delay: calc(index * 80ms)`. Max delay: 320ms (4 cards × 80ms).
-
-### Hero cursor blink
-```css
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: var(--color-accent);
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: blink 1s ease-in-out infinite;
-}
-```
-
-### No scroll-jacking. No parallax. Native scroll only.
-
----
-
-## Section specs & copy
-
-### Hero
-Full viewport (`min-h-screen`), content centered vertically and horizontally.
-
-```
-[Aurora background — full page fixed]
-
-         Najmu Syathir           ← gradient-text, 72px, weight 800
-    Full-Stack Developer          ← muted, 24px
-  & Solution Architect
-
-  I design the system.           ← primary, 18px
-  AI executes within it.|        ← blinking cursor after last char
-
-  [View my work ↓]  [GitHub ↗]  ← primary gradient btn + ghost btn
-```
-
-Subtle radial vignette at top-center behind the text: `var(--color-accent-from)` at ~8% opacity, blurred.
-
----
-
-### Stats strip
-4 cards, horizontal. Desktop: 4-col grid. Mobile: 2×2.
-
-| Number | Label |
+| Use | Value |
 | :--- | :--- |
-| `2+` | Years experience |
-| `6` | Live projects |
-| `5` | AI agents orchestrated |
-| `1` | Self-hosted server |
-
-Numbers in gradient-text, JetBrains Mono. Labels muted, Inter.
-
----
-
-### Projects
-Eyebrow: `WORK`
-Heading: `Things I've built`
-
-2-col desktop / 1-col mobile. Cards:
-
-| # | Project | One-liner | Tags | URL |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | **acadeon-cli** | Browser PTY terminal with TOTP auth | Next.js · TypeScript · node-pty · Supabase | cli.najmusyathir.dev |
-| 2 | **acadeon-pulse** | Uptime monitor PWA with escalating push alerts | Next.js · TypeScript · Supabase · PWA | pulse.najmusyathir.dev |
-| 3 | **personal-dashboard** | Multi-tenant SaaS — finance, vault, kanban, AI chat | Next.js · TypeScript · Prisma · PostgreSQL | — (Internal) |
-| 4 | **ai_hub_bridge** | Async AI job queue — Claude CLI to web & Telegram | Next.js · TypeScript · Supabase Realtime | — (Internal) |
+| Container max | 1120px |
+| Container gutter | `clamp(1.25rem, 4vw, 2.5rem)` |
+| Section padding | `clamp(3.5rem, 8vw, 6.5rem)` |
+| Tight section | `clamp(2.5rem, 6vw, 4.5rem)` |
+| Heading to grid | 2.5rem |
+| Card padding | 1.5rem (feature 1.75rem, hero `clamp(1.75rem, 4vw, 2.75rem)`) |
+| Grid gap | 1.25rem |
+| Chip gap | 0.5rem |
+| Nav height | 68px |
+| Narrow column | 820px |
+| Measure | intro 44ch, body 62ch |
 
 ---
 
-### AI Orchestration
-Eyebrow: `WORKFLOW`
-Heading: `How I work with AI`
+## Elevation and shapes
 
-Body:
-```
-I work with multiple AI agents as part of my development workflow.
-The distinction matters: I design the architecture and write the context documentation.
-The agents execute within that structure — with code review, git discipline, and human sign-off.
+Hierarchy is four tonal steps (bg, bg-soft, surface, surface-2) plus 1px `line` borders, not shadows. Shadows exist in three places only: card hover `0 18px 40px -24px rgb(shadow / 0.45)` (`globals.css:305`), under media such as the portrait `0 30px 60px -30px` (`Hero.tsx:112`), and a brass glow under the primary button (`globals.css:331`). Blur only on the scrolled navbar (12px) and the lightbox overlay (14px), never on cards.
 
-This isn't AI doing my job. It's AI as a precision instrument — directed, audited, owned.
-```
-
-Stepper diagram (5 steps, vertical, connected by gradient line):
-```
-  ◉  Design & architecture
-  │
-  ◉  Context docs + system specs
-  │
-  ◉  Agent executes
-  │
-  ◉  Human review + git commit
-  │
-  ◉  Ship
-```
-Left-aligned on desktop. The connecting line and step dots use `--color-accent-from` → `--color-accent-to` gradient.
+Radii: pills (999px) for anything small and interactive (buttons, chips, nav items, social circles, toggles); 16px cards; 24px media and map panel; 10px thumbs and the mobile menu button. Icon tiles are 38 to 48px squircles at 12 to 14px, accent at 12% mix (`WhatIDo.tsx:19-33`, `Now.tsx:57-70`). No radii outside 10, 12 to 14, 16, 24, 999.
 
 ---
 
-### Stack
-Eyebrow: `TOOLS`
-Heading: `Tech I work with`
+## Components
 
-Flex wrap grid, icon + label pairs:
+| Component | Spec | Source |
+| :--- | :--- | :--- |
+| Primary button | brass fill, accent-ink text, pill, label-md, padding 0.85rem 1.4rem; hover accent-bright; active `translateY(1px)`; brass glow | `globals.css:310-343` |
+| Ghost button | transparent, ink text, 1px `line` border, pill; hover text and border accent | `globals.css:310-343` |
+| Chip | mono-xs pill on surface-2, body text, `line` border, never coloured; stack row led by a muted mono "Stack" label | `globals.css:347-359`, `WhatIDo.tsx:56-71` |
+| Card | `.surface` plus `.card-hover`: surface fill, 1px line, 16px radius; hover lifts 3px with a bronze-tinted border (`color-mix` accent-2 55% with line) | `globals.css:293-306` |
+| Eyebrow and heading | 1.75rem brass hairline before the mono eyebrow; h2; optional intro at 44ch; centred only on About activities | `globals.css:284-290`, `SectionHeading.tsx` |
+| Navbar | sticky; bg at 82% with blur once scrolled; link pills muted 600, active ink on surface-2; wordmark "Najmu." with brass period | `Navbar.tsx:24-98`, `Logo.tsx:37-47` |
+| Icon buttons, footer | 40px circles on `line`, hover accent, focus `2px solid accent`; footer is the dark oud band on every page | `ThemeToggle.tsx:19-52`, `Footer.tsx:4-77` |
+| Link | `.link-underline`: accent 600, 1.5px underline scaling in from the left | `globals.css:392-410` |
+| Page-specific | cafe trail (dot-matrix peninsula, dashed brass route, lit pin with ping, 3s idle cycle); photo grid (4:3 thumbs at 10px, blurred lightbox); 5px brass dot bullets | `CafeTrail.tsx:94-146`, `PhotoGrid.tsx:148-243` |
 
-```
-Next.js   TypeScript   React   Tailwind CSS
-Prisma    PostgreSQL   Supabase   Cloudflare
-Linux     Node.js      Git
-```
+Inputs, tooltips, checkboxes and radios are not defined: the site has no forms. The CTA is WhatsApp ("Message me"), never a form.
 
-Use SVG logos (official brand SVGs, inline). Keep them monochrome or tinted with `--color-accent` on hover. Not a rainbow icon grid.
+### Icons
 
----
-
-### About
-Eyebrow: `ABOUT`
-Heading: `A bit about me`
-
-Layout: text left, photo right (desktop). Photo stacked above text (mobile).
-
-Photo: circular avatar (`rounded-full`), 160px, subtle gradient ring border using pseudo-element.
-
-```css
-.avatar-ring {
-  padding: 3px;
-  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
-  border-radius: 50%;
-}
-.avatar-ring img {
-  border-radius: 50%;
-  display: block;
-}
-```
-
-Body copy:
-```
-I'm a solo full-stack developer based in Malaysia, building production tools
-that solve real problems.
-
-I design clean systems — multi-tenant SaaS, async job queues, PTY terminals —
-and run them on self-hosted Debian infra with Cloudflare tunnels and proper monitoring.
-
-Two years in, still shipping. Currently building the Acadeon ecosystem —
-a suite of developer tools I use daily and continue to improve.
-```
+Inline SVG on `currentColor`, stroke 1.6 to 1.8 (`Icon.tsx:1-33`). No icon library, no emoji, no rainbow brand icons. `lucide-react` was removed from package.json.
 
 ---
 
-### Contact
-Eyebrow: `GET IN TOUCH`
-Heading: `Let's work together`
+## Motion
 
-Body:
-```
-Open to interesting projects, collaborations, or just a good conversation.
-The best way to reach me is by email.
-```
+Content is visible without JS; `html.js` gates the reveal (`globals.css:369-388`). `prefers-reduced-motion` collapses all motion (`globals.css:233-242`). No scroll-jacking, no parallax, no animation library.
 
-CTA: large gradient button — `alsyathir@gmail.com` → opens `mailto:`.
-Secondary: text link `github.com/najmusyathir` with ExternalLink icon.
+| Motion | Value | Source |
+| :--- | :--- | :--- |
+| Scroll reveal | opacity 0 to 1, `translateY(16px)` to 0, 620ms ease, at 15% visible | `globals.css:373-382`, `Reveal.tsx:47` |
+| Stagger | hero 0/80/140/160/200/260ms; grids `i * 70` to `i * 90` ms | `Hero.tsx:21-83`, `WhatIDo.tsx:17` |
+| Micro | 160 to 240ms ease on colour, border, background; cafe cards 350ms | `globals.css:299, 321-323` |
+| Ambient | cafe route drift 26s, pin ping 2.4s; lightbox fade 220ms, rise 300ms `cubic-bezier(0.22, 1, 0.24, 1)` | `CafeTrail.tsx:228-238`, `PhotoGrid.tsx:193-207` |
 
-Center-aligned, generous vertical padding.
+Hover moves never exceed 3px.
 
 ---
 
-## Rules — hard limits
+## Voice
 
-- **No emoji anywhere** — lucide-react or inline SVG only
-- **No hardcoded hex in components** — CSS vars only
-- **No rainbow icons** — keep stack icons monochrome or accent-tinted
-- **No heavy animation libraries** — CSS + IntersectionObserver only
-- **No scroll-jacking or parallax**
-- **All copy from this doc** — no lorem ipsum left in any component
-- **No mention of Umai, Bastian, or any internal persona name**
+- Section titles are short sentences with a full stop ("Three things, done properly."); eyebrows in sentence case ("Featured work") (`WhatIDo.tsx:12`, `FeaturedWork.tsx:15`).
+- First person, concrete, no hype; caveats stay on the card (`content.ts:148-186, 335-377`).
+- Role is "Full-Stack Developer". "Code, Coffee & Chill" appears once, on About (`content.ts:9-23`).
+- Full `https://` URLs, never bare domains.
+- Never name Umai, Bastian or any internal persona; AI is told as engineering only (`content.ts:379`, `.docs/00-OVERVIEW.md:23`).
 
 ---
 
-*Last updated: 2026-06-24*
+## Rules: hard limits
+
+- No emoji in UI; inline SVG only.
+- No hardcoded hex in components (the Logo period and QR white are the only exceptions); use `--c-*` tokens.
+- Brass is the single accent; bronze for hover borders and focus rings only. No second accent, green, purple, cyan, neon, decorative gradients, glassmorphism, blurred cards, textures or grain.
+- No web font or display serif.
+- No Tailwind utilities in JSX and no arbitrary bracket values such as `max-w-[96rem]`; use CSS primitives and the `@theme` scale.
+- One primary CTA per intent (three CTAs for one action is an open audit point).
+- No scroll-jacking, parallax or animation libraries.
+
+---
+
+## Superseded
+
+The old Nebula doc (2026-06-24) described violet-to-rose gradients, aurora orbs, `data-theme`, `--color-accent-from/mid/to`, Inter and JetBrains Mono via `next/font`, lucide-react, a single page with a stats strip and stepper, and "Solution Architect". None of that is live. `PORTFOLIO-V6-DESIGN.md` sec. 3 and 7.4 ("light v1 LOCKED, no dark mode") are superseded by its sec. 9-10; its `/landing-2` and `/landing-3` routes were removed (`globals.css:26-29`). The site now has 8 routes.
+
+Source of extraction: `~/ai/core/personas/iris/references/design-language/portfolio/DESIGN.md`.
+
+*Last updated: 2026-11-06*

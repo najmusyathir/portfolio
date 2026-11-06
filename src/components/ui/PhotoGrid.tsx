@@ -236,7 +236,7 @@ export function PhotoGrid({ photos }: { photos: GridPhoto[] }) {
           cursor: pointer;
           transition: border-color 200ms ease, color 200ms ease;
         }
-        .pg-close:hover, .pg-nav:hover { border-color: var(--c-accent); color: var(--c-accent); }
+        .pg-close:hover, .pg-nav:hover { border-color: var(--c-accent-text); color: var(--c-accent-text); }
         .pg-close { top: 1.1rem; right: 1.1rem; width: 44px; height: 44px; }
         .pg-nav { top: 50%; transform: translateY(-50%); width: 46px; height: 46px; }
         .pg-prev { left: 0.9rem; }

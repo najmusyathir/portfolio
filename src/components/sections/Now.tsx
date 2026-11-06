@@ -63,7 +63,7 @@ export function Now() {
                       justifyContent: "center",
                       borderRadius: "12px",
                       background: "color-mix(in srgb, var(--c-accent) 12%, transparent)",
-                      color: "var(--c-accent)",
+                      color: "var(--c-accent-text)",
                     }}
                   >
                     <Icon name={cap.icon} size={19} />

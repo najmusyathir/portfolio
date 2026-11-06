@@ -51,7 +51,7 @@ export default function AiPage() {
                         justifyContent: "center",
                         borderRadius: "12px",
                         background: "color-mix(in srgb, var(--c-accent) 12%, transparent)",
-                        color: "var(--c-accent)",
+                        color: "var(--c-accent-text)",
                       }}
                     >
                       <Icon name="check" size={20} />

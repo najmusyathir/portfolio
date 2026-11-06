@@ -207,7 +207,7 @@ export function DownloadResume() {
           flex-shrink: 0;
           border-radius: var(--radius-sm);
           background: color-mix(in srgb, var(--c-accent) 12%, transparent);
-          color: var(--c-accent);
+          color: var(--c-accent-text);
         }
         .dl-resume-item-label {
           font-size: var(--text-sm);

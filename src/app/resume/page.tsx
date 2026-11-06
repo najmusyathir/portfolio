@@ -33,7 +33,7 @@ export default function ResumePage() {
               <h1 style={{ fontSize: "var(--text-4xl)", margin: "1rem 0 0.4rem", lineHeight: 1.05 }}>
                 {PROFILE.fullName}
               </h1>
-              <p style={{ fontSize: "var(--text-xl)", fontWeight: 600, color: "var(--c-accent)", margin: "0 0 1.25rem" }}>
+              <p style={{ fontSize: "var(--text-xl)", fontWeight: 600, color: "var(--c-accent-text)", margin: "0 0 1.25rem" }}>
                 {PROFILE.role}
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "1.25rem", color: "var(--c-body)", fontSize: "var(--text-sm)", marginBottom: "1.5rem" }}>
@@ -85,7 +85,7 @@ export default function ResumePage() {
                 {SKILL_GROUPS.map((g, i) => (
                   <Reveal key={g.label} delay={i * 50}>
                     <div className="surface" style={{ padding: "1.25rem" }}>
-                      <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent)" }}>{g.label}</p>
+                      <p style={{ margin: "0 0 0.75rem", fontFamily: "var(--font-mono)", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--c-accent-text)" }}>{g.label}</p>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                         {g.items.map((item) => (
                           <span
@@ -111,7 +111,7 @@ export default function ResumePage() {
                                   fontWeight: 700,
                                   letterSpacing: "0.08em",
                                   textTransform: "uppercase",
-                                  color: item.level === "expert" ? "var(--c-accent)" : "var(--c-muted)",
+                                  color: item.level === "expert" ? "var(--c-accent-text)" : "var(--c-muted)",
                                 }}
                               >
                                 {item.level}
@@ -139,7 +139,7 @@ export default function ResumePage() {
                       <h3 style={{ fontSize: "var(--text-lg)" }}>{job.title}</h3>
                       <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{job.period}</span>
                     </div>
-                    <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
+                    <p style={{ margin: "0 0 0.9rem", color: "var(--c-accent-text)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{job.company}</p>
                     {/* Explicit markers: Tailwind's preflight sets `list-style: none`
                         on every ul, so a plain <li> renders as an unmarked indented
                         line and the whole block reads as a paragraph. */}
@@ -190,7 +190,7 @@ export default function ResumePage() {
                       <h3 style={{ fontSize: "var(--text-lg)" }}>{a.title}</h3>
                       <span style={{ fontSize: "var(--text-xs)", fontFamily: "var(--font-mono)", color: "var(--c-muted)", whiteSpace: "nowrap" }}>{a.date}</span>
                     </div>
-                    <p style={{ margin: "0 0 0.6rem", color: "var(--c-accent)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{a.org}</p>
+                    <p style={{ margin: "0 0 0.6rem", color: "var(--c-accent-text)", fontWeight: 600, fontSize: "var(--text-sm)" }}>{a.org}</p>
                     <p style={{ margin: 0, color: "var(--c-body)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>{a.summary}</p>
                   </div>
                 </Reveal>
@@ -235,7 +235,7 @@ export default function ResumePage() {
                               gap: "0.4rem",
                               fontFamily: "var(--font-mono)",
                               fontSize: "var(--text-xs)",
-                              color: "var(--c-accent)",
+                              color: "var(--c-accent-text)",
                             }}
                           >
                             <Icon name="spark" size={13} style={{ flexShrink: 0 }} /> {p.note}

@@ -282,7 +282,7 @@ export function CafeTrail() {
           font-weight: 600;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--c-accent);
+          color: var(--c-accent-text);
         }
         .cafe-card-coords {
           font-family: var(--font-mono);
@@ -312,7 +312,7 @@ export function CafeTrail() {
           font-family: var(--font-mono);
           font-size: var(--text-xs);
           font-weight: 600;
-          color: var(--c-accent);
+          color: var(--c-accent-text);
           opacity: 0;
           transform: translateY(3px);
           transition: opacity 300ms ease, transform 300ms ease;

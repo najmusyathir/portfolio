@@ -147,7 +147,7 @@ export function Navbar() {
                   borderRadius: "10px",
                   fontSize: "var(--text-base)",
                   fontWeight: 600,
-                  color: isActive(link.href) ? "var(--c-accent)" : "var(--c-ink)",
+                  color: isActive(link.href) ? "var(--c-accent-text)" : "var(--c-ink)",
                 }}
               >
                 {link.label}

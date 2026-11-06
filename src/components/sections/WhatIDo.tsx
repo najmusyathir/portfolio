@@ -25,7 +25,7 @@ export function WhatIDo() {
                     justifyContent: "center",
                     borderRadius: "14px",
                     background: "color-mix(in srgb, var(--c-accent) 12%, transparent)",
-                    color: "var(--c-accent)",
+                    color: "var(--c-accent-text)",
                     marginBottom: "1.1rem",
                   }}
                 >

@@ -12,9 +12,10 @@
                          the dark theme's near-black charcoal reused as text,
                          the SAME brass/amber accent as Charcoal & Oud, some
                          card surfaces a further-darkened cool grey) — an
-                         exploratory pass per Abang's spec, not final; see
-                         PORTFOLIO-V6-DESIGN.md for the known accent-as-text
-                         contrast gap flagged for his review.
+                         exploratory pass per Abang's spec, not final. Brass
+                         text kept by his choice (2026-11-06) with a tight
+                         charcoal halo as the aid; see the ACCENT AS TEXT
+                         note below.
      :root.dark        → "Charcoal & Oud" (cool charcoal near-black base +
                          dark-oud grounding + a single warm brass/amber
                          accent). This is the DEFAULT experience — a
@@ -105,25 +106,36 @@
        ≈8.22:1 — AA (identical math to the dark skin, since it's the same
        brass + the same near-black ink).
 
-   ⚠ KNOWN GAP, flagged for review (not silently fixed): the literal brass
-   #c6923e is mathematically incapable of ≥3:1 against ANY bg lighter than
-   ~L 0.03 (i.e. any grey this light) when used as itself — it only reaches
-   ~1.4–2.0:1 as foreground here. It works great as a BUTTON/CTA BACKGROUND
-   (ink text on top passes AA, as above) and is fine for non-text hover
-   borders, but everywhere the component tree uses --c-accent directly as
-   TEXT or icon color (the .eyebrow labels, .link-underline, project/URL
-   labels, some icon fills) it will render low-contrast in this light theme.
-   This is a direct, unavoidable consequence of reusing the literal dark-mode
-   hex on a light-mid bg with the current one-token-drives-both-bg-and-text
-   architecture — flagging with the numbers rather than quietly darkening
-   the brass, since Abang asked to try the literal value first. Two options
-   for the next pass: (a) darken --c-accent specifically for text contexts
-   (a deepened bronze around #5c3e10–#664511 clears AA at every tier while
-   staying in the same hue family), or (b) restyle those specific text spots
-   to use ink/muted in light mode. accent-2 (bronze, non-text hover
-   border/focus ring) has the same shape of gap, milder (≈2.6–3.3:1
-   depending on tier) — low-stakes since it's a diluted decorative hover
-   accent, not load-bearing.
+   ACCENT AS TEXT — decided 2026-11-06. The literal brass #c6923e reaches
+   only 1.56–2.42:1 as foreground on these light greys (bg 2.00 · bg-soft
+   1.81 · surface 2.42 · surface-2 2.19 · 12% brass tiles 1.84–2.20). A
+   deepened bronze (#744e11, AA at every tier) was built and previewed;
+   Abang found it off-colour and the brass readable enough, so BRASS TEXT IS
+   KEPT BY HIS CHOICE and the ratio is unchanged. The legibility aid is a
+   tight charcoal halo on accent TEXT only, carried by one token:
+
+     --c-accent-text   brass in both skins. Every text use of the accent
+       reads this token (eyebrows, .link-underline, .btn-ghost:hover, hero
+       role, nav active link, project/URL labels, résumé labels, cafe-card
+       labels); icons keep plain --c-accent.
+     --accent-text-shadow   light: 0 0 1px rgb(shadow / 0.6), a single
+       tight halo, charcoal-tinted via --c-shadow so it sits in the ink
+       family; dark: none. Tested against an offset variant (0 1px 1px
+       added: reads embossed on the 1.375rem role) and a 2px double halo
+       (goes soft); the single 1px edge stays crisp at 0.75rem mono and at
+       display sizes. Set beside the colour at every text site (this
+       codebase styles inline, no utility classes).
+       The halo is a perceptual aid, not a contrast fix: WCAG 1.4.3 measures
+       the glyph colour against its background, so the number stays 1.6–2.4
+       and this remains a known, accepted gap.
+     --c-focus-ring   keyboard-focus outline only (ThemeToggle,
+       DownloadResume): light #866228 (bg 3.99 · bg-soft 3.62 · surface 4.85
+       · surface-2 4.38 · footer-bg 3.12), dark #9c6b34 bronze (3.87). Brass
+       and bronze themselves are untouched, so nothing hover-visible moved.
+     --c-footer-accent #664511 — unused by Footer.tsx today; text-safe on
+       footer-bg #bfc3c5 (4.88) if a footer link ever takes the accent.
+     Not changed: the wordmark's hardcoded brass period (Logo.tsx) — logotype,
+     exempt under WCAG 1.4.3.
    -------------------------------------------------------------------------- */
 :root {
   --c-bg: #d9dbdd; /* cool light-mid grey — dominant light base (not white, not dark) */
@@ -133,9 +145,12 @@
   --c-ink: #16181a; /* dark-theme's charcoal bg, reused as heading text */
   --c-body: #212528; /* dark-theme's charcoal surface, reused as body text */
   --c-muted: #3a4247; /* dark-theme's charcoal line, reused as muted text */
-  --c-accent: #c6923e; /* SAME brass as Charcoal & Oud — reused literally (see gap note above) */
+  --c-accent: #c6923e; /* SAME brass as Charcoal & Oud — reused literally (see ACCENT AS TEXT note above) */
+  --c-accent-text: #c6923e; /* brass as TEXT too — Abang's call 2026-11-06; the halo below is the legibility aid */
+  --accent-text-shadow: 0 0 1px rgb(var(--c-shadow) / 0.6); /* single tight charcoal halo on brass TEXT, light only — no offset (emboss), no 2px (blur) */
   --c-accent-bright: #d9a85a; /* SAME bright brass as Charcoal & Oud — hover */
-  --c-accent-2: #9c6b34; /* SAME bronze as Charcoal & Oud — non-text secondary */
+  --c-accent-2: #9c6b34; /* SAME bronze as Charcoal & Oud — non-text secondary (hover borders) */
+  --c-focus-ring: #866228; /* bronze one step deeper for keyboard focus only — ≥3:1 on every light tier */
   --c-accent-ink: #16181a; /* near-black ink on the brass button — identical to --c-ink */
   --c-line: #a4a8ab; /* cool grey borders, distinct from surface */
   --c-line-soft: #c7cacc; /* subtle cool dividers */
@@ -151,7 +166,7 @@
   --c-footer-body: #212528;
   --c-footer-muted: #3a4247;
   --c-footer-line: #a4a8ab;
-  --c-footer-accent: #c6923e; /* same known text-contrast gap as --c-accent above */
+  --c-footer-accent: #664511; /* text-safe on footer-bg (4.88:1); unused by Footer.tsx today */
 }
 
 /* --------------------------------------------------------------------------
@@ -186,8 +201,11 @@
   --c-body: #c3c9ce; /* cool light-grey body copy */
   --c-muted: #949ca2; /* cool muted meta text (AA on every surface) */
   --c-accent: #c6923e; /* brass / amber — the SINGLE identity accent */
+  --c-accent-text: #c6923e; /* alias of brass (6.43:1 on bg) — text needs no aid in dark */
+  --accent-text-shadow: none; /* no halo in dark — brass text already clears AA */
   --c-accent-bright: #d9a85a; /* brighter brass — accent hover */
   --c-accent-2: #9c6b34; /* warm bronze — SECONDARY (non-text, hover/focus) */
+  --c-focus-ring: #9c6b34; /* bronze keyboard-focus ring (3.87:1 on bg), per the design language */
   --c-accent-ink: #16181a; /* near-black type on the brass button */
   --c-line: #3a4247; /* cool charcoal borders */
   --c-line-soft: #262b2f; /* subtle cool dividers */
@@ -278,7 +296,8 @@ h1, h2, h3, h4 {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
+  text-shadow: var(--accent-text-shadow);
 }
 
 .eyebrow::before {
@@ -339,7 +358,8 @@ h1, h2, h3, h4 {
 }
 .btn-ghost:hover {
   border-color: var(--c-accent);
-  color: var(--c-accent);
+  color: var(--c-accent-text);
+  text-shadow: var(--accent-text-shadow);
 }
 
 /* Chip / tag */
@@ -389,7 +409,8 @@ h1, h2, h3, h4 {
 
 /* Link with animated underline */
 .link-underline {
-  color: var(--c-accent);
+  color: var(--c-accent-text);
+  text-shadow: var(--accent-text-shadow);
   font-weight: 600;
   position: relative;
 }

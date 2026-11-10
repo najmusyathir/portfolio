@@ -70,7 +70,7 @@ export default function AchievementsPage() {
                       <p
                         style={{
                           margin: "0.3rem 0 0.75rem",
-                          color: "var(--c-accent)",
+                          color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                           fontWeight: 600,
                           fontSize: "var(--text-sm)",
                         }}
@@ -137,7 +137,7 @@ export default function AchievementsPage() {
                     gap: "0.5rem",
                     fontFamily: "var(--font-mono)",
                     fontSize: "var(--text-xs)",
-                    color: "var(--c-accent)",
+                    color: "var(--c-accent-text)", textShadow: "var(--accent-text-shadow)",
                   }}
                 >
                   <Icon name="spark" size={14} style={{ flexShrink: 0 }} /> {FYP.award}

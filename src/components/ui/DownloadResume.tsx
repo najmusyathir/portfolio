@@ -159,7 +159,7 @@ export function DownloadResume() {
         .dl-resume-main:active { transform: translateY(1px); }
         .dl-resume-main:focus-visible,
         .dl-resume-toggle:focus-visible {
-          outline: 2px solid var(--c-accent-2);
+          outline: 2px solid var(--c-focus-ring);
           outline-offset: 2px;
         }
 

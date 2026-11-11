@@ -11,7 +11,7 @@ import { FLAGSHIP, ECOSYSTEM, EARLIER_WORK, EARLIER_WORK_ERA, NOW } from "@/lib/
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "The flagship personal-dashboard, a self-hosted ecosystem I can reach from any device, and the junior-era front-end work that came before it.",
+    "The flagship Atur, a self-hosted ecosystem I can reach from any device, and the junior-era front-end work that came before it.",
 };
 
 export default function ProjectsPage() {

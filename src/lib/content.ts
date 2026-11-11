@@ -84,7 +84,7 @@ export const STACK: string[] = [
 
 /** Flagship project — the landing headline. */
 export const FLAGSHIP = {
-  name: "personal-dashboard",
+  name: "Atur",
   tagline: "AI-connected personal life assistant",
   description:
     "The biggest thing I run: a personal assistant that keeps you ahead of your own life — finances, event scheduling, meetings, career, and day-to-day tasks. Built around one idea: use software, and AI, to genuinely boost human productivity.",

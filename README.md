@@ -39,7 +39,7 @@ I didn't start out in software. My first real interest was PC building — putti
 
 Outside of client and employer work, I run a small ecosystem of self-hosted projects on infrastructure I administer myself — not just deployed, but actually operated: process supervision, monitoring, and uptime are things I manage directly, not hand off to a platform.
 
-- **personal-dashboard** — an AI-connected personal life assistant: finances, event scheduling, meetings, career, and day-to-day tasks in one place
+- **Atur** — an AI-connected personal life assistant: finances, event scheduling, meetings, career, and day-to-day tasks in one place
 - **acadeon-cli** — a browser-based terminal with TOTP authentication
 - **acadeon-pulse** — an uptime monitor with escalating push alerts
 - **ai_hub_bridge** — an async job queue bridging AI tooling to web and messaging clients in real time
